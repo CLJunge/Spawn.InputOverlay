@@ -9,7 +9,7 @@
         mc:Ignorable="d" WindowStyle="None" AllowsTransparency="True"
         Title="Overlay" Height="250" Width="400" MinHeight="50" MinWidth="50"
         Background="{Binding WindowBackground}" ResizeMode="{Binding ResizeMode}"
-        WindowStartupLocation="CenterScreen" MouseDown="OnMouseDown" MouseDoubleClick="OnMouseDown">
+        WindowStartupLocation="CenterScreen" MouseDown="OnMouseDown" MouseDoubleClick="OnMouseDown" Icon="/Spawn.InputOverlay;component/Resources/overlay_icon.ico">
     <Window.Resources>
         <converters:ShapeVisibilityConverter x:Key="ShapeVisibilityConverter"/>
     </Window.Resources>

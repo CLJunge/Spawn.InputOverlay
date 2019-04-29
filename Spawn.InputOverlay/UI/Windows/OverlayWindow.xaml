@@ -139,13 +139,13 @@
                     <DrawingBrush.Drawing>
                         <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
                             <!--Right-->
-                            <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M100,58z M0,0z M50.001976,56.380854L98.576185,28.999995 50.000012,1.619134 61.287923,28.994188z" />
+                            <GeometryDrawing Brush="{Binding BackgroundBrush}" Geometry="F1 M100,58z M0,0z M50.001976,56.380854L98.576185,28.999995 50.000012,1.619134 61.287923,28.994188z" />
                             <!--Left-->
-                            <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M100,58z M0,0z M49.998049,56.380854L1.4238174,28.999995 50.000013,1.619134 38.729116,28.994188z" />
+                            <GeometryDrawing Brush="{Binding BackgroundBrush}" Geometry="F1 M100,58z M0,0z M49.998049,56.380854L1.4238174,28.999995 50.000013,1.619134 38.729116,28.994188z" />
                             <!--Accelerate-->
-                            <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M100,58z M0,0z M50.000001,5.6258012L40.821295,28.433185 59.178707,28.433185z" />
+                            <GeometryDrawing Brush="{Binding AccelerateBrush}" Geometry="F1 M100,58z M0,0z M50.000001,5.6258012L40.821295,28.433185 59.178707,28.433185z" />
                             <!--Brake-->
-                            <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M100,58z M0,0z M50.000001,52.394761L59.034579,29.945506 40.965423,29.945506z" />
+                            <GeometryDrawing Brush="{Binding BrakeBrush}" Geometry="F1 M100,58z M0,0z M50.000001,52.394761L59.034579,29.945506 40.965423,29.945506z" />
                         </DrawingGroup>
                     </DrawingBrush.Drawing>
                 </DrawingBrush>

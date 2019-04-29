@@ -94,5 +94,29 @@ namespace Spawn.InputOverlay.Properties {
                 this["SegmentBackgroundColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseTriggerForAccelerating {
+            get {
+                return ((bool)(this["UseTriggerForAccelerating"]));
+            }
+            set {
+                this["UseTriggerForAccelerating"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseTriggerForBraking {
+            get {
+                return ((bool)(this["UseTriggerForBraking"]));
+            }
+            set {
+                this["UseTriggerForBraking"] = value;
+            }
+        }
     }
 }

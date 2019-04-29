@@ -1,4 +1,5 @@
 ﻿#region Using
+using SharpDX.XInput;
 using Spawn.InputOverlay.Input;
 using Spawn.InputOverlay.Properties;
 using System.Diagnostics;
@@ -31,8 +32,10 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private string m_strToggleResizeGridHeader;
         private bool m_blnIsDeviceConnected;
 
-        private IInputHandler m_inputHandler;
         private OverlayShape? m_currentShape;
+        private IInputHandler m_inputHandler;
+        private bool m_blnIsAccelerateButtonPressed;
+        private bool m_blnIsBrakeButtonPressed;
         #endregion
 
         #region Properties
@@ -90,7 +93,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region AccelerateBrush
         public SolidColorBrush AccelerateBrush
         {
-            get => new SolidColorBrush(AccelerateColor);
+            get => new SolidColorBrush(m_blnIsAccelerateButtonPressed ? AccelerateColor : SegmentBackgroundColor);
         }
         #endregion
 
@@ -105,7 +108,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region BrakeBrush
         public SolidColorBrush BrakeBrush
         {
-            get => new SolidColorBrush(BrakeColor);
+            get => new SolidColorBrush(m_blnIsBrakeButtonPressed ? BrakeColor : SegmentBackgroundColor);
         }
         #endregion
 
@@ -349,6 +352,17 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private void OnInputUpdated(object sender, XboxOneInputEventArgs e)
         {
             Debug.WriteLine("Input updated");
+
+            m_blnIsAccelerateButtonPressed = Settings.Default.UseTriggerForAccelerating
+                ? e.DeviceState.RightTrigger != 0
+                : e.DeviceState.Buttons.HasFlag(GamepadButtonFlags.A);
+
+            m_blnIsBrakeButtonPressed = Settings.Default.UseTriggerForBraking
+                ? e.DeviceState.LeftTrigger != 0
+                : e.DeviceState.Buttons.HasFlag(GamepadButtonFlags.B);
+
+            RaisePropertyChangedEvent(nameof(AccelerateBrush));
+            RaisePropertyChangedEvent(nameof(BrakeBrush));
         }
         #endregion
         #endregion

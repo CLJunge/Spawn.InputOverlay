@@ -1,6 +1,7 @@
 ﻿#region Using
 using Spawn.InputOverlay.UI.ViewModels;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 #endregion
 
@@ -12,6 +13,7 @@ namespace Spawn.InputOverlay.UI.Windows
         public OverlayWindow() => InitializeComponent();
         #endregion
 
+        #region Events
         #region OnMouseDown
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -28,6 +30,27 @@ namespace Spawn.InputOverlay.UI.Windows
                     break;
             }
         }
+        #endregion
+
+        #region OnWindowLoaded
+        private void OnWindowLoaded(object sender, RoutedEventArgs e)
+        {
+            //Add bindings later so WindowStartupLocation works
+
+            Binding widthBinding = new Binding("WindowWidth")
+            {
+                Mode = BindingMode.TwoWay
+            };
+
+            Binding heightBinding = new Binding("WindowHeight")
+            {
+                Mode = BindingMode.TwoWay
+            };
+
+            SetBinding(WidthProperty, widthBinding);
+            SetBinding(HeightProperty, heightBinding);
+        }
+        #endregion
         #endregion
     }
 }

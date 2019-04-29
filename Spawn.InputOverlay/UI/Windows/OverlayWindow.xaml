@@ -7,9 +7,11 @@
         xmlns:vm="clr-namespace:Spawn.InputOverlay.UI.ViewModels"
         xmlns:converters="clr-namespace:Spawn.InputOverlay.UI.Converters"
         mc:Ignorable="d" WindowStyle="None" AllowsTransparency="True"
-        Title="PadViz (XONE Edition)" Height="{Binding WindowHeight, Mode=TwoWay}" Width="{Binding WindowWidth, Mode=TwoWay}" MinHeight="50" MinWidth="50"
+        Title="PadViz (XONE Edition)" Height="250" Width="400" MinHeight="50" MinWidth="50"
         Background="{Binding BackgroundBrush}" ResizeMode="{Binding ResizeMode}"
-        WindowStartupLocation="CenterScreen" MouseDown="OnMouseDown" MouseDoubleClick="OnMouseDown" Icon="/PadViz (XONE Edition);component/Resources/gamepad_icon.ico">
+        Icon="/PadViz (XONE Edition);component/Resources/gamepad_icon.ico"
+        WindowStartupLocation="CenterScreen" MouseDown="OnMouseDown" MouseDoubleClick="OnMouseDown"
+        Loaded="OnWindowLoaded">
     <Window.Resources>
         <converters:ShapeVisibilityConverter x:Key="ShapeVisibilityConverter"/>
         <converters:EnumDescriptionConverter x:Key="EnumConverter"/>

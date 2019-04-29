@@ -93,6 +93,10 @@ namespace Spawn.InputOverlay.UI.ViewModels
         public ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
         #endregion
 
+        #region OpenAboutWindowCommand
+        public ICommand OpenAboutWindowCommand => new RelayCommand(OpenAboutWindow);
+        #endregion
+
         #region CloseCommand
         public ICommand CloseCommand => new RelayCommand(Close);
         #endregion
@@ -168,6 +172,13 @@ namespace Spawn.InputOverlay.UI.ViewModels
                     ToggleResizeGridHeader = "Show resize grip";
                     break;
             }
+        }
+        #endregion
+
+        #region OpenAboutWindow
+        private void OpenAboutWindow()
+        {
+            //TODO
         }
         #endregion
 

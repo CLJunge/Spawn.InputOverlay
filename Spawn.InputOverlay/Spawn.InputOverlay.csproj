@@ -76,6 +76,9 @@
     <Compile Include="UI\RelayCommand.cs" />
     <Compile Include="UI\ViewModels\OverlayViewModel.cs" />
     <Compile Include="UI\ViewModels\ViewModelBase.cs" />
+    <Compile Include="UI\Windows\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Windows\OverlayWindow.xaml.cs">
       <DependentUpon>OverlayWindow.xaml</DependentUpon>
     </Compile>
@@ -108,6 +111,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\Windows\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Windows\OverlayWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

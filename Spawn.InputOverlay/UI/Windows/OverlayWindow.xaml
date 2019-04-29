@@ -28,6 +28,8 @@
                 </MenuItem.Header>
             </MenuItem>
             <Separator/>
+            <MenuItem Header="About"/>
+            <Separator/>
             <MenuItem Header="Close" Command="{Binding CloseCommand}"/>
         </ContextMenu>
     </Window.ContextMenu>

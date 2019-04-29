@@ -2,6 +2,7 @@
 using SharpDX.XInput;
 using Spawn.InputOverlay.Input;
 using Spawn.InputOverlay.Properties;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
@@ -27,13 +28,14 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private Color m_steerColor;
         private Color m_segmentBackgroundColor;
         private Visibility m_noDeviceLabelVisibility;
-        private SolidColorBrush m_noDeviceLabelBrush;
         private ResizeMode m_resizeMode;
         private string m_strToggleResizeGridHeader;
         private bool m_blnIsDeviceConnected;
         private bool m_blnUseTriggerForAccelerating;
         private bool m_blnUseTriggerForBraking;
         private int m_nRefreshRate;
+        private float m_fLeftOffset;
+        private float m_fRightOffset;
 
         private OverlayShape? m_currentShape;
         private IInputHandler m_inputHandler;
@@ -154,11 +156,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region NoDeviceLabelBrush
-        public SolidColorBrush NoDeviceLabelBrush
-        {
-            get => m_noDeviceLabelBrush;
-            set => Set(ref m_noDeviceLabelBrush, value);
-        }
+        public SolidColorBrush NoDeviceLabelBrush => new SolidColorBrush(PerceivedBrightness(WindowBackgroundColor) > 130 ? Colors.Black : Colors.White);
         #endregion
 
         #region ResizeMode
@@ -209,6 +207,22 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
+        #region LeftOffset
+        public float LeftOffset
+        {
+            get => m_fLeftOffset;
+            set => Set(ref m_fLeftOffset, value);
+        }
+        #endregion
+
+        #region RightOffset
+        public float RightOffset
+        {
+            get => m_fRightOffset;
+            set => Set(ref m_fRightOffset, value);
+        }
+        #endregion
+
         #region ToggleResizeGripCommand
         public ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
         #endregion
@@ -252,6 +266,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
                 {
                     case nameof(WindowBackgroundColor):
                         RaisePropertyChangedEvent(nameof(WindowBackgroundBrush));
+                        RaisePropertyChangedEvent(nameof(NoDeviceLabelBrush));
                         break;
 
                     case nameof(AccelerateColor):
@@ -290,20 +305,21 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             ResetSize();
 
-            WindowBackgroundColor = Settings.Default.WindowBackgroundColor;
+            WindowBackgroundColor = Settings.Default.WindowBackgroundColor == Colors.Transparent ? Colors.Magenta : Settings.Default.WindowBackgroundColor;
             SelectedShape = OverlayShape.None;
             AccelerateColor = Settings.Default.AccelerateColor;
             BrakeColor = Settings.Default.BrakeColor;
             SteerColor = Settings.Default.SteerColor;
             SegmentBackgroundColor = Settings.Default.SegmentBackgroundColor;
             NoDeviceLabelVisibility = Visibility.Visible;
-            NoDeviceLabelBrush = new SolidColorBrush(Colors.Black);
             ResizeMode = ResizeMode.NoResize;
             ToggleResizeGridHeader = "Show resize grip";
             IsDeviceConnected = false;
             UseTriggerForAccelerating = Settings.Default.UseTriggerForAccelerating;
             UseTriggerForBraking = Settings.Default.UseTriggerForBraking;
             RefreshRate = Settings.Default.RefreshRate;
+            LeftOffset = 0;
+            RightOffset = 0;
         }
         #endregion
 
@@ -386,7 +402,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region OnInputUpdated
-        private void OnInputUpdated(object sender, XboxOneInputEventArgs e)
+        private void OnInputUpdated(object sender, InputUpdatedEventArgs e)
         {
             Debug.WriteLine("Input updated");
 
@@ -398,10 +414,33 @@ namespace Spawn.InputOverlay.UI.ViewModels
                 ? e.DeviceState.LeftTrigger != 0
                 : e.DeviceState.Buttons.HasFlag(GamepadButtonFlags.A);
 
+            if (e.LeftStickX < -0.008)
+            {
+                LeftOffset = (float)Math.Abs(e.LeftStickX);
+                RightOffset = 0;
+            }
+            else if (e.LeftStickX > 0.008)
+            {
+                RightOffset = (float)Math.Abs(e.LeftStickX);
+                LeftOffset = 0;
+            }
+            else
+            {
+                LeftOffset = RightOffset = 0;
+            }
+
             RaisePropertyChangedEvent(nameof(AccelerateBrush));
             RaisePropertyChangedEvent(nameof(BrakeBrush));
         }
         #endregion
+        #endregion
+
+        #region PerceivedBrightness
+        // All credits to JYelton https://stackoverflow.com/a/2241471
+        private int PerceivedBrightness(Color c) => (int)Math.Sqrt(
+            c.R * c.R * .299 +
+            c.G * c.G * .587 +
+            c.B * c.B * .114);
         #endregion
     }
 }

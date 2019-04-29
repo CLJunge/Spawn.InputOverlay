@@ -243,27 +243,10 @@ namespace Spawn.InputOverlay.UI.ViewModels
             };
 
             m_inputHandler = new XboxOneInputHandler();
+            m_inputHandler.DeviceConnected += OnDeviceConnected;
+            m_inputHandler.DeviceDisconnected += OnDeviceDisconnected;
+            m_inputHandler.InputUpdated += OnInputUpdated;
 
-            m_inputHandler.DeviceConnected += (s, e) =>
-            {
-                Debug.WriteLine("Device connected");
-
-                NoDeviceLabelVisibility = Visibility.Collapsed;
-                SelectedShape = m_currentShape ?? Settings.Default.Shape;
-                IsDeviceConnected = true;
-            };
-            m_inputHandler.DeviceDisconnected += (s, e) =>
-            {
-                Debug.WriteLine("Device disconnected");
-
-                m_currentShape = SelectedShape;
-                SelectedShape = OverlayShape.None;
-                NoDeviceLabelVisibility = Visibility.Visible;
-                IsDeviceConnected = false;
-            };
-            //m_inputHandler.InputUpdated += (s, e) => Debug.WriteLine(e.LeftStickX);
-
-            //WindowBackground = new SolidColorBrush(Color.FromArgb(1, 0, 0, 0));
             LoadValues();
         }
         #endregion
@@ -336,6 +319,38 @@ namespace Spawn.InputOverlay.UI.ViewModels
 
             Settings.Default.Save();
         }
+        #endregion
+
+        #region InputManager Stuff
+        #region OnDeviceConnected
+        private void OnDeviceConnected(object sender, System.EventArgs e)
+        {
+            Debug.WriteLine("Device connected");
+
+            NoDeviceLabelVisibility = Visibility.Collapsed;
+            SelectedShape = m_currentShape ?? Settings.Default.Shape;
+            IsDeviceConnected = true;
+        }
+        #endregion
+
+        #region OnDeviceDisconnected
+        private void OnDeviceDisconnected(object sender, System.EventArgs e)
+        {
+            Debug.WriteLine("Device disconnected");
+
+            m_currentShape = SelectedShape;
+            SelectedShape = OverlayShape.None;
+            NoDeviceLabelVisibility = Visibility.Visible;
+            IsDeviceConnected = false;
+        }
+        #endregion
+
+        #region OnInputUpdated
+        private void OnInputUpdated(object sender, XboxOneInputEventArgs e)
+        {
+            Debug.WriteLine("Input updated");
+        }
+        #endregion
         #endregion
     }
 }

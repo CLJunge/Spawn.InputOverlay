@@ -1,10 +1,12 @@
-﻿namespace Spawn.InputOverlay
+﻿using System.ComponentModel;
+
+namespace Spawn.InputOverlay
 {
     public enum OverlayShape
     {
-        None,
+        [Description("Hidden")] None,
         Eye,
-        CatEye,
+        [Description("Cat Eye")] CatEye,
         Trapez
     }
 }

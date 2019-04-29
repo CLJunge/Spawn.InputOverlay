@@ -12,6 +12,7 @@
         WindowStartupLocation="CenterScreen" MouseDown="OnMouseDown" MouseDoubleClick="OnMouseDown" Icon="/PadViz (XONE Edition);component/Resources/overlay_icon.ico">
     <Window.Resources>
         <converters:ShapeVisibilityConverter x:Key="ShapeVisibilityConverter"/>
+        <converters:EnumDescriptionConverter x:Key="EnumConverter"/>
     </Window.Resources>
     <Window.DataContext>
         <vm:OverlayViewModel/>
@@ -23,7 +24,13 @@
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Shape: " Margin="-5,0,0,0"/>
-                        <ComboBox ItemsSource="{Binding AvailableShapes}" SelectedItem="{Binding SelectedShape}" Margin="5,2,0,2"/>
+                        <ComboBox ItemsSource="{Binding AvailableShapes}" SelectedItem="{Binding SelectedShape}" Margin="5,2,0,2">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=., Converter={StaticResource EnumConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>

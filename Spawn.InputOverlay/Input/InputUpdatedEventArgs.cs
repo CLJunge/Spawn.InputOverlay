@@ -10,7 +10,7 @@ namespace Spawn.InputOverlay.Input
         #region Properties
         public Gamepad DeviceState { get; private set; }
 
-        public double LeftStickX => Math.Round(DeviceState.LeftThumbX / 32767f, 3);
+        public double LeftStickX => Math.Round(DeviceState.LeftThumbX / 32767f, 4);
         #endregion
 
         #region Ctor

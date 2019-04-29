@@ -31,11 +31,11 @@ namespace Spawn.InputOverlay.Input
         public XboxInputHandler(UserIndex userIndex = UserIndex.One)
         {
             m_controller = new Controller(userIndex);
+
             m_timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate),
             };
-
             m_timer.Tick += OnTimerTick;
             m_timer.Start();
 
@@ -89,9 +89,7 @@ namespace Spawn.InputOverlay.Input
         public void RestartTimer()
         {
             m_timer.Stop();
-
             m_timer.Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate);
-
             m_timer.Start();
         }
         #endregion

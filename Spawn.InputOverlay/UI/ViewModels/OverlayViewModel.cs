@@ -125,10 +125,6 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
-        #region ToggleResizeGripCommand
-        public ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
-        #endregion
-
         #region ResizeMode
         public ResizeMode ResizeMode
         {
@@ -143,6 +139,14 @@ namespace Spawn.InputOverlay.UI.ViewModels
                 }
             }
         }
+        #endregion
+
+        #region ToggleResizeGripCommand
+        public ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
+        #endregion
+
+        #region CloseAppCommand
+        public ICommand CloseAppCommand => new RelayCommand(CloseApp);
         #endregion
         #endregion
 
@@ -187,6 +191,10 @@ namespace Spawn.InputOverlay.UI.ViewModels
                     break;
             }
         }
+        #endregion
+
+        #region CloseApp
+        private void CloseApp() => App.Current.Shutdown();
         #endregion
     }
 }

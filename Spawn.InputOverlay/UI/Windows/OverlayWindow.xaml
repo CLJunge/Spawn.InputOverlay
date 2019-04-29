@@ -19,6 +19,8 @@
     <Window.ContextMenu>
         <ContextMenu>
             <MenuItem Header="Toggle resize grip" Command="{Binding ToggleResizeGripCommand}"/>
+            <Separator/>
+            <MenuItem Header="Close" Command="{Binding CloseAppCommand}"/>
         </ContextMenu>
     </Window.ContextMenu>
     <Grid>

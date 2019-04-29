@@ -2,6 +2,7 @@
 using SharpDX.DirectInput;
 using Spawn.InputOverlay.Properties;
 using System;
+using System.Diagnostics;
 using System.Windows.Threading;
 #endregion
 
@@ -16,11 +17,9 @@ namespace Spawn.InputOverlay.Input
         #endregion
 
         #region Member Variables
-        private readonly Joystick m_controller;
-        private readonly DispatcherTimer m_timer;
-
-        private bool m_blnPrevIsDeviceConntectedValue;
-        private bool m_blnFiredInitialEvent;
+        private Joystick m_controller;
+        private readonly DispatcherTimer m_connectionTimer;
+        private readonly DispatcherTimer m_dataTimer;
         #endregion
 
         #region Properties
@@ -30,16 +29,19 @@ namespace Spawn.InputOverlay.Input
         #region Ctor
         public DirectInputHandler()
         {
-            m_controller = FindController();
+            m_connectionTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(100),
+            };
+            m_connectionTimer.Tick += OnConnectionTimerTick;
 
-            m_timer = new DispatcherTimer
+            m_dataTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate),
             };
-            m_timer.Tick += OnTimerTick;
-            m_timer.Start();
+            m_dataTimer.Tick += OnDataTimerTick;
 
-            m_blnPrevIsDeviceConntectedValue = IsDeviceConnected;
+            m_connectionTimer.Start();
         }
         #endregion
 
@@ -51,7 +53,8 @@ namespace Spawn.InputOverlay.Input
             DirectInput directInput = new DirectInput();
             Guid gamepadId = Guid.Empty;
 
-            foreach (DeviceInstance deviceInstance in directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AttachedOnly))
+            //Playstation 4
+            foreach (DeviceInstance deviceInstance in directInput.GetDevices(DeviceType.FirstPerson, DeviceEnumerationFlags.AttachedOnly))
             {
                 gamepadId = deviceInstance.InstanceGuid;
 
@@ -71,68 +74,82 @@ namespace Spawn.InputOverlay.Input
         }
         #endregion
 
-        #region OnTimerTick
-        private void OnTimerTick(object sender, EventArgs e)
+        #region OnDataTimerTick
+        private void OnDataTimerTick(object sender, EventArgs e)
         {
-            //Debug.WriteLine("Tick");
-
-            CheckConnection();
-
             if (IsDeviceConnected)
-                m_controller.Poll();
+            {
+                bool blnSuccess = CheckInput();
 
-            CheckInput();
+                if (!blnSuccess)
+                {
+                    m_controller = null;
+
+                    DeviceDisconnected?.Invoke(this, EventArgs.Empty);
+
+                    m_dataTimer.Stop();
+                    m_connectionTimer.Start();
+                }
+            }
         }
         #endregion
 
-        #region CheckConnection
-        private void CheckConnection()
+        #region OnConnectionTimerTick
+        private void OnConnectionTimerTick(object sender, EventArgs e)
         {
-            if (!m_blnFiredInitialEvent)
+            if (!IsDeviceConnected)
+                m_controller = FindController();
+
+            if (IsDeviceConnected)
             {
-                if (IsDeviceConnected)
-                    DeviceConnected?.Invoke(this, EventArgs.Empty);
+                DeviceConnected?.Invoke(this, EventArgs.Empty);
 
-                m_blnFiredInitialEvent = true;
+                m_connectionTimer.Stop();
+                m_dataTimer.Start();
             }
-
-            if (IsDeviceConnected != m_blnPrevIsDeviceConntectedValue)
-            {
-                if (IsDeviceConnected)
-                    DeviceConnected?.Invoke(this, EventArgs.Empty);
-                else
-                    DeviceDisconnected?.Invoke(this, EventArgs.Empty);
-            }
-
-            m_blnPrevIsDeviceConntectedValue = IsDeviceConnected;
         }
         #endregion
 
         #region CheckInput
-        private void CheckInput()
+        private bool CheckInput()
         {
-            JoystickUpdate[] vData = m_controller.GetBufferedData();
+            bool blnRet = false;
 
-            for (int i = 0; i < vData.Length; i++)
+            try
             {
-                JoystickUpdate joystickUpdate = vData[i];
+                m_controller.Poll();
+
+                JoystickUpdate[] vData = m_controller.GetBufferedData();
+
+                for (int i = 0; i < vData.Length; i++)
+                {
+                    JoystickUpdate gamepadData = vData[i];
+                }
+
+                blnRet = true;
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+
+            return blnRet;
         }
         #endregion
 
         #region RestartTime
         public void RestartTimer()
         {
-            m_timer.Stop();
-            m_timer.Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate);
-            m_timer.Start();
+            m_dataTimer.Stop();
+            m_dataTimer.Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate);
+            m_dataTimer.Start();
         }
         #endregion
 
         #region Dispose
         public void Dispose()
         {
-            m_timer?.Stop();
+            m_dataTimer?.Stop();
         }
         #endregion
     }

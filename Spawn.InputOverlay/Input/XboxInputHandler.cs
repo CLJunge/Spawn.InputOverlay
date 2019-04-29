@@ -6,7 +6,7 @@ using System.Windows.Threading;
 
 namespace Spawn.InputOverlay.Input
 {
-    public class XboxOneInputHandler : IInputHandler
+    public class XboxInputHandler : IInputHandler
     {
         #region EventHandler
         public event EventHandler DeviceConnected;
@@ -27,7 +27,7 @@ namespace Spawn.InputOverlay.Input
         #endregion
 
         #region Ctor
-        public XboxOneInputHandler(UserIndex userIndex = UserIndex.One)
+        public XboxInputHandler(UserIndex userIndex = UserIndex.One)
         {
             m_controller = new Controller(userIndex);
             m_timer = new DispatcherTimer

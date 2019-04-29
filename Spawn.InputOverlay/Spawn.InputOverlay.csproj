@@ -91,7 +91,7 @@
     </Compile>
     <Compile Include="Input\IInputHandler.cs" />
     <Compile Include="Input\InputUpdatedEventArgs.cs" />
-    <Compile Include="Input\XboxOneInputHandler.cs" />
+    <Compile Include="Input\XboxInputHandler.cs" />
     <Compile Include="OverlayShape.cs" />
     <Compile Include="UI\Converters\EnumDescriptionConverter.cs" />
     <Compile Include="UI\Converters\ShapeVisibilityConverter.cs" />

@@ -190,12 +190,12 @@ namespace Spawn.InputOverlay.UI.ViewModels
             //m_inputHandler.InputUpdated += (s, e) => Debug.WriteLine(e.LeftStickX);
 
             //WindowBackground = new SolidColorBrush(Color.FromArgb(1, 0, 0, 0));
-            LoadDefaultValues();
+            LoadValues();
         }
         #endregion
 
-        #region LoadDefaultValues
-        private void LoadDefaultValues()
+        #region LoadValues
+        private void LoadValues()
         {
             BackgroundColor = Settings.Default.BackgroundColor;
             SelectedShape = OverlayShape.None;

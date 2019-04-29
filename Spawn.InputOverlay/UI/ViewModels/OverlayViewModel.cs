@@ -117,13 +117,14 @@ namespace Spawn.InputOverlay.UI.ViewModels
                 Debug.WriteLine("Device connected");
 
                 NoDeviceLabelVisibility = Visibility.Collapsed;
-                SelectedShape = m_currentShape.HasValue ? m_currentShape.Value : OverlayShape.Eye;
+                SelectedShape = m_currentShape ?? OverlayShape.Eye;
             };
             m_inputHandler.DeviceDisconnected += (s, e) =>
             {
                 Debug.WriteLine("Device disconnected");
 
                 m_currentShape = SelectedShape;
+                SelectedShape = OverlayShape.None;
                 NoDeviceLabelVisibility = Visibility.Visible;
             };
             //m_inputHandler.InputUpdated += (s, e) => Debug.WriteLine(e.LeftStickX);

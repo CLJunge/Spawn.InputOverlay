@@ -20,7 +20,7 @@
     <Window.ContextMenu>
         <ContextMenu>
             <MenuItem Header="{Binding ToggleResizeGridHeader}" Command="{Binding ToggleResizeGripCommand}"/>
-            <MenuItem>
+            <MenuItem IsEnabled="{Binding IsShapeSelectionEnabled}">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Shape: " Margin="-5,0,0,0"/>

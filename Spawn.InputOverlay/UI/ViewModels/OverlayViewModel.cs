@@ -20,6 +20,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private SolidColorBrush m_noDeviceLabelBrush;
         private ResizeMode m_resizeMode;
         private string m_strToggleResizeGridHeader;
+        private bool m_blnIsShapeSelectionEnabled;
 
         private OverlayShape? m_currentShape;
         #endregion
@@ -93,6 +94,14 @@ namespace Spawn.InputOverlay.UI.ViewModels
         public ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
         #endregion
 
+        #region IsShapeSelectionEnabled
+        public bool IsShapeSelectionEnabled
+        {
+            get => m_blnIsShapeSelectionEnabled;
+            set => Set(ref m_blnIsShapeSelectionEnabled, value);
+        }
+        #endregion
+
         #region OpenAboutWindowCommand
         public ICommand OpenAboutWindowCommand => new RelayCommand(OpenAboutWindow);
         #endregion
@@ -127,6 +136,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
 
                 NoDeviceLabelVisibility = Visibility.Collapsed;
                 SelectedShape = m_currentShape ?? OverlayShape.CatEye;
+                IsShapeSelectionEnabled = true;
             };
             m_inputHandler.DeviceDisconnected += (s, e) =>
             {
@@ -135,6 +145,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
                 m_currentShape = SelectedShape;
                 SelectedShape = OverlayShape.None;
                 NoDeviceLabelVisibility = Visibility.Visible;
+                IsShapeSelectionEnabled = false;
             };
             //m_inputHandler.InputUpdated += (s, e) => Debug.WriteLine(e.LeftStickX);
 
@@ -154,6 +165,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             NoDeviceLabelBrush = new SolidColorBrush(Colors.Black);
             ResizeMode = ResizeMode.NoResize;
             ToggleResizeGridHeader = "Show resize grip";
+            IsShapeSelectionEnabled = false;
         }
         #endregion
 

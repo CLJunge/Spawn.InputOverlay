@@ -23,7 +23,7 @@
             <MenuItem IsEnabled="{Binding IsShapeSelectionEnabled}">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Shape: " Margin="-5,0,0,0"/>
+                        <Label Content="Shape: " Margin="-5,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                         <ComboBox ItemsSource="{Binding AvailableShapes}" SelectedItem="{Binding SelectedShape}" Margin="5,2,0,2">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -42,7 +42,7 @@
     </Window.ContextMenu>
     <Grid>
         <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
-            <Label Content="No device&#10;connected!" Foreground="{Binding NoDeviceLabelBrush}" Visibility="{Binding NoDeviceLabelVisibility}" FontWeight="Bold" FontFamily="Corbel" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Content=" No device&#10;connected!" Foreground="{Binding NoDeviceLabelBrush}" Visibility="{Binding NoDeviceLabelVisibility}" FontFamily="Corbel" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Medium"/>
         </Viewbox>
         <Rectangle Name="EyeShape">
             <Rectangle.Visibility>

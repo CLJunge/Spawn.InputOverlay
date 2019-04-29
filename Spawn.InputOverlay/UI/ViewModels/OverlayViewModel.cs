@@ -392,11 +392,11 @@ namespace Spawn.InputOverlay.UI.ViewModels
 
             m_blnIsAccelerateButtonPressed = UseTriggerForAccelerating
                 ? e.DeviceState.RightTrigger != 0
-                : e.DeviceState.Buttons.HasFlag(GamepadButtonFlags.A);
+                : e.DeviceState.Buttons.HasFlag(GamepadButtonFlags.X);
 
             m_blnIsBrakeButtonPressed = UseTriggerForBraking
                 ? e.DeviceState.LeftTrigger != 0
-                : e.DeviceState.Buttons.HasFlag(GamepadButtonFlags.B);
+                : e.DeviceState.Buttons.HasFlag(GamepadButtonFlags.A);
 
             RaisePropertyChangedEvent(nameof(AccelerateBrush));
             RaisePropertyChangedEvent(nameof(BrakeBrush));

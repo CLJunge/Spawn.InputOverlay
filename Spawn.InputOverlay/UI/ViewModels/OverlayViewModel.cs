@@ -11,7 +11,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
     public class OverlayViewModel : ViewModelBase
     {
         #region Member Variables
-        private readonly IInputHandler m_inputHandler;
+        private IInputHandler m_inputHandler;
         private SolidColorBrush m_windowBackground;
         private OverlayShape m_selectedShape;
         private SolidColorBrush m_accelerateBrush;
@@ -108,7 +108,11 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region Ctor
-        public OverlayViewModel()
+        public OverlayViewModel() => Initialize();
+        #endregion
+
+        #region Initialize
+        private void Initialize()
         {
             m_inputHandler = new XboxOneInputHandler();
 

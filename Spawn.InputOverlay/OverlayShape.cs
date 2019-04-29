@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿#region Using
+using System.ComponentModel;
+#endregion
 
 namespace Spawn.InputOverlay
 {

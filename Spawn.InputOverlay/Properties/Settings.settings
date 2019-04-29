@@ -12,7 +12,7 @@
       <Value Profile="(Default)">#FFFF0000</Value>
     </Setting>
     <Setting Name="SteerColor" Type="System.Windows.Media.Color" Scope="User">
-      <Value Profile="(Default)">#FFFFD700</Value>
+      <Value Profile="(Default)">#FFFFA500</Value>
     </Setting>
     <Setting Name="WindowBackgroundColor" Type="System.Windows.Media.Color" Scope="User">
       <Value Profile="(Default)">#FFFF00FF</Value>
@@ -27,7 +27,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="RefreshRate" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">50</Value>
+      <Value Profile="(Default)">10</Value>
     </Setting>
   </Settings>
 </SettingsFile>

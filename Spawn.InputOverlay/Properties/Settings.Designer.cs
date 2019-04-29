@@ -61,7 +61,7 @@ namespace Spawn.InputOverlay.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FFFFD700")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFFFA500")]
         public global::System.Windows.Media.Color SteerColor {
             get {
                 return ((global::System.Windows.Media.Color)(this["SteerColor"]));
@@ -121,7 +121,7 @@ namespace Spawn.InputOverlay.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public int RefreshRate {
             get {
                 return ((int)(this["RefreshRate"]));

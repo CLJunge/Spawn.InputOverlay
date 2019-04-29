@@ -9,5 +9,7 @@ namespace Spawn.InputOverlay.Input
         event EventHandler<XboxOneInputEventArgs> InputUpdated;
 
         bool IsDeviceConnected { get; }
+
+        void RestartTimer();
     }
 }

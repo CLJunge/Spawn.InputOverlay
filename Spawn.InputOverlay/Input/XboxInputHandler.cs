@@ -85,6 +85,17 @@ namespace Spawn.InputOverlay.Input
         }
         #endregion
 
+        #region RestartTime
+        public void RestartTimer()
+        {
+            m_timer.Stop();
+
+            m_timer.Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate);
+
+            m_timer.Start();
+        }
+        #endregion
+
         #region Dispose
         public void Dispose()
         {

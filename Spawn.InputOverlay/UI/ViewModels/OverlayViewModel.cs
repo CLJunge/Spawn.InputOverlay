@@ -269,6 +269,10 @@ namespace Spawn.InputOverlay.UI.ViewModels
                     case nameof(SegmentBackgroundColor):
                         RaisePropertyChangedEvent(nameof(SegmentBackgroundBrush));
                         break;
+
+                    case nameof(RefreshRate):
+                        m_inputHandler?.RestartTimer();
+                        break;
                 }
             };
 

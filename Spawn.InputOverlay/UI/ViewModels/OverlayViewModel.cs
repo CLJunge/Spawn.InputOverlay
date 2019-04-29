@@ -11,8 +11,14 @@ namespace Spawn.InputOverlay.UI.ViewModels
 {
     public class OverlayViewModel : ViewModelBase
     {
+        #region Constants
+        private const double DefaultWindowHeight = 250;
+        private const double DefaultWindowWidth = 400;
+        #endregion
+
         #region Member Variables
-        private IInputHandler m_inputHandler;
+        private double m_dblWindowHeight;
+        private double m_dblWindowWidth;
         private Color m_backgroundColor;
         private OverlayShape m_selectedShape;
         private Color m_accelerateColor;
@@ -22,14 +28,31 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private SolidColorBrush m_noDeviceLabelBrush;
         private ResizeMode m_resizeMode;
         private string m_strToggleResizeGridHeader;
-        private bool m_blnIsShapeSelectionEnabled;
+        private bool m_blnIsDeviceConnected;
 
+        private IInputHandler m_inputHandler;
         private OverlayShape? m_currentShape;
         #endregion
 
         #region Properties
         #region AppName
         public string AppName => "PadViz (XONE Edition)";
+        #endregion
+
+        #region WindowHeight
+        public double WindowHeight
+        {
+            get => m_dblWindowHeight;
+            set => Set(ref m_dblWindowHeight, value);
+        }
+        #endregion
+
+        #region WindowWidth
+        public double WindowWidth
+        {
+            get => m_dblWindowWidth;
+            set => Set(ref m_dblWindowWidth, value);
+        }
         #endregion
 
         #region BackgroundColor
@@ -132,16 +155,21 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
+        #region IsDeviceConnected
+        public bool IsDeviceConnected
+        {
+            get => m_blnIsDeviceConnected;
+            set => Set(ref m_blnIsDeviceConnected, value);
+        }
+        #endregion
+
         #region ToggleResizeGripCommand
         public ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
         #endregion
 
-        #region IsShapeSelectionEnabled
-        public bool IsShapeSelectionEnabled
-        {
-            get => m_blnIsShapeSelectionEnabled;
-            set => Set(ref m_blnIsShapeSelectionEnabled, value);
-        }
+        #region ResetSizeCommand
+        public ICommand ResetSizeCommand => new RelayCommand(ResetSize,
+            () => WindowHeight != DefaultWindowHeight || WindowWidth != DefaultWindowWidth);
         #endregion
 
         #region OpenAboutWindowCommand
@@ -180,7 +208,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
 
                 NoDeviceLabelVisibility = Visibility.Collapsed;
                 SelectedShape = m_currentShape ?? Settings.Default.Shape;
-                IsShapeSelectionEnabled = true;
+                IsDeviceConnected = true;
             };
             m_inputHandler.DeviceDisconnected += (s, e) =>
             {
@@ -189,7 +217,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
                 m_currentShape = SelectedShape;
                 SelectedShape = OverlayShape.None;
                 NoDeviceLabelVisibility = Visibility.Visible;
-                IsShapeSelectionEnabled = false;
+                IsDeviceConnected = false;
             };
             //m_inputHandler.InputUpdated += (s, e) => Debug.WriteLine(e.LeftStickX);
 
@@ -201,6 +229,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region LoadValues
         private void LoadValues()
         {
+            ResetSize();
+
             BackgroundColor = Settings.Default.BackgroundColor;
             SelectedShape = OverlayShape.None;
             AccelerateColor = Settings.Default.AccelerateColor;
@@ -210,7 +240,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             NoDeviceLabelBrush = new SolidColorBrush(Colors.Black);
             ResizeMode = ResizeMode.NoResize;
             ToggleResizeGridHeader = "Show resize grip";
-            IsShapeSelectionEnabled = false;
+            IsDeviceConnected = false;
         }
         #endregion
 
@@ -229,6 +259,14 @@ namespace Spawn.InputOverlay.UI.ViewModels
                     ToggleResizeGridHeader = "Show resize grip";
                     break;
             }
+        }
+        #endregion
+
+        #region ResetSize
+        private void ResetSize()
+        {
+            WindowHeight = DefaultWindowHeight;
+            WindowWidth = DefaultWindowWidth;
         }
         #endregion
 

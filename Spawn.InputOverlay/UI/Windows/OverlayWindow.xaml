@@ -28,7 +28,7 @@
                 </MenuItem.Header>
             </MenuItem>
             <Separator/>
-            <MenuItem Header="About" Command="{Binding OpenAboutWindowCommand}"/>
+            <MenuItem Header="About..." Command="{Binding OpenAboutWindowCommand}"/>
             <Separator/>
             <MenuItem Header="Close" Command="{Binding CloseCommand}"/>
         </ContextMenu>

@@ -1,13 +1,18 @@
-﻿using Spawn.InputOverlay.UI.ViewModels;
+﻿#region Using
+using Spawn.InputOverlay.UI.ViewModels;
 using System.Windows;
 using System.Windows.Input;
+#endregion
 
 namespace Spawn.InputOverlay.UI.Windows
 {
     public partial class OverlayWindow : Window
     {
+        #region Ctor
         public OverlayWindow() => InitializeComponent();
+        #endregion
 
+        #region OnMouseDown
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             switch (e.ChangedButton)
@@ -23,5 +28,6 @@ namespace Spawn.InputOverlay.UI.Windows
                     break;
             }
         }
+        #endregion
     }
 }

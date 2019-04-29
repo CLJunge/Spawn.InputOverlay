@@ -31,6 +31,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private ResizeMode m_resizeMode;
         private string m_strToggleResizeGridHeader;
         private bool m_blnIsDeviceConnected;
+        private bool m_blnUseTriggerForAccelerating;
+        private bool m_blnUseTriggerForBraking;
 
         private OverlayShape? m_currentShape;
         private IInputHandler m_inputHandler;
@@ -182,6 +184,22 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
+        #region UseTriggerForAccelerating
+        public bool UseTriggerForAccelerating
+        {
+            get => m_blnUseTriggerForAccelerating;
+            set => Set(ref m_blnUseTriggerForAccelerating, value);
+        }
+        #endregion
+
+        #region UseTriggerForBraking
+        public bool UseTriggerForBraking
+        {
+            get => m_blnUseTriggerForBraking;
+            set => Set(ref m_blnUseTriggerForBraking, value);
+        }
+        #endregion
+
         #region ToggleResizeGripCommand
         public ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
         #endregion
@@ -270,6 +288,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
             ResizeMode = ResizeMode.NoResize;
             ToggleResizeGridHeader = "Show resize grip";
             IsDeviceConnected = false;
+            UseTriggerForAccelerating = Settings.Default.UseTriggerForAccelerating;
+            UseTriggerForBraking = Settings.Default.UseTriggerForBraking;
         }
         #endregion
 
@@ -319,6 +339,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
             Settings.Default.BrakeColor = BrakeColor;
             Settings.Default.SteerColor = SteerColor;
             Settings.Default.SegmentBackgroundColor = SegmentBackgroundColor;
+            Settings.Default.UseTriggerForAccelerating = UseTriggerForAccelerating;
+            Settings.Default.UseTriggerForBraking = UseTriggerForBraking;
 
             Settings.Default.Save();
         }
@@ -353,11 +375,11 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             Debug.WriteLine("Input updated");
 
-            m_blnIsAccelerateButtonPressed = Settings.Default.UseTriggerForAccelerating
+            m_blnIsAccelerateButtonPressed = UseTriggerForAccelerating
                 ? e.DeviceState.RightTrigger != 0
                 : e.DeviceState.Buttons.HasFlag(GamepadButtonFlags.A);
 
-            m_blnIsBrakeButtonPressed = Settings.Default.UseTriggerForBraking
+            m_blnIsBrakeButtonPressed = UseTriggerForBraking
                 ? e.DeviceState.LeftTrigger != 0
                 : e.DeviceState.Buttons.HasFlag(GamepadButtonFlags.B);
 

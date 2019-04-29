@@ -84,6 +84,26 @@
                     </MenuItem.Header>
                 </MenuItem>
             </MenuItem>
+            <MenuItem Header="Buttons">
+                <MenuItem>
+                    <!--AccelerateButton-->
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Use trigger for acceleration: " Margin="-5,0,0,0" Width="175"/>
+                            <CheckBox IsChecked="{Binding UseTriggerForAccelerating, Mode=TwoWay}" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem>
+                    <!--BrakeButton-->
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Use trigger for braking: " Margin="-5,0,0,0" Width="175"/>
+                            <CheckBox IsChecked="{Binding UseTriggerForBraking, Mode=TwoWay}" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+            </MenuItem>
             <Separator/>
             <MenuItem Header="{Binding ToggleResizeGridHeader}" Command="{Binding ToggleResizeGripCommand}"/>
             <MenuItem Header="Reset size" Command="{Binding ResetSizeCommand}"/>

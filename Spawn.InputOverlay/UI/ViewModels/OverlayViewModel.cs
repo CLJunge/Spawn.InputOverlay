@@ -102,6 +102,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             OverlayShape.None,
             OverlayShape.Eye,
+            OverlayShape.CatEye,
             OverlayShape.Trapez
         };
         #endregion
@@ -121,7 +122,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
                 Debug.WriteLine("Device connected");
 
                 NoDeviceLabelVisibility = Visibility.Collapsed;
-                SelectedShape = m_currentShape ?? OverlayShape.Eye;
+                SelectedShape = m_currentShape ?? OverlayShape.CatEye;
             };
             m_inputHandler.DeviceDisconnected += (s, e) =>
             {

@@ -4,6 +4,7 @@
     {
         None,
         Eye,
+        CatEye,
         Trapez
     }
 }

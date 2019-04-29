@@ -1,5 +1,6 @@
 ﻿#region Using
 using Spawn.InputOverlay.Input;
+using Spawn.InputOverlay.Properties;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
@@ -12,10 +13,11 @@ namespace Spawn.InputOverlay.UI.ViewModels
     {
         #region Member Variables
         private IInputHandler m_inputHandler;
-        private SolidColorBrush m_windowBackground;
+        private Color m_backgroundColor;
         private OverlayShape m_selectedShape;
-        private SolidColorBrush m_accelerateBrush;
-        private SolidColorBrush m_brakeBrush;
+        private Color m_accelerateColor;
+        private Color m_brakeColor;
+        private Color m_steerColor;
         private Visibility m_noDeviceLabelVisibility;
         private SolidColorBrush m_noDeviceLabelBrush;
         private ResizeMode m_resizeMode;
@@ -26,11 +28,18 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region Properties
-        #region WindowBackground
-        public SolidColorBrush WindowBackground
+        #region BackgroundColor
+        public Color BackgroundColor
         {
-            get => m_windowBackground;
-            set => Set(ref m_windowBackground, value);
+            get => m_backgroundColor;
+            set => Set(ref m_backgroundColor, value);
+        }
+        #endregion
+
+        #region BackgroundBrush
+        public SolidColorBrush BackgroundBrush
+        {
+            get => new SolidColorBrush(BackgroundColor);
         }
         #endregion
 
@@ -42,19 +51,48 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
+        #region AccelerateColor
+        public Color AccelerateColor
+        {
+            get => m_accelerateColor;
+            set => Set(ref m_accelerateColor, value);
+        }
+        #endregion
+
         #region AccelerateBrush
         public SolidColorBrush AccelerateBrush
         {
-            get => m_accelerateBrush;
-            set => Set(ref m_accelerateBrush, value);
+            get => new SolidColorBrush(AccelerateColor);
+        }
+        #endregion
+
+        #region BrakeColor
+        public Color BrakeColor
+        {
+            get => m_brakeColor;
+            set => Set(ref m_brakeColor, value);
         }
         #endregion
 
         #region BrakeBrush
         public SolidColorBrush BrakeBrush
         {
-            get => m_brakeBrush;
-            set => Set(ref m_brakeBrush, value);
+            get => new SolidColorBrush(BrakeColor);
+        }
+        #endregion
+
+        #region SteerColor
+        public Color SteerColor
+        {
+            get => m_steerColor;
+            set => Set(ref m_steerColor, value);
+        }
+        #endregion
+
+        #region SteerBrush
+        public SolidColorBrush SteerBrush
+        {
+            get => new SolidColorBrush(SteerColor);
         }
         #endregion
 
@@ -128,6 +166,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region Initialize
         private void Initialize()
         {
+            App.Current.Exit += (s, e) => SaveSettings();
+
             m_inputHandler = new XboxOneInputHandler();
 
             m_inputHandler.DeviceConnected += (s, e) =>
@@ -135,7 +175,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
                 Debug.WriteLine("Device connected");
 
                 NoDeviceLabelVisibility = Visibility.Collapsed;
-                SelectedShape = m_currentShape ?? OverlayShape.CatEye;
+                SelectedShape = m_currentShape ?? Settings.Default.Shape;
                 IsShapeSelectionEnabled = true;
             };
             m_inputHandler.DeviceDisconnected += (s, e) =>
@@ -157,10 +197,11 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region LoadDefaultValues
         private void LoadDefaultValues()
         {
-            WindowBackground = new SolidColorBrush(Colors.Magenta);
+            BackgroundColor = Settings.Default.BackgroundColor;
             SelectedShape = OverlayShape.None;
-            AccelerateBrush = new SolidColorBrush(Colors.GreenYellow);
-            BrakeBrush = new SolidColorBrush(Colors.Red);
+            AccelerateColor = Settings.Default.AccelerateColor;
+            BrakeColor = Settings.Default.BrakeColor;
+            SteerColor = Settings.Default.SteerColor;
             NoDeviceLabelVisibility = Visibility.Visible;
             NoDeviceLabelBrush = new SolidColorBrush(Colors.Black);
             ResizeMode = ResizeMode.NoResize;
@@ -196,6 +237,19 @@ namespace Spawn.InputOverlay.UI.ViewModels
 
         #region Close
         private void Close() => App.Current.Shutdown();
+        #endregion
+
+        #region SaveSettings
+        private void SaveSettings()
+        {
+            Settings.Default.BackgroundColor = BackgroundColor;
+            Settings.Default.Shape = SelectedShape;
+            Settings.Default.AccelerateColor = AccelerateColor;
+            Settings.Default.BrakeColor = BrakeColor;
+            Settings.Default.SteerColor = SteerColor;
+
+            Settings.Default.Save();
+        }
         #endregion
     }
 }

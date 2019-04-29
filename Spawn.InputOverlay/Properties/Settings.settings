@@ -1,7 +1,21 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Spawn.InputOverlay.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Shape" Type="Spawn.InputOverlay.OverlayShape" Scope="User">
+      <Value Profile="(Default)">CatEye</Value>
+    </Setting>
+    <Setting Name="AccelerateColor" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF00FF00</Value>
+    </Setting>
+    <Setting Name="BrakeColor" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FFFF0000</Value>
+    </Setting>
+    <Setting Name="SteerColor" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FFFFD700</Value>
+    </Setting>
+    <Setting Name="BackgroundColor" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FFFF00FF</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

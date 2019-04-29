@@ -90,8 +90,17 @@ namespace Spawn.InputOverlay.UI.ViewModels
         public ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
         #endregion
 
-        #region CloseAppCommand
-        public ICommand CloseAppCommand => new RelayCommand(CloseApp);
+        #region CloseCommand
+        public ICommand CloseCommand => new RelayCommand(Close);
+        #endregion
+
+        #region AvailableShapes
+        public OverlayShape[] AvailableShapes => new OverlayShape[]
+        {
+            OverlayShape.None,
+            OverlayShape.Eye,
+            OverlayShape.Trapez
+        };
         #endregion
         #endregion
 
@@ -141,8 +150,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
-        #region CloseApp
-        private void CloseApp() => App.Current.Shutdown();
+        #region Close
+        private void Close() => App.Current.Shutdown();
         #endregion
     }
 }

@@ -19,8 +19,13 @@
     <Window.ContextMenu>
         <ContextMenu>
             <MenuItem Header="{Binding ToggleResizeGridHeader}" Command="{Binding ToggleResizeGripCommand}"/>
-            <MenuItem Header="Shape">
-                <ComboBox ItemsSource="{Binding AvailableShapes}" SelectedItem="{Binding SelectedShape}"/>
+            <MenuItem>
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Shape: " Margin="-5,0,0,0"/>
+                        <ComboBox ItemsSource="{Binding AvailableShapes}" SelectedItem="{Binding SelectedShape}" Margin="5,2,0,2"/>
+                    </StackPanel>
+                </MenuItem.Header>
             </MenuItem>
             <Separator/>
             <MenuItem Header="Close" Command="{Binding CloseCommand}"/>

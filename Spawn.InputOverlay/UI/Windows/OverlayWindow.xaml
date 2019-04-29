@@ -19,6 +19,8 @@
     </Window.DataContext>
     <Window.ContextMenu>
         <ContextMenu>
+            <MenuItem Header="{Binding AppName}" IsEnabled="False"/>
+            <Separator/>
             <MenuItem IsEnabled="{Binding IsShapeSelectionEnabled}">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">

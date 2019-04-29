@@ -28,6 +28,10 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region Properties
+        #region AppName
+        public string AppName => "PadViz (XONE Edition)";
+        #endregion
+
         #region BackgroundColor
         public Color BackgroundColor
         {

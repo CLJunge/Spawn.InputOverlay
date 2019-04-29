@@ -46,6 +46,9 @@
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX.DirectInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.DirectInput.4.2.0\lib\net45\SharpDX.DirectInput.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX.XInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.XInput.4.2.0\lib\net45\SharpDX.XInput.dll</HintPath>
     </Reference>
@@ -91,7 +94,8 @@
     </Compile>
     <Compile Include="Input\IInputHandler.cs" />
     <Compile Include="Input\InputUpdatedEventArgs.cs" />
-    <Compile Include="Input\XboxInputHandler.cs" />
+    <Compile Include="Input\DirectInputHandler.cs" />
+    <Compile Include="Input\XInputHandler.cs" />
     <Compile Include="OverlayShape.cs" />
     <Compile Include="UI\Converters\EnumDescriptionConverter.cs" />
     <Compile Include="UI\Converters\ShapeVisibilityConverter.cs" />

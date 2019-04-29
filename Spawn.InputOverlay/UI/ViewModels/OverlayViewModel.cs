@@ -291,7 +291,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
                 }
             };
 
-            m_inputHandler = new XboxInputHandler();
+            //m_inputHandler = new XboxInputHandler();
+            m_inputHandler = new DirectInputHandler();
             m_inputHandler.DeviceConnected += OnDeviceConnected;
             m_inputHandler.DeviceDisconnected += OnDeviceDisconnected;
             m_inputHandler.InputUpdated += OnInputUpdated;

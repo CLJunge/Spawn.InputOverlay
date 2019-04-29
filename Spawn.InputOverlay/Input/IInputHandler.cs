@@ -6,7 +6,7 @@ namespace Spawn.InputOverlay.Input
     {
         event EventHandler DeviceConnected;
         event EventHandler DeviceDisconnected;
-        event EventHandler<XboxOneInputEventArgs> InputUpdated;
+        event EventHandler<InputUpdatedEventArgs> InputUpdated;
 
         bool IsDeviceConnected { get; }
 

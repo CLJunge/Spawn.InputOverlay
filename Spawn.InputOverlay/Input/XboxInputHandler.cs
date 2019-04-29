@@ -12,7 +12,7 @@ namespace Spawn.InputOverlay.Input
         #region EventHandler
         public event EventHandler DeviceConnected;
         public event EventHandler DeviceDisconnected;
-        public event EventHandler<XboxOneInputEventArgs> InputUpdated;
+        public event EventHandler<InputUpdatedEventArgs> InputUpdated;
         #endregion
 
         #region Member Variables
@@ -81,7 +81,7 @@ namespace Spawn.InputOverlay.Input
         private void CheckInput()
         {
             if (IsDeviceConnected && m_controller.GetState(out State state))
-                InputUpdated?.Invoke(this, new XboxOneInputEventArgs(state.Gamepad));
+                InputUpdated?.Invoke(this, new InputUpdatedEventArgs(state.Gamepad));
         }
         #endregion
 

@@ -24,7 +24,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private Color m_accelerateColor;
         private Color m_brakeColor;
         private Color m_steerColor;
-        private Color m_backgroundColor;
+        private Color m_segmentBackgroundColor;
         private Visibility m_noDeviceLabelVisibility;
         private SolidColorBrush m_noDeviceLabelBrush;
         private ResizeMode m_resizeMode;
@@ -124,18 +124,18 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
-        #region BackgroundColor
-        public Color BackgroundColor
+        #region SegmentBackgroundColor
+        public Color SegmentBackgroundColor
         {
-            get => m_backgroundColor;
-            set => Set(ref m_backgroundColor, value);
+            get => m_segmentBackgroundColor;
+            set => Set(ref m_segmentBackgroundColor, value);
         }
         #endregion
 
-        #region BackgroundBrush
-        public SolidColorBrush BackgroundBrush
+        #region SegmentBackgroundBrush
+        public SolidColorBrush SegmentBackgroundBrush
         {
-            get => new SolidColorBrush(BackgroundColor);
+            get => new SolidColorBrush(SegmentBackgroundColor);
         }
         #endregion
 
@@ -216,6 +216,32 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             App.Current.Exit += (s, e) => SaveSettings();
 
+            PropertyChanged += (s, e) =>
+            {
+                switch (e.PropertyName)
+                {
+                    case nameof(WindowBackgroundColor):
+                        RaisePropertyChangedEvent(nameof(WindowBackgroundBrush));
+                        break;
+
+                    case nameof(AccelerateColor):
+                        RaisePropertyChangedEvent(nameof(AccelerateBrush));
+                        break;
+
+                    case nameof(BrakeColor):
+                        RaisePropertyChangedEvent(nameof(BrakeBrush));
+                        break;
+
+                    case nameof(SteerColor):
+                        RaisePropertyChangedEvent(nameof(SteerBrush));
+                        break;
+
+                    case nameof(SegmentBackgroundColor):
+                        RaisePropertyChangedEvent(nameof(SegmentBackgroundBrush));
+                        break;
+                }
+            };
+
             m_inputHandler = new XboxOneInputHandler();
 
             m_inputHandler.DeviceConnected += (s, e) =>
@@ -252,7 +278,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             AccelerateColor = Settings.Default.AccelerateColor;
             BrakeColor = Settings.Default.BrakeColor;
             SteerColor = Settings.Default.SteerColor;
-            BackgroundColor = Settings.Default.BackgroundColor;
+            SegmentBackgroundColor = Settings.Default.SegmentBackgroundColor;
             NoDeviceLabelVisibility = Visibility.Visible;
             NoDeviceLabelBrush = new SolidColorBrush(Colors.Black);
             ResizeMode = ResizeMode.NoResize;
@@ -306,7 +332,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             Settings.Default.AccelerateColor = AccelerateColor;
             Settings.Default.BrakeColor = BrakeColor;
             Settings.Default.SteerColor = SteerColor;
-            Settings.Default.BackgroundColor = BackgroundColor;
+            Settings.Default.SegmentBackgroundColor = SegmentBackgroundColor;
 
             Settings.Default.Save();
         }

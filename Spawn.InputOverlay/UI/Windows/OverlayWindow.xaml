@@ -8,7 +8,7 @@
         xmlns:converters="clr-namespace:Spawn.InputOverlay.UI.Converters"
         mc:Ignorable="d" WindowStyle="None" AllowsTransparency="True"
         Title="PadViz (XONE Edition)" Height="250" Width="400" MinHeight="50" MinWidth="50"
-        Background="{Binding BackgroundBrush}" ResizeMode="{Binding ResizeMode}"
+        Background="{Binding WindowBackgroundBrush}" ResizeMode="{Binding ResizeMode}"
         Icon="/PadViz (XONE Edition);component/Resources/gamepad_icon.ico"
         WindowStartupLocation="CenterScreen" MouseDown="OnMouseDown" MouseDoubleClick="OnMouseDown"
         Loaded="OnWindowLoaded">
@@ -27,7 +27,7 @@
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Shape: " Margin="-5,0,0,0"/>
-                        <ComboBox ItemsSource="{Binding AvailableShapes}" SelectedItem="{Binding SelectedShape}" Margin="5,2,0,2">
+                        <ComboBox ItemsSource="{Binding AvailableShapes}" SelectedItem="{Binding SelectedShape, Mode=TwoWay}" Margin="5,2,0,2">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path=., Converter={StaticResource EnumConverter}}" />
@@ -37,13 +37,22 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Header="Colors" IsEnabled="{Binding IsDeviceConnected}">
+            <MenuItem Header="Colors">
+                <MenuItem>
+                    <!--WindowBackground-->
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Window background: " Margin="-5,0,0,0" Width="150"/>
+                            <xctk:ColorPicker SelectedColor="{Binding WindowBackgroundColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
                 <MenuItem>
                     <!--Accelerate-->
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Accelerate: " Margin="-5,0,0,0" Width="75"/>
-                            <xctk:ColorPicker SelectedColor="{Binding AccelerateColor}" Width="100" Margin="0,2"/>
+                            <Label Content="Accelerate: " Margin="-5,0,0,0" Width="150"/>
+                            <xctk:ColorPicker SelectedColor="{Binding AccelerateColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
                         </StackPanel>
                     </MenuItem.Header>
                 </MenuItem>
@@ -51,8 +60,8 @@
                     <!--Brake-->
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Brake: " Margin="-5,0,0,0" Width="75"/>
-                            <xctk:ColorPicker SelectedColor="{Binding BrakeColor}" Width="100" Margin="0,2"/>
+                            <Label Content="Brake: " Margin="-5,0,0,0" Width="150"/>
+                            <xctk:ColorPicker SelectedColor="{Binding BrakeColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
                         </StackPanel>
                     </MenuItem.Header>
                 </MenuItem>
@@ -60,8 +69,17 @@
                     <!--Steer-->
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Left/Right: " Margin="-5,0,0,0" Width="75"/>
-                            <xctk:ColorPicker SelectedColor="{Binding SteerColor}" Width="100" Margin="0,2"/>
+                            <Label Content="Left/Right: " Margin="-5,0,0,0" Width="150"/>
+                            <xctk:ColorPicker SelectedColor="{Binding SteerColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem>
+                    <!--SegmentBackground-->
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Segment background: " Margin="-5,0,0,0" Width="150"/>
+                            <xctk:ColorPicker SelectedColor="{Binding SegmentBackgroundColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
                         </StackPanel>
                     </MenuItem.Header>
                 </MenuItem>
@@ -91,13 +109,13 @@
                     <DrawingBrush.Drawing>
                         <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
                             <!--Right-->
-                            <GeometryDrawing Brush="#FF000000" Geometry="F1 M100,58z M0,0z M50.001976,56.380854L98.576185,28.999995 50.000012,1.619134 61.287923,28.994188z" />
+                            <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58z M0,0z M50.001976,56.380854L98.576185,28.999995 50.000012,1.619134 61.287923,28.994188z" />
                             <!--Left-->
-                            <GeometryDrawing Brush="#FF000000" Geometry="F1 M100,58z M0,0z M49.998049,56.380854L1.4238174,28.999995 50.000013,1.619134 38.729116,28.994188z" />
+                            <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58z M0,0z M49.998049,56.380854L1.4238174,28.999995 50.000013,1.619134 38.729116,28.994188z" />
                             <!--Accelerate-->
-                            <GeometryDrawing Brush="#FF000000" Geometry="F1 M100,58z M0,0z M50.000001,5.0435525L40.91563,27.614735 50.000001,22.493874 59.082497,27.612859z" />
+                            <GeometryDrawing Brush="{Binding AccelerateBrush}" Geometry="F1 M100,58z M0,0z M50.000001,5.0435525L40.91563,27.614735 50.000001,22.493874 59.082497,27.612859z" />
                             <!--Brake-->
-                            <GeometryDrawing Brush="#FF000000" Geometry="F1 M100,58z M0,0z M40.906251,30.358992L50.000001,52.956435 59.093751,30.358992 50.000001,35.483605z" />
+                            <GeometryDrawing Brush="{Binding BrakeBrush}" Geometry="F1 M100,58z M0,0z M40.906251,30.358992L50.000001,52.956435 59.093751,30.358992 50.000001,35.483605z" />
                         </DrawingGroup>
                     </DrawingBrush.Drawing>
                 </DrawingBrush>
@@ -114,14 +132,14 @@
                 <DrawingBrush>
                     <DrawingBrush.Drawing>
                         <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
-                            <!--Left-->
-                            <GeometryDrawing Brush="#FF000000" Geometry="F1 M100,58.000011z M0,0z M35.804821,9.4835676L1.6826634,28.992884 35.804821,48.50223z" />
-                            <!--Accelerate-->
-                            <GeometryDrawing Brush="#FF000000" Geometry="F1 M100,58.000011z M0,0z M50,1.3745704L39.520388,7.3652402 39.520388,27.162176 60.47961,27.162176 60.47961,7.3652402z" />
-                            <!--Brake-->
-                            <GeometryDrawing Brush="#FF000000" Geometry="F1 M100,58.000011z M0,0z M39.520609,30.818487L39.520609,50.63477 50.000222,56.62544 60.479832,50.63477 60.479832,30.818487z" />
                             <!--Right-->
-                            <GeometryDrawing Brush="#FF000000" Geometry="F1 M100,58.000011z M0,0z M64.195179,9.4835676L98.317336,28.992884 64.195179,48.50223z" />
+                            <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58.000011z M0,0z M64.195179,9.4835676L98.317336,28.992884 64.195179,48.50223z" />
+                            <!--Left-->
+                            <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58.000011z M0,0z M35.804821,9.4835676L1.6826634,28.992884 35.804821,48.50223z" />
+                            <!--Accelerate-->
+                            <GeometryDrawing Brush="{Binding AccelerateBrush}" Geometry="F1 M100,58.000011z M0,0z M50,1.3745704L39.520388,7.3652402 39.520388,27.162176 60.47961,27.162176 60.47961,7.3652402z" />
+                            <!--Brake-->
+                            <GeometryDrawing Brush="{Binding BrakeBrush}" Geometry="F1 M100,58.000011z M0,0z M39.520609,30.818487L39.520609,50.63477 50.000222,56.62544 60.479832,50.63477 60.479832,30.818487z" />
                         </DrawingGroup>
                     </DrawingBrush.Drawing>
                 </DrawingBrush>
@@ -139,9 +157,9 @@
                     <DrawingBrush.Drawing>
                         <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
                             <!--Right-->
-                            <GeometryDrawing Brush="{Binding BackgroundBrush}" Geometry="F1 M100,58z M0,0z M50.001976,56.380854L98.576185,28.999995 50.000012,1.619134 61.287923,28.994188z" />
+                            <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58z M0,0z M50.001976,56.380854L98.576185,28.999995 50.000012,1.619134 61.287923,28.994188z" />
                             <!--Left-->
-                            <GeometryDrawing Brush="{Binding BackgroundBrush}" Geometry="F1 M100,58z M0,0z M49.998049,56.380854L1.4238174,28.999995 50.000013,1.619134 38.729116,28.994188z" />
+                            <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58z M0,0z M49.998049,56.380854L1.4238174,28.999995 50.000013,1.619134 38.729116,28.994188z" />
                             <!--Accelerate-->
                             <GeometryDrawing Brush="{Binding AccelerateBrush}" Geometry="F1 M100,58z M0,0z M50.000001,5.6258012L40.821295,28.433185 59.178707,28.433185z" />
                             <!--Brake-->

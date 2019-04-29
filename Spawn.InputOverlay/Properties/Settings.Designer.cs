@@ -86,12 +86,12 @@ namespace Spawn.InputOverlay.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#FFFFFFFF")]
-        public global::System.Windows.Media.Color BackgroundColor {
+        public global::System.Windows.Media.Color SegmentBackgroundColor {
             get {
-                return ((global::System.Windows.Media.Color)(this["BackgroundColor"]));
+                return ((global::System.Windows.Media.Color)(this["SegmentBackgroundColor"]));
             }
             set {
-                this["BackgroundColor"] = value;
+                this["SegmentBackgroundColor"] = value;
             }
         }
     }

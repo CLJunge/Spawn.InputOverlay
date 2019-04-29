@@ -11,7 +11,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region EventHandler
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void RaisePropertyChangedEvent([CallerMemberName]string strPropertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(strPropertyName));
+        protected void RaisePropertyChangedEvent([CallerMemberName]string strPropertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(strPropertyName));
         #endregion
 
         #region Set

@@ -17,7 +17,7 @@
     <Setting Name="WindowBackgroundColor" Type="System.Windows.Media.Color" Scope="User">
       <Value Profile="(Default)">#FFFF00FF</Value>
     </Setting>
-    <Setting Name="BackgroundColor" Type="System.Windows.Media.Color" Scope="User">
+    <Setting Name="SegmentBackgroundColor" Type="System.Windows.Media.Color" Scope="User">
       <Value Profile="(Default)">#FFFFFFFF</Value>
     </Setting>
   </Settings>

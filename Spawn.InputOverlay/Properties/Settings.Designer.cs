@@ -74,6 +74,18 @@ namespace Spawn.InputOverlay.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#FFFF00FF")]
+        public global::System.Windows.Media.Color WindowBackgroundColor {
+            get {
+                return ((global::System.Windows.Media.Color)(this["WindowBackgroundColor"]));
+            }
+            set {
+                this["WindowBackgroundColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFFFFFFF")]
         public global::System.Windows.Media.Color BackgroundColor {
             get {
                 return ((global::System.Windows.Media.Color)(this["BackgroundColor"]));

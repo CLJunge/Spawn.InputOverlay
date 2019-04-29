@@ -19,11 +19,12 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region Member Variables
         private double m_dblWindowHeight;
         private double m_dblWindowWidth;
-        private Color m_backgroundColor;
+        private Color m_windowBackgroundColor;
         private OverlayShape m_selectedShape;
         private Color m_accelerateColor;
         private Color m_brakeColor;
         private Color m_steerColor;
+        private Color m_backgroundColor;
         private Visibility m_noDeviceLabelVisibility;
         private SolidColorBrush m_noDeviceLabelBrush;
         private ResizeMode m_resizeMode;
@@ -55,18 +56,18 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
-        #region BackgroundColor
-        public Color BackgroundColor
+        #region WindowBackgroundColor
+        public Color WindowBackgroundColor
         {
-            get => m_backgroundColor;
-            set => Set(ref m_backgroundColor, value);
+            get => m_windowBackgroundColor;
+            set => Set(ref m_windowBackgroundColor, value);
         }
         #endregion
 
-        #region BackgroundBrush
-        public SolidColorBrush BackgroundBrush
+        #region WindowBackgroundBrush
+        public SolidColorBrush WindowBackgroundBrush
         {
-            get => new SolidColorBrush(BackgroundColor);
+            get => new SolidColorBrush(WindowBackgroundColor);
         }
         #endregion
 
@@ -120,6 +121,21 @@ namespace Spawn.InputOverlay.UI.ViewModels
         public SolidColorBrush SteerBrush
         {
             get => new SolidColorBrush(SteerColor);
+        }
+        #endregion
+
+        #region BackgroundColor
+        public Color BackgroundColor
+        {
+            get => m_backgroundColor;
+            set => Set(ref m_backgroundColor, value);
+        }
+        #endregion
+
+        #region BackgroundBrush
+        public SolidColorBrush BackgroundBrush
+        {
+            get => new SolidColorBrush(BackgroundColor);
         }
         #endregion
 
@@ -231,11 +247,12 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             ResetSize();
 
-            BackgroundColor = Settings.Default.BackgroundColor;
+            WindowBackgroundColor = Settings.Default.WindowBackgroundColor;
             SelectedShape = OverlayShape.None;
             AccelerateColor = Settings.Default.AccelerateColor;
             BrakeColor = Settings.Default.BrakeColor;
             SteerColor = Settings.Default.SteerColor;
+            BackgroundColor = Settings.Default.BackgroundColor;
             NoDeviceLabelVisibility = Visibility.Visible;
             NoDeviceLabelBrush = new SolidColorBrush(Colors.Black);
             ResizeMode = ResizeMode.NoResize;
@@ -284,11 +301,12 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region SaveSettings
         private void SaveSettings()
         {
-            Settings.Default.BackgroundColor = BackgroundColor;
+            Settings.Default.WindowBackgroundColor = WindowBackgroundColor;
             Settings.Default.Shape = SelectedShape;
             Settings.Default.AccelerateColor = AccelerateColor;
             Settings.Default.BrakeColor = BrakeColor;
             Settings.Default.SteerColor = SteerColor;
+            Settings.Default.BackgroundColor = BackgroundColor;
 
             Settings.Default.Save();
         }

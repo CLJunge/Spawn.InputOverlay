@@ -1,5 +1,6 @@
 ﻿#region Using
 using Spawn.InputOverlay.Input;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -19,6 +20,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private SolidColorBrush m_noDeviceLabelBrush;
         private ResizeMode m_resizeMode;
         private string m_strToggleResizeGridHeader;
+
+        private OverlayShape? m_currentShape;
         #endregion
 
         #region Properties
@@ -109,8 +112,20 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             m_inputHandler = new XboxOneInputHandler();
 
-            //m_inputHandler.DeviceConnected += (s, e) => Debug.WriteLine("Device connected");
-            //m_inputHandler.DeviceDisconnected += (s, e) => Debug.WriteLine("Device disconnected");
+            m_inputHandler.DeviceConnected += (s, e) =>
+            {
+                Debug.WriteLine("Device connected");
+
+                NoDeviceLabelVisibility = Visibility.Collapsed;
+                SelectedShape = m_currentShape.HasValue ? m_currentShape.Value : OverlayShape.Eye;
+            };
+            m_inputHandler.DeviceDisconnected += (s, e) =>
+            {
+                Debug.WriteLine("Device disconnected");
+
+                m_currentShape = SelectedShape;
+                NoDeviceLabelVisibility = Visibility.Visible;
+            };
             //m_inputHandler.InputUpdated += (s, e) => Debug.WriteLine(e.LeftStickX);
 
             //WindowBackground = new SolidColorBrush(Color.FromArgb(1, 0, 0, 0));

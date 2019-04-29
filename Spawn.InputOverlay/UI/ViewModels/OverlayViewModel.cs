@@ -1,7 +1,5 @@
 ﻿#region Using
 using Spawn.InputOverlay.Input;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -9,14 +7,8 @@ using System.Windows.Media;
 
 namespace Spawn.InputOverlay.UI.ViewModels
 {
-    public class OverlayViewModel : INotifyPropertyChanged
+    public class OverlayViewModel : ViewModelBase
     {
-        #region EventHandler
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void RaisePropertyChangedEvent([CallerMemberName]string strPropertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(strPropertyName));
-        #endregion
-
         #region Member Variables
         private readonly IInputHandler m_inputHandler;
         private SolidColorBrush m_windowBackground;
@@ -26,6 +18,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private Visibility m_noDeviceLabelVisibility;
         private SolidColorBrush m_noDeviceLabelBrush;
         private ResizeMode m_resizeMode;
+        private string m_strToggleResizeGridHeader;
         #endregion
 
         #region Properties
@@ -33,15 +26,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         public SolidColorBrush WindowBackground
         {
             get => m_windowBackground;
-            set
-            {
-                if (value != m_windowBackground)
-                {
-                    m_windowBackground = value;
-
-                    RaisePropertyChangedEvent();
-                }
-            }
+            set => Set(ref m_windowBackground, value);
         }
         #endregion
 
@@ -49,15 +34,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         public OverlayShape SelectedShape
         {
             get => m_selectedShape;
-            set
-            {
-                if (value != m_selectedShape)
-                {
-                    m_selectedShape = value;
-
-                    RaisePropertyChangedEvent();
-                }
-            }
+            set => Set(ref m_selectedShape, value);
         }
         #endregion
 
@@ -65,15 +42,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         public SolidColorBrush AccelerateBrush
         {
             get => m_accelerateBrush;
-            set
-            {
-                if (value != m_accelerateBrush)
-                {
-                    m_accelerateBrush = value;
-
-                    RaisePropertyChangedEvent();
-                }
-            }
+            set => Set(ref m_accelerateBrush, value);
         }
         #endregion
 
@@ -81,15 +50,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         public SolidColorBrush BrakeBrush
         {
             get => m_brakeBrush;
-            set
-            {
-                if (value != m_brakeBrush)
-                {
-                    m_brakeBrush = value;
-
-                    RaisePropertyChangedEvent();
-                }
-            }
+            set => Set(ref m_brakeBrush, value);
         }
         #endregion
 
@@ -97,15 +58,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         public Visibility NoDeviceLabelVisibility
         {
             get => m_noDeviceLabelVisibility;
-            set
-            {
-                if (value != m_noDeviceLabelVisibility)
-                {
-                    m_noDeviceLabelVisibility = value;
-
-                    RaisePropertyChangedEvent();
-                }
-            }
+            set => Set(ref m_noDeviceLabelVisibility, value);
         }
         #endregion
 
@@ -113,15 +66,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         public SolidColorBrush NoDeviceLabelBrush
         {
             get => m_noDeviceLabelBrush;
-            set
-            {
-                if (value != m_noDeviceLabelBrush)
-                {
-                    m_noDeviceLabelBrush = value;
-
-                    RaisePropertyChangedEvent();
-                }
-            }
+            set => Set(ref m_noDeviceLabelBrush, value);
         }
         #endregion
 
@@ -129,15 +74,15 @@ namespace Spawn.InputOverlay.UI.ViewModels
         public ResizeMode ResizeMode
         {
             get => m_resizeMode;
-            set
-            {
-                if (value != m_resizeMode)
-                {
-                    m_resizeMode = value;
+            set => Set(ref m_resizeMode, value);
+        }
+        #endregion
 
-                    RaisePropertyChangedEvent();
-                }
-            }
+        #region ToggleResizeGridHeader
+        public string ToggleResizeGridHeader
+        {
+            get => m_strToggleResizeGridHeader;
+            set => Set(ref m_strToggleResizeGridHeader, value);
         }
         #endregion
 

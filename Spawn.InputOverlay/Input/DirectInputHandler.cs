@@ -140,15 +140,19 @@ namespace Spawn.InputOverlay.Input
         #region RestartTime
         public void RestartTimer()
         {
-            m_dataTimer.Stop();
-            m_dataTimer.Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate);
-            m_dataTimer.Start();
+            if (m_dataTimer != null)
+            {
+                m_dataTimer.Stop();
+                m_dataTimer.Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate);
+                m_dataTimer.Start();
+            }
         }
         #endregion
 
         #region Dispose
         public void Dispose()
         {
+            m_connectionTimer?.Stop();
             m_dataTimer?.Stop();
         }
         #endregion

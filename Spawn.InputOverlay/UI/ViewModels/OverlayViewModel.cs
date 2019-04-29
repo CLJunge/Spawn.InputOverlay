@@ -33,6 +33,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private bool m_blnIsDeviceConnected;
         private bool m_blnUseTriggerForAccelerating;
         private bool m_blnUseTriggerForBraking;
+        private int m_nRefreshRate;
 
         private OverlayShape? m_currentShape;
         private IInputHandler m_inputHandler;
@@ -200,6 +201,14 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
+        #region RefreshRate
+        public int RefreshRate
+        {
+            get => m_nRefreshRate;
+            set => Set(ref m_nRefreshRate, value);
+        }
+        #endregion
+
         #region ToggleResizeGripCommand
         public ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
         #endregion
@@ -290,6 +299,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             IsDeviceConnected = false;
             UseTriggerForAccelerating = Settings.Default.UseTriggerForAccelerating;
             UseTriggerForBraking = Settings.Default.UseTriggerForBraking;
+            RefreshRate = Settings.Default.RefreshRate;
         }
         #endregion
 
@@ -341,6 +351,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             Settings.Default.SegmentBackgroundColor = SegmentBackgroundColor;
             Settings.Default.UseTriggerForAccelerating = UseTriggerForAccelerating;
             Settings.Default.UseTriggerForBraking = UseTriggerForBraking;
+            Settings.Default.RefreshRate = RefreshRate;
 
             Settings.Default.Save();
         }

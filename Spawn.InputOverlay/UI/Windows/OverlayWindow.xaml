@@ -24,7 +24,18 @@
             <MenuItem Header="{Binding AppName}" IsEnabled="False"/>
             <Separator/>
             <MenuItem Header="Settings">
+                <MenuItem>
+                    <!--RefreshRate-->
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Refresh rate: " Margin="-5,0,0,0"/>
+                            <xctk:IntegerUpDown Value="{Binding RefreshRate, Mode=TwoWay}" Minimum="0" Maximum="100" Increment="5"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <Separator/>
                 <MenuItem IsEnabled="{Binding IsDeviceConnected}">
+                    <!--Shape-->
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Shape: " Margin="-5,0,0,0"/>
@@ -124,7 +135,6 @@
                 <MultiBinding Converter="{StaticResource ShapeVisibilityConverter}">
                     <Binding Path="SelectedShape"/>
                     <Binding Source="{x:Static local:OverlayShape.Eye}"/>
-                    <Binding Path="IsDeviceConnected"/>
                 </MultiBinding>
             </Rectangle.Visibility>
             <Rectangle.Fill>
@@ -149,7 +159,6 @@
                 <MultiBinding Converter="{StaticResource ShapeVisibilityConverter}">
                     <Binding Path="SelectedShape"/>
                     <Binding Source="{x:Static local:OverlayShape.Trapez}"/>
-                    <Binding Path="IsDeviceConnected"/>
                 </MultiBinding>
             </Rectangle.Visibility>
             <Rectangle.Fill>
@@ -174,7 +183,6 @@
                 <MultiBinding Converter="{StaticResource ShapeVisibilityConverter}">
                     <Binding Path="SelectedShape"/>
                     <Binding Source="{x:Static local:OverlayShape.CatEye}"/>
-                    <Binding Path="IsDeviceConnected"/>
                 </MultiBinding>
             </Rectangle.Visibility>
             <Rectangle.Fill>

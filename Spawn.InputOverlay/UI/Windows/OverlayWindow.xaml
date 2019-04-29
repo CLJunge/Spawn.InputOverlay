@@ -18,7 +18,7 @@
     </Window.DataContext>
     <Window.ContextMenu>
         <ContextMenu>
-            <MenuItem Header="{Binding ToggleResizeGripHeader}" Command="{Binding ToggleResizeGripCommand}"/>
+            <MenuItem Header="{Binding ToggleResizeGridHeader}" Command="{Binding ToggleResizeGripCommand}"/>
             <Separator/>
             <MenuItem Header="Close" Command="{Binding CloseAppCommand}"/>
         </ContextMenu>

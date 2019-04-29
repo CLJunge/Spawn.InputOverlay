@@ -118,7 +118,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
             BrakeBrush = new SolidColorBrush(Colors.Red);
             NoDeviceLabelVisibility = Visibility.Visible;
             NoDeviceLabelBrush = new SolidColorBrush(Colors.Black);
-            ResizeMode = ResizeMode.CanResize;
+            ResizeMode = ResizeMode.NoResize;
+            ToggleResizeGridHeader = "Show resize grip";
         }
         #endregion
 
@@ -127,12 +128,14 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             switch (ResizeMode)
             {
-                case ResizeMode.CanResize:
+                case ResizeMode.NoResize:
                     ResizeMode = ResizeMode.CanResizeWithGrip;
+                    ToggleResizeGridHeader = "Hide resize grip";
                     break;
 
                 case ResizeMode.CanResizeWithGrip:
-                    ResizeMode = ResizeMode.CanResize;
+                    ResizeMode = ResizeMode.NoResize;
+                    ToggleResizeGridHeader = "Show resize grip";
                     break;
             }
         }

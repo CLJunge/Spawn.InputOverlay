@@ -23,85 +23,87 @@
         <ContextMenu>
             <MenuItem Header="{Binding AppName}" IsEnabled="False"/>
             <Separator/>
-            <MenuItem IsEnabled="{Binding IsDeviceConnected}">
-                <MenuItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Shape: " Margin="-5,0,0,0"/>
-                        <ComboBox ItemsSource="{Binding AvailableShapes}" SelectedItem="{Binding SelectedShape, Mode=TwoWay}" Margin="5,2,0,2">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Path=., Converter={StaticResource EnumConverter}}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </StackPanel>
-                </MenuItem.Header>
-            </MenuItem>
-            <MenuItem Header="Colors">
-                <MenuItem>
-                    <!--WindowBackground-->
+            <MenuItem Header="Settings">
+                <MenuItem IsEnabled="{Binding IsDeviceConnected}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Window background: " Margin="-5,0,0,0" Width="150"/>
-                            <xctk:ColorPicker SelectedColor="{Binding WindowBackgroundColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
+                            <Label Content="Shape: " Margin="-5,0,0,0"/>
+                            <ComboBox ItemsSource="{Binding AvailableShapes}" SelectedItem="{Binding SelectedShape, Mode=TwoWay}" Margin="5,2,0,2">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=., Converter={StaticResource EnumConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </StackPanel>
                     </MenuItem.Header>
                 </MenuItem>
-                <MenuItem>
-                    <!--Accelerate-->
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Accelerate: " Margin="-5,0,0,0" Width="150"/>
-                            <xctk:ColorPicker SelectedColor="{Binding AccelerateColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
-                        </StackPanel>
-                    </MenuItem.Header>
+                <MenuItem Header="Colors">
+                    <MenuItem>
+                        <!--WindowBackground-->
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Window background: " Margin="-5,0,0,0" Width="150"/>
+                                <xctk:ColorPicker SelectedColor="{Binding WindowBackgroundColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem>
+                        <!--Accelerate-->
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Accelerate: " Margin="-5,0,0,0" Width="150"/>
+                                <xctk:ColorPicker SelectedColor="{Binding AccelerateColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem>
+                        <!--Brake-->
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Brake: " Margin="-5,0,0,0" Width="150"/>
+                                <xctk:ColorPicker SelectedColor="{Binding BrakeColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem>
+                        <!--Steer-->
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Left/Right: " Margin="-5,0,0,0" Width="150"/>
+                                <xctk:ColorPicker SelectedColor="{Binding SteerColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem>
+                        <!--SegmentBackground-->
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Segment background: " Margin="-5,0,0,0" Width="150"/>
+                                <xctk:ColorPicker SelectedColor="{Binding SegmentBackgroundColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
                 </MenuItem>
-                <MenuItem>
-                    <!--Brake-->
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Brake: " Margin="-5,0,0,0" Width="150"/>
-                            <xctk:ColorPicker SelectedColor="{Binding BrakeColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
-                        </StackPanel>
-                    </MenuItem.Header>
-                </MenuItem>
-                <MenuItem>
-                    <!--Steer-->
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Left/Right: " Margin="-5,0,0,0" Width="150"/>
-                            <xctk:ColorPicker SelectedColor="{Binding SteerColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
-                        </StackPanel>
-                    </MenuItem.Header>
-                </MenuItem>
-                <MenuItem>
-                    <!--SegmentBackground-->
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Segment background: " Margin="-5,0,0,0" Width="150"/>
-                            <xctk:ColorPicker SelectedColor="{Binding SegmentBackgroundColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
-                        </StackPanel>
-                    </MenuItem.Header>
-                </MenuItem>
-            </MenuItem>
-            <MenuItem Header="Buttons">
-                <MenuItem>
-                    <!--AccelerateButton-->
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Use trigger for acceleration: " Margin="-5,0,0,0" Width="175"/>
-                            <CheckBox IsChecked="{Binding UseTriggerForAccelerating, Mode=TwoWay}" Margin="0,5,0,0"/>
-                        </StackPanel>
-                    </MenuItem.Header>
-                </MenuItem>
-                <MenuItem>
-                    <!--BrakeButton-->
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Use trigger for braking: " Margin="-5,0,0,0" Width="175"/>
-                            <CheckBox IsChecked="{Binding UseTriggerForBraking, Mode=TwoWay}" Margin="0,5,0,0"/>
-                        </StackPanel>
-                    </MenuItem.Header>
+                <MenuItem Header="Buttons">
+                    <MenuItem>
+                        <!--AccelerateButton-->
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Use trigger for acceleration: " Margin="-5,0,0,0" Width="175"/>
+                                <CheckBox IsChecked="{Binding UseTriggerForAccelerating, Mode=TwoWay}" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem>
+                        <!--BrakeButton-->
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Use trigger for braking: " Margin="-5,0,0,0" Width="175"/>
+                                <CheckBox IsChecked="{Binding UseTriggerForBraking, Mode=TwoWay}" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
                 </MenuItem>
             </MenuItem>
             <Separator/>
@@ -122,6 +124,7 @@
                 <MultiBinding Converter="{StaticResource ShapeVisibilityConverter}">
                     <Binding Path="SelectedShape"/>
                     <Binding Source="{x:Static local:OverlayShape.Eye}"/>
+                    <Binding Path="IsDeviceConnected"/>
                 </MultiBinding>
             </Rectangle.Visibility>
             <Rectangle.Fill>
@@ -146,6 +149,7 @@
                 <MultiBinding Converter="{StaticResource ShapeVisibilityConverter}">
                     <Binding Path="SelectedShape"/>
                     <Binding Source="{x:Static local:OverlayShape.Trapez}"/>
+                    <Binding Path="IsDeviceConnected"/>
                 </MultiBinding>
             </Rectangle.Visibility>
             <Rectangle.Fill>
@@ -170,6 +174,7 @@
                 <MultiBinding Converter="{StaticResource ShapeVisibilityConverter}">
                     <Binding Path="SelectedShape"/>
                     <Binding Source="{x:Static local:OverlayShape.CatEye}"/>
+                    <Binding Path="IsDeviceConnected"/>
                 </MultiBinding>
             </Rectangle.Visibility>
             <Rectangle.Fill>

@@ -1,5 +1,6 @@
 ﻿#region Using
 using SharpDX.XInput;
+using Spawn.InputOverlay.Properties;
 using System;
 using System.Windows.Threading;
 #endregion
@@ -32,7 +33,7 @@ namespace Spawn.InputOverlay.Input
             m_controller = new Controller(userIndex);
             m_timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(5),
+                Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate),
             };
 
             m_timer.Tick += OnTimerTick;

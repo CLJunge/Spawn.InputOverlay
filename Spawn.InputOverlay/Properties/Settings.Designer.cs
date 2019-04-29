@@ -118,5 +118,17 @@ namespace Spawn.InputOverlay.Properties {
                 this["UseTriggerForBraking"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int RefreshRate {
+            get {
+                return ((int)(this["RefreshRate"]));
+            }
+            set {
+                this["RefreshRate"] = value;
+            }
+        }
     }
 }

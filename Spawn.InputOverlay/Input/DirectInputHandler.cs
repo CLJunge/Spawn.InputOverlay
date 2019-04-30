@@ -1,4 +1,5 @@
 ﻿#region Using
+using NLog;
 using SharpDX.DirectInput;
 using System;
 #endregion
@@ -7,6 +8,11 @@ namespace Spawn.InputOverlay.Input
 {
     public class DirectInputHandler : InputHandlerBase
     {
+        #region Logger
+        protected override Logger Log => s_logger;
+        private static readonly Logger s_logger = LogManager.GetCurrentClassLogger();
+        #endregion
+
         #region Member Variables
         private Joystick m_controller;
         #endregion
@@ -107,7 +113,7 @@ namespace Spawn.InputOverlay.Input
             }
             catch (Exception ex)
             {
-                s_logger.Debug(ex, "No device connected!");
+                Log.Debug(ex, "No device connected!");
             }
 
             return blnRet;

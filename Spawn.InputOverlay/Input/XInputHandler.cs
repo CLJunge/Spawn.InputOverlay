@@ -52,7 +52,7 @@ namespace Spawn.InputOverlay.Input
         #region OnConnectionTimerTick
         private void OnConnectionTimerTick(object sender, EventArgs e)
         {
-            s_logger.Trace("Checking device connection...");
+            Log.Trace("Checking device connection...");
 
             if (!m_blnFiredInitialEvent)
             {

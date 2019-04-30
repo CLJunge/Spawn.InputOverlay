@@ -10,7 +10,8 @@ namespace Spawn.InputOverlay.Input
     public abstract class InputHandlerBase : IInputHandler
     {
         #region Logger
-        protected static readonly Logger s_logger = LogManager.GetCurrentClassLogger();
+        protected virtual Logger Log => s_logger;
+        private static readonly Logger s_logger = LogManager.GetCurrentClassLogger();
         #endregion
 
         #region Member Variables
@@ -48,7 +49,12 @@ namespace Spawn.InputOverlay.Input
         #endregion
 
         #region StartConnectionTimer
-        public void StartConnectionTimer() => m_connectionTimer.Start();
+        public void StartConnectionTimer()
+        {
+            m_connectionTimer.Start();
+
+            Log.Info("Waiting for device...");
+        }
         #endregion
 
         #region RestartInputTime
@@ -58,14 +64,14 @@ namespace Spawn.InputOverlay.Input
             m_inputTimer.Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate);
             m_inputTimer.Start();
 
-            s_logger.Trace("Timer restarted");
+            Log.Trace("Timer restarted");
         }
         #endregion
 
         #region Dispose
         public void Dispose()
         {
-            s_logger.Trace("Disposing...");
+            Log.Trace("Disposing...");
 
             m_connectionTimer.Stop();
             m_inputTimer.Stop();

@@ -75,6 +75,8 @@ namespace Spawn.InputOverlay.Input
 
             m_connectionTimer.Stop();
             m_inputTimer.Stop();
+
+            Log.Debug("Stopped timers");
         }
         #endregion
     }

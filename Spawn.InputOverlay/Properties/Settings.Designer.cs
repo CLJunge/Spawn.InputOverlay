@@ -106,5 +106,17 @@ namespace Spawn.InputOverlay.Properties {
                 this["RefreshRate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseDPadForSteering {
+            get {
+                return ((bool)(this["UseDPadForSteering"]));
+            }
+            set {
+                this["UseDPadForSteering"] = value;
+            }
+        }
     }
 }

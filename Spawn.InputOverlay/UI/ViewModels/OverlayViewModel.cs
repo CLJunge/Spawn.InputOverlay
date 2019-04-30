@@ -23,6 +23,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region Member Variables
+        private string m_strWindowTitle;
         private double m_dblWindowHeight;
         private double m_dblWindowWidth;
         private Color m_windowBackgroundColor;
@@ -49,6 +50,14 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region Properties
+        #region WindowTitle
+        public string WindowTitle
+        {
+            get => m_strWindowTitle;
+            set => Set(ref m_strWindowTitle, value);
+        }
+        #endregion
+
         #region AppName
         public string AppName => App.AppName;
         #endregion
@@ -323,6 +332,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             ResetSize();
 
+            WindowTitle = $"{AppName} v{App.AppVersion}";
             WindowBackgroundColor = Settings.Default.WindowBackgroundColor == Colors.Transparent ? Colors.Magenta : Settings.Default.WindowBackgroundColor;
             SelectedShape = OverlayShape.None;
             AccelerateColor = Settings.Default.AccelerateColor;

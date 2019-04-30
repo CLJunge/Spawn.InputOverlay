@@ -262,8 +262,6 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             s_logger.Trace("Initializing...");
 
-            Application.Current.Exit += (s, e) => SaveSettings();
-
             PropertyChanged += (s, e) =>
             {
                 switch (e.PropertyName)
@@ -378,9 +376,9 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region Close
         private void Close()
         {
-            s_logger.Info("Exiting...");
+            s_logger.Trace("Closing...");
 
-            Application.Current.Shutdown();
+            SaveSettings();
         }
         #endregion
 

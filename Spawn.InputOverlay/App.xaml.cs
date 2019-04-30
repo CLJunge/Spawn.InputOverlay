@@ -18,7 +18,16 @@ namespace Spawn.InputOverlay
         #endregion
 
         #region Ctor
-        public App() => s_logger.Info("=========== {0} v{1} ===========", AppName, AppVersion);
+        public App()
+        {
+            Exit += (s, e) =>
+            {
+                s_logger.Info("=========================================");
+            };
+
+            s_logger.Info("=========== {0} v{1} ===========", AppName, AppVersion);
+            s_logger.Info("=========================================");
+        }
         #endregion
     }
 }

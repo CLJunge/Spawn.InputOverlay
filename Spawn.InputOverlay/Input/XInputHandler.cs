@@ -1,4 +1,5 @@
 ﻿#region Using
+using NLog;
 using SharpDX.XInput;
 using Spawn.InputOverlay.Properties;
 using System;
@@ -13,6 +14,10 @@ namespace Spawn.InputOverlay.Input
         public event EventHandler DeviceConnected;
         public event EventHandler DeviceDisconnected;
         public event EventHandler<InputUpdatedEventArgs> InputUpdated;
+        #endregion
+
+        #region Logger
+        private static readonly Logger s_logger = LogManager.GetCurrentClassLogger();
         #endregion
 
         #region Member Variables
@@ -40,13 +45,15 @@ namespace Spawn.InputOverlay.Input
             m_timer.Start();
 
             m_blnPrevIsDeviceConntectedValue = IsDeviceConnected;
+
+            s_logger.Debug("Created new XInputHandler instance");
         }
         #endregion
 
         #region OnTimerTick
         private void OnTimerTick(object sender, EventArgs e)
         {
-            //Debug.WriteLine("Tick");
+            s_logger.Debug("Tick");
 
             CheckConnection();
 
@@ -57,6 +64,8 @@ namespace Spawn.InputOverlay.Input
         #region CheckConnection
         private void CheckConnection()
         {
+            s_logger.Debug("Checking device connection...");
+
             if (!m_blnFiredInitialEvent)
             {
                 if (IsDeviceConnected)
@@ -91,12 +100,16 @@ namespace Spawn.InputOverlay.Input
             m_timer.Stop();
             m_timer.Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate);
             m_timer.Start();
+
+            s_logger.Debug("Timer restarted");
         }
         #endregion
 
         #region Dispose
         public void Dispose()
         {
+            s_logger.Debug("Disposing...");
+
             m_timer?.Stop();
         }
         #endregion

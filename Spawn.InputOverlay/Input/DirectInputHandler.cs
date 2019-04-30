@@ -29,35 +29,6 @@ namespace Spawn.InputOverlay.Input
         }
         #endregion
 
-        #region FindController
-        private Joystick FindController()
-        {
-            Joystick retVal = null;
-
-            DirectInput directInput = new DirectInput();
-            Guid gamepadId = Guid.Empty;
-
-            //Playstation 4
-            foreach (DeviceInstance deviceInstance in directInput.GetDevices(DeviceType.FirstPerson, DeviceEnumerationFlags.AttachedOnly))
-            {
-                gamepadId = deviceInstance.InstanceGuid;
-
-                if (gamepadId != Guid.Empty)
-                    break;
-            }
-
-            if (gamepadId != Guid.Empty)
-            {
-                retVal = new Joystick(directInput, gamepadId);
-
-                retVal.Properties.BufferSize = 128;
-                retVal.Acquire();
-            }
-
-            return retVal;
-        }
-        #endregion
-
         #region OnDataTimerTick
         private void OnDataTimerTick(object sender, EventArgs e)
         {
@@ -89,6 +60,35 @@ namespace Spawn.InputOverlay.Input
                 m_connectionTimer.Stop();
                 m_inputTimer.Start();
             }
+        }
+        #endregion
+
+        #region FindController
+        private Joystick FindController()
+        {
+            Joystick retVal = null;
+
+            DirectInput directInput = new DirectInput();
+            Guid gamepadId = Guid.Empty;
+
+            //Playstation 4
+            foreach (DeviceInstance deviceInstance in directInput.GetDevices(DeviceType.FirstPerson, DeviceEnumerationFlags.AttachedOnly))
+            {
+                gamepadId = deviceInstance.InstanceGuid;
+
+                if (gamepadId != Guid.Empty)
+                    break;
+            }
+
+            if (gamepadId != Guid.Empty)
+            {
+                retVal = new Joystick(directInput, gamepadId);
+
+                retVal.Properties.BufferSize = 128;
+                retVal.Acquire();
+            }
+
+            return retVal;
         }
         #endregion
 

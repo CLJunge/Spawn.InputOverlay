@@ -9,7 +9,7 @@
         mc:Ignorable="d" WindowStyle="None" Title="PadViz (XONE Edition)"
         Height="250" Width="400" MinHeight="50" MinWidth="50"
         Background="{Binding WindowBackgroundBrush}" ResizeMode="{Binding ResizeMode}"
-        Icon="/PadViz (XONE Edition);component/Resources/gamepad_icon.ico"
+        Icon="/PadViz.NET;component/Resources/gamepad_icon.ico"
         WindowStartupLocation="CenterScreen" MouseDown="OnMouseDown" MouseDoubleClick="OnMouseDown"
         Loaded="OnWindowLoaded">
     <Window.Resources>

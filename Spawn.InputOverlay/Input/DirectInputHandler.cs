@@ -1,8 +1,8 @@
 ﻿#region Using
+using NLog;
 using SharpDX.DirectInput;
 using Spawn.InputOverlay.Properties;
 using System;
-using System.Diagnostics;
 using System.Windows.Threading;
 #endregion
 
@@ -14,6 +14,10 @@ namespace Spawn.InputOverlay.Input
         public event EventHandler DeviceConnected;
         public event EventHandler DeviceDisconnected;
         public event EventHandler<InputUpdatedEventArgs> InputUpdated;
+        #endregion
+
+        #region Logger
+        private static readonly Logger s_logger = LogManager.GetCurrentClassLogger();
         #endregion
 
         #region Member Variables
@@ -124,13 +128,14 @@ namespace Spawn.InputOverlay.Input
                 for (int i = 0; i < vData.Length; i++)
                 {
                     JoystickUpdate gamepadData = vData[i];
+                    //TODO
                 }
 
                 blnRet = true;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                s_logger.Debug(ex, "No device connected!");
             }
 
             return blnRet;
@@ -145,6 +150,8 @@ namespace Spawn.InputOverlay.Input
                 m_dataTimer.Stop();
                 m_dataTimer.Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate);
                 m_dataTimer.Start();
+
+                s_logger.Debug("Timer restarted");
             }
         }
         #endregion
@@ -152,6 +159,8 @@ namespace Spawn.InputOverlay.Input
         #region Dispose
         public void Dispose()
         {
+            s_logger.Debug("Disposing...");
+
             m_connectionTimer?.Stop();
             m_dataTimer?.Stop();
         }

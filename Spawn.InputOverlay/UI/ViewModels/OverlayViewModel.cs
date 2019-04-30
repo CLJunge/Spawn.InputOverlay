@@ -45,6 +45,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private IInputHandler m_inputHandler;
         private bool m_blnIsAccelerateButtonPressed;
         private bool m_blnIsBrakeButtonPressed;
+        private float m_fDeadZone;
         #endregion
 
         #region Properties
@@ -227,6 +228,14 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
+        #region DeadZone
+        public float DeadZone
+        {
+            get => m_fDeadZone;
+            set => Set(ref m_fDeadZone, value);
+        }
+        #endregion
+
         #region ToggleResizeGripCommand
         public ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
         #endregion
@@ -264,7 +273,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             s_logger.Trace("Initializing...");
 
-            System.Windows.Application.Current.Exit += (s, e) => SaveSettings();
+            Application.Current.Exit += (s, e) => SaveSettings();
 
             PropertyChanged += (s, e) =>
             {
@@ -329,6 +338,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             RefreshRate = Settings.Default.RefreshRate;
             LeftOffset = 0;
             RightOffset = 0;
+            DeadZone = 0;
 
             s_logger.Debug("Loaded initial values");
         }
@@ -381,7 +391,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             s_logger.Info("Exiting...");
 
-            System.Windows.Application.Current.Shutdown();
+            Application.Current.Shutdown();
         }
         #endregion
 
@@ -452,12 +462,12 @@ namespace Spawn.InputOverlay.UI.ViewModels
                 ? e.DeviceState.LeftTrigger != 0
                 : e.DeviceState.Buttons.HasFlag(GamepadButtonFlags.A);
 
-            if (e.LeftStickX < -0.008)
+            if (e.LeftStickX < DeadZone)
             {
                 LeftOffset = (float)Math.Abs(e.LeftStickX);
                 RightOffset = 0;
             }
-            else if (e.LeftStickX > 0.008)
+            else if (e.LeftStickX > DeadZone)
             {
                 RightOffset = (float)Math.Abs(e.LeftStickX);
                 LeftOffset = 0;

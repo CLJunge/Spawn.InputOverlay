@@ -41,12 +41,15 @@ namespace Spawn.InputOverlay.Input
             if (IsDeviceConnected && m_controller.GetState(out State state))
             {
                 double dblLeftStickX = Math.Round(state.Gamepad.LeftThumbX / 32767f, 4);
+                bool blnIsDPadLeftPressed = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.DPadLeft);
+                bool blnIsDPadRightPressed = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.DPadRight);
                 bool blnIsLeftTriggerPressed = state.Gamepad.LeftTrigger != 0;
                 bool blnIsRightTriggerPressed = state.Gamepad.RightTrigger != 0;
                 bool blnIsAccelerateButtonPressed = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.X);
                 bool blnIsBrakeButtonPressed = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.A);
 
                 InputEventArgs args = new InputEventArgs(dblLeftStickX,
+                    blnIsDPadLeftPressed, blnIsDPadRightPressed,
                     blnIsLeftTriggerPressed, blnIsRightTriggerPressed,
                     blnIsAccelerateButtonPressed, blnIsBrakeButtonPressed);
 

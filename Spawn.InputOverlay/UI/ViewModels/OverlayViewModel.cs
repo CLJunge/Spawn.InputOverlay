@@ -37,12 +37,13 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private int m_nRefreshRate;
         private float m_fLeftOffset;
         private float m_fRightOffset;
+        private float m_fDeadZone;
+        private bool m_blnUseDPadForSteering;
 
         private OverlayShape? m_currentShape;
         private IInputHandler m_inputHandler;
         private bool m_blnIsAccelerateButtonPressed;
         private bool m_blnIsBrakeButtonPressed;
-        private float m_fDeadZone;
         #endregion
 
         #region Properties
@@ -225,6 +226,14 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
+        #region UseDPadForSteering
+        public bool UseDPadForSteering
+        {
+            get => m_blnUseDPadForSteering;
+            set => Set(ref m_blnUseDPadForSteering, value);
+        }
+        #endregion
+
         #region ToggleResizeGripCommand
         public System.Windows.Input.ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
         #endregion
@@ -293,8 +302,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
                 }
             };
 
-            //m_inputHandler = new XInputHandler();
-            m_inputHandler = new DirectInputHandler();
+            m_inputHandler = new XInputHandler();
+            //m_inputHandler = new DirectInputHandler();
             m_inputHandler.DeviceConnected += OnDeviceConnected;
             m_inputHandler.DeviceDisconnected += OnDeviceDisconnected;
             m_inputHandler.InputUpdated += OnInputUpdated;
@@ -326,6 +335,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             LeftOffset = 0;
             RightOffset = 0;
             DeadZone = 0;
+            UseDPadForSteering = Settings.Default.UseDPadForSteering;
 
             s_logger.Debug("Loaded initial values");
         }
@@ -397,6 +407,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             s_logger.Debug("SteerColor: {0}", SteerColor);
             s_logger.Debug("SegmentBackgroundColor: {0}", SegmentBackgroundColor);
             s_logger.Debug("RefreshRate: {0}", RefreshRate);
+            s_logger.Debug("UseDPadForSteering {0}", UseDPadForSteering);
 
             Settings.Default.WindowBackgroundColor = WindowBackgroundColor;
             Settings.Default.Shape = SelectedShape == OverlayShape.None ? (m_currentShape ?? SelectedShape) : SelectedShape;
@@ -405,6 +416,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             Settings.Default.SteerColor = SteerColor;
             Settings.Default.SegmentBackgroundColor = SegmentBackgroundColor;
             Settings.Default.RefreshRate = RefreshRate;
+            Settings.Default.UseDPadForSteering = UseDPadForSteering;
 
             Settings.Default.Save();
 
@@ -444,19 +456,27 @@ namespace Spawn.InputOverlay.UI.ViewModels
             m_blnIsAccelerateButtonPressed = e.IsAccelerateButtonPressed || e.IsRightTriggerPressed;
             m_blnIsBrakeButtonPressed = e.IsBrakeButtonPressed || e.IsLeftTriggerPressed;
 
-            if (e.LeftStickX < DeadZone)
+            if (UseDPadForSteering)
             {
-                LeftOffset = (float)Math.Abs(e.LeftStickX);
-                RightOffset = 0;
-            }
-            else if (e.LeftStickX > DeadZone)
-            {
-                RightOffset = (float)Math.Abs(e.LeftStickX);
-                LeftOffset = 0;
+                LeftOffset = e.IsDPadLeftPressed ? 1 : 0;
+                RightOffset = e.IsDPadRightPressed ? 1 : 0;
             }
             else
             {
-                LeftOffset = RightOffset = 0;
+                if (e.LeftStickX < DeadZone)
+                {
+                    LeftOffset = (float)Math.Abs(e.LeftStickX);
+                    RightOffset = 0;
+                }
+                else if (e.LeftStickX > DeadZone)
+                {
+                    RightOffset = (float)Math.Abs(e.LeftStickX);
+                    LeftOffset = 0;
+                }
+                else
+                {
+                    LeftOffset = RightOffset = 0;
+                }
             }
 
             RaisePropertyChangedEvent(nameof(AccelerateBrush));

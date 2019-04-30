@@ -9,6 +9,10 @@ namespace Spawn.InputOverlay.Input
         #region Properties
         public double LeftStickX { get; }
 
+        public bool IsDPadLeftPressed { get; }
+
+        public bool IsDPadRightPressed { get; }
+
         public bool IsLeftTriggerPressed { get; }
 
         public bool IsRightTriggerPressed { get; }
@@ -20,10 +24,13 @@ namespace Spawn.InputOverlay.Input
 
         #region Ctor
         public InputEventArgs(double leftStickX,
+            bool isDPadLeftPressed, bool isDPadRightPressed,
             bool isLeftTriggerPressed, bool isRightTriggerPressed,
             bool isAccelerateButtonPressed, bool isBrakeButtonPressed)
         {
             LeftStickX = leftStickX;
+            IsDPadLeftPressed = isDPadLeftPressed;
+            IsDPadRightPressed = isDPadRightPressed;
             IsLeftTriggerPressed = isLeftTriggerPressed;
             IsRightTriggerPressed = isRightTriggerPressed;
             IsAccelerateButtonPressed = isAccelerateButtonPressed;

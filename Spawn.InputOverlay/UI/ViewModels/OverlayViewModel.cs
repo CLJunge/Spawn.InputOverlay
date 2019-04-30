@@ -302,8 +302,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
                 }
             };
 
-            m_inputHandler = new XInputHandler();
-            //m_inputHandler = new DirectInputHandler();
+            //m_inputHandler = new XInputHandler();
+            m_inputHandler = new DirectInputHandler();
             m_inputHandler.DeviceConnected += OnDeviceConnected;
             m_inputHandler.DeviceDisconnected += OnDeviceDisconnected;
             m_inputHandler.InputUpdated += OnInputUpdated;
@@ -451,7 +451,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region OnInputUpdated
         private void OnInputUpdated(object sender, InputEventArgs e)
         {
-            s_logger.Debug("Updating input...");
+            //s_logger.Debug("Updating input...");
 
             m_blnIsAccelerateButtonPressed = e.IsAccelerateButtonPressed || e.IsRightTriggerPressed;
             m_blnIsBrakeButtonPressed = e.IsBrakeButtonPressed || e.IsLeftTriggerPressed;

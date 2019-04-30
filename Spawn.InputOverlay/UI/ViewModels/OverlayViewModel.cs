@@ -379,6 +379,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
             s_logger.Trace("Closing...");
 
             SaveSettings();
+
+            Application.Current.Shutdown();
         }
         #endregion
 

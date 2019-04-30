@@ -15,6 +15,7 @@
     <Window.Resources>
         <converters:ShapeVisibilityConverter x:Key="ShapeVisibilityConverter"/>
         <converters:EnumDescriptionConverter x:Key="EnumConverter"/>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
     </Window.Resources>
     <Window.DataContext>
         <vm:OverlayViewModel/>
@@ -29,7 +30,7 @@
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Refresh rate: " Margin="-5,0,0,0"/>
-                            <xctk:IntegerUpDown Value="{Binding RefreshRate, Mode=TwoWay}" Minimum="0" Maximum="100" Increment="5"/>
+                            <xctk:IntegerUpDown Value="{Binding RefreshRate, Mode=TwoWay}" Minimum="0" Maximum="100" Increment="5" Margin="0,2"/>
                         </StackPanel>
                     </MenuItem.Header>
                 </MenuItem>
@@ -96,14 +97,25 @@
                         </MenuItem.Header>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem>
-                    <!--UseDPad-->
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Use DPad for steering: " Margin="-5,0,0,0" Width="140"/>
-                            <CheckBox IsChecked="{Binding UseDPadForSteering, Mode=TwoWay}" Margin="0,7,0,0"/>
-                        </StackPanel>
-                    </MenuItem.Header>
+                <MenuItem Header="Steering">
+                    <MenuItem>
+                        <!--UseDPadForSteering-->
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Use DPad for steering: " Margin="-5,0,0,0" Width="150"/>
+                                <CheckBox IsChecked="{Binding UseDPadForSteering, Mode=TwoWay}" Margin="0,7,0,0"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem IsEnabled="{Binding UseDPadForSteering, Converter={StaticResource InverseBooleanConverter}}">
+                        <!--DeadZone-->
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Dead zone: " Margin="-5,0,0,0" Width="150"/>
+                                <xctk:SingleUpDown Value="{Binding DeadZone, Mode=TwoWay}" Minimum="0" Maximum="1" Increment=".1" Margin="0,2"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
                 </MenuItem>
             </MenuItem>
             <Separator/>

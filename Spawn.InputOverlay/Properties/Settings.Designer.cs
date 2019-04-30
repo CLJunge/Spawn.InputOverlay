@@ -118,5 +118,17 @@ namespace Spawn.InputOverlay.Properties {
                 this["UseDPadForSteering"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public float DeadZone {
+            get {
+                return ((float)(this["DeadZone"]));
+            }
+            set {
+                this["DeadZone"] = value;
+            }
+        }
     }
 }

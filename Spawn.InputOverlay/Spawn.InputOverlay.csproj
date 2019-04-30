@@ -107,6 +107,7 @@
     <Compile Include="Input\XInputHandler.cs" />
     <Compile Include="OverlayShape.cs" />
     <Compile Include="UI\Converters\EnumDescriptionConverter.cs" />
+    <Compile Include="UI\Converters\InverseBooleanConverter.cs" />
     <Compile Include="UI\Converters\ShapeVisibilityConverter.cs" />
     <Compile Include="UI\RelayCommand.cs" />
     <Compile Include="UI\ViewModels\OverlayViewModel.cs" />

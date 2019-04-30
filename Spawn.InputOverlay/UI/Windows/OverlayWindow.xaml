@@ -130,54 +130,174 @@
         <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
             <Label Content=" No device&#10;connected!" Foreground="{Binding NoDeviceLabelBrush}" Visibility="{Binding NoDeviceLabelVisibility}" FontFamily="Corbel" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Medium"/>
         </Viewbox>
-        <Rectangle Name="EyeShape">
-            <Rectangle.Visibility>
+        <Grid Name="EyeShape">
+            <Grid.Visibility>
                 <MultiBinding Converter="{StaticResource ShapeVisibilityConverter}">
                     <Binding Path="SelectedShape"/>
                     <Binding Source="{x:Static local:OverlayShape.Eye}"/>
                 </MultiBinding>
-            </Rectangle.Visibility>
-            <Rectangle.Fill>
-                <DrawingBrush>
-                    <DrawingBrush.Drawing>
-                        <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
-                            <!--Right-->
-                            <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58z M0,0z M50.001976,56.380854L98.576185,28.999995 50.000012,1.619134 61.287923,28.994188z" />
-                            <!--Left-->
-                            <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58z M0,0z M49.998049,56.380854L1.4238174,28.999995 50.000013,1.619134 38.729116,28.994188z" />
-                            <!--Accelerate-->
-                            <GeometryDrawing Brush="{Binding AccelerateBrush}" Geometry="F1 M100,58z M0,0z M50.000001,5.0435525L40.91563,27.614735 50.000001,22.493874 59.082497,27.612859z" />
-                            <!--Brake-->
-                            <GeometryDrawing Brush="{Binding BrakeBrush}" Geometry="F1 M100,58z M0,0z M40.906251,30.358992L50.000001,52.956435 59.093751,30.358992 50.000001,35.483605z" />
-                        </DrawingGroup>
-                    </DrawingBrush.Drawing>
-                </DrawingBrush>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Rectangle Name="TrapezShape">
-            <Rectangle.Visibility>
+            </Grid.Visibility>
+            <Grid Name="EyeShapeLeft">
+                <Rectangle Name="EyeShapeLeftBackground">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
+                                    <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58z M0,0z M49.998049,56.380854L1.4238174,28.999995 50.000013,1.619134 38.729116,28.994188z" />
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle Name="EyeShapeLeftForeground">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
+                                    <DrawingGroup.OpacityMask>
+                                        <LinearGradientBrush StartPoint=".5,0" EndPoint="0,0">
+                                            <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                            <GradientStop Color="#FFFFFFFF" Offset="{Binding LeftOffset}"/>
+                                            <GradientStop Color="#00FFFFFF" Offset="{Binding LeftOffset}"/>
+                                        </LinearGradientBrush>
+                                    </DrawingGroup.OpacityMask>
+                                    <GeometryDrawing Brush="{Binding SteerBrush}" Geometry="F1 M100,58z M0,0z M49.998049,56.380854L1.4238174,28.999995 50.000013,1.619134 38.729116,28.994188z" />
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+            <Grid Name="EyeShapeRight">
+                <Rectangle Name="EyeShapeRightBackground">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
+                                    <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58z M0,0z M50.001976,56.380854L98.576185,28.999995 50.000012,1.619134 61.287923,28.994188z" />
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle Name="EyeShapeRightForeground">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
+                                    <DrawingGroup.OpacityMask>
+                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="1,0">
+                                            <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                            <GradientStop Color="#FFFFFFFF" Offset="{Binding RightOffset}"/>
+                                            <GradientStop Color="#00FFFFFF" Offset="{Binding RightOffset}"/>
+                                        </LinearGradientBrush>
+                                    </DrawingGroup.OpacityMask>
+                                    <GeometryDrawing Brush="{Binding SteerBrush}" Geometry="F1 M100,58z M0,0z M50.001976,56.380854L98.576185,28.999995 50.000012,1.619134 61.287923,28.994188z" />
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+            <Rectangle>
+                <Rectangle.Fill>
+                    <DrawingBrush>
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
+                                <!--Accelerate-->
+                                <GeometryDrawing Brush="{Binding AccelerateBrush}" Geometry="F1 M100,58z M0,0z M50.000001,5.0435525L40.91563,27.614735 50.000001,22.493874 59.082497,27.612859z" />
+                                <!--Brake-->
+                                <GeometryDrawing Brush="{Binding BrakeBrush}" Geometry="F1 M100,58z M0,0z M40.906251,30.358992L50.000001,52.956435 59.093751,30.358992 50.000001,35.483605z" />
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Grid>
+        <Grid Name="TrapezShape">
+            <Grid.Visibility>
                 <MultiBinding Converter="{StaticResource ShapeVisibilityConverter}">
                     <Binding Path="SelectedShape"/>
                     <Binding Source="{x:Static local:OverlayShape.Trapez}"/>
                 </MultiBinding>
-            </Rectangle.Visibility>
-            <Rectangle.Fill>
-                <DrawingBrush>
-                    <DrawingBrush.Drawing>
-                        <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
-                            <!--Right-->
-                            <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58.000011z M0,0z M64.195179,9.4835676L98.317336,28.992884 64.195179,48.50223z" />
-                            <!--Left-->
-                            <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58.000011z M0,0z M35.804821,9.4835676L1.6826634,28.992884 35.804821,48.50223z" />
-                            <!--Accelerate-->
-                            <GeometryDrawing Brush="{Binding AccelerateBrush}" Geometry="F1 M100,58.000011z M0,0z M50,1.3745704L39.520388,7.3652402 39.520388,27.162176 60.47961,27.162176 60.47961,7.3652402z" />
-                            <!--Brake-->
-                            <GeometryDrawing Brush="{Binding BrakeBrush}" Geometry="F1 M100,58.000011z M0,0z M39.520609,30.818487L39.520609,50.63477 50.000222,56.62544 60.479832,50.63477 60.479832,30.818487z" />
-                        </DrawingGroup>
-                    </DrawingBrush.Drawing>
-                </DrawingBrush>
-            </Rectangle.Fill>
-        </Rectangle>
+            </Grid.Visibility>
+            <Grid Name="TrapezShapeLeft">
+                <Rectangle Name="TrapezShapeLeftBackground">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
+                                    <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58.000011z M0,0z M35.804821,9.4835676L1.6826634,28.992884 35.804821,48.50223z" />
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle Name="TrapezShapeLeftForeground">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
+                                    <DrawingGroup.OpacityMask>
+                                        <LinearGradientBrush StartPoint=".5,0" EndPoint="0,0">
+                                            <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                            <GradientStop Color="#FFFFFFFF" Offset="{Binding LeftOffset}"/>
+                                            <GradientStop Color="#00FFFFFF" Offset="{Binding LeftOffset}"/>
+                                        </LinearGradientBrush>
+                                    </DrawingGroup.OpacityMask>
+                                    <GeometryDrawing Brush="{Binding SteerBrush}" Geometry="F1 M100,58.000011z M0,0z M35.804821,9.4835676L1.6826634,28.992884 35.804821,48.50223z" />
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+            <Grid Name="TrapezShapeRight">
+                <Rectangle Name="TrapezShapeRightBackground">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
+                                    <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58.000011z M0,0z M64.195179,9.4835676L98.317336,28.992884 64.195179,48.50223z" />
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle Name="TrapezShapeRightForeground">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
+                                    <DrawingGroup.OpacityMask>
+                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="1,0">
+                                            <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                            <GradientStop Color="#FFFFFFFF" Offset="{Binding RightOffset}"/>
+                                            <GradientStop Color="#00FFFFFF" Offset="{Binding RightOffset}"/>
+                                        </LinearGradientBrush>
+                                    </DrawingGroup.OpacityMask>
+                                    <GeometryDrawing Brush="{Binding SteerBrush}" Geometry="F1 M100,58.000011z M0,0z M64.195179,9.4835676L98.317336,28.992884 64.195179,48.50223z" />
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+            <Rectangle>
+                <Rectangle.Fill>
+                    <DrawingBrush>
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
+                                <!--Accelerate-->
+                                <GeometryDrawing Brush="{Binding AccelerateBrush}" Geometry="F1 M100,58.000011z M0,0z M50,1.3745704L39.520388,7.3652402 39.520388,27.162176 60.47961,27.162176 60.47961,7.3652402z" />
+                                <!--Brake-->
+                                <GeometryDrawing Brush="{Binding BrakeBrush}" Geometry="F1 M100,58.000011z M0,0z M39.520609,30.818487L39.520609,50.63477 50.000222,56.62544 60.479832,50.63477 60.479832,30.818487z" />
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Grid>
         <Grid Name="CatEyeShape">
             <Grid.Visibility>
                 <MultiBinding Converter="{StaticResource ShapeVisibilityConverter}">
@@ -191,7 +311,6 @@
                         <DrawingBrush>
                             <DrawingBrush.Drawing>
                                 <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
-                                    <!--Right-->
                                     <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58z M0,0z M49.998049,56.380854L1.4238174,28.999995 50.000013,1.619134 38.729116,28.994188z" />
                                 </DrawingGroup>
                             </DrawingBrush.Drawing>
@@ -210,7 +329,6 @@
                                             <GradientStop Color="#00FFFFFF" Offset="{Binding LeftOffset}"/>
                                         </LinearGradientBrush>
                                     </DrawingGroup.OpacityMask>
-                                    <!--Right-->
                                     <GeometryDrawing Brush="{Binding SteerBrush}" Geometry="F1 M100,58z M0,0z M49.998049,56.380854L1.4238174,28.999995 50.000013,1.619134 38.729116,28.994188z" />
                                 </DrawingGroup>
                             </DrawingBrush.Drawing>
@@ -224,7 +342,6 @@
                         <DrawingBrush>
                             <DrawingBrush.Drawing>
                                 <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
-                                    <!--Right-->
                                     <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58z M0,0z M50.001976,56.380854L98.576185,28.999995 50.000012,1.619134 61.287923,28.994188z" />
                                 </DrawingGroup>
                             </DrawingBrush.Drawing>
@@ -243,7 +360,6 @@
                                             <GradientStop Color="#00FFFFFF" Offset="{Binding RightOffset}"/>
                                         </LinearGradientBrush>
                                     </DrawingGroup.OpacityMask>
-                                    <!--Right-->
                                     <GeometryDrawing Brush="{Binding SteerBrush}" Geometry="F1 M100,58z M0,0z M50.001976,56.380854L98.576185,28.999995 50.000012,1.619134 61.287923,28.994188z" />
                                 </DrawingGroup>
                             </DrawingBrush.Drawing>
@@ -252,12 +368,6 @@
                 </Rectangle>
             </Grid>
             <Rectangle>
-                <Rectangle.Visibility>
-                    <MultiBinding Converter="{StaticResource ShapeVisibilityConverter}">
-                        <Binding Path="SelectedShape"/>
-                        <Binding Source="{x:Static local:OverlayShape.CatEye}"/>
-                    </MultiBinding>
-                </Rectangle.Visibility>
                 <Rectangle.Fill>
                     <DrawingBrush>
                         <DrawingBrush.Drawing>

@@ -35,6 +35,8 @@ namespace Spawn.InputOverlay.Input
         #region Ctor
         public XInputHandler(UserIndex userIndex = UserIndex.One)
         {
+            s_logger.Trace("Initializing...");
+
             m_controller = new Controller(userIndex);
 
             m_timer = new DispatcherTimer
@@ -45,8 +47,6 @@ namespace Spawn.InputOverlay.Input
             m_timer.Start();
 
             m_blnPrevIsDeviceConntectedValue = IsDeviceConnected;
-
-            s_logger.Debug("Created new XInputHandler instance");
         }
         #endregion
 

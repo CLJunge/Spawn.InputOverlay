@@ -1,4 +1,5 @@
 ﻿#region Using
+using NLog;
 using SharpDX.XInput;
 using System;
 #endregion
@@ -7,6 +8,11 @@ namespace Spawn.InputOverlay.Input
 {
     public class XInputHandler : InputHandlerBase
     {
+        #region Logger
+        protected override Logger Log => s_logger;
+        private static readonly Logger s_logger = LogManager.GetCurrentClassLogger();
+        #endregion
+
         #region Member Variables
         private readonly Controller m_controller;
         private bool m_blnPrevIsDeviceConntectedValue;

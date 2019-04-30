@@ -35,8 +35,6 @@ namespace Spawn.InputOverlay.Input
         #region Ctor
         public XInputHandler(UserIndex userIndex = UserIndex.One)
         {
-            s_logger.Trace("Initializing...");
-
             m_controller = new Controller(userIndex);
 
             m_timer = new DispatcherTimer

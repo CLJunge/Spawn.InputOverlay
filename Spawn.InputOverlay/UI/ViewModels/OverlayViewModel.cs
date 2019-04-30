@@ -49,7 +49,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
 
         #region Properties
         #region AppName
-        public string AppName => "PadViz (XONE Edition)";
+        public string AppName => App.AppName;
         #endregion
 
         #region WindowHeight

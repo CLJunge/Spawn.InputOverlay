@@ -1,9 +1,9 @@
 ﻿#region Using
+using NLog;
 using SharpDX.XInput;
 using Spawn.InputOverlay.Input;
 using Spawn.InputOverlay.Properties;
 using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -16,6 +16,10 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region Constants
         private const double DefaultWindowHeight = 250;
         private const double DefaultWindowWidth = 400;
+        #endregion
+
+        #region Logger
+        private static readonly Logger s_logger = LogManager.GetCurrentClassLogger();
         #endregion
 
         #region Member Variables
@@ -258,7 +262,9 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region Initialize
         private void Initialize()
         {
-            App.Current.Exit += (s, e) => SaveSettings();
+            s_logger.Trace("Initializing...");
+
+            System.Windows.Application.Current.Exit += (s, e) => SaveSettings();
 
             PropertyChanged += (s, e) =>
             {
@@ -304,6 +310,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region LoadValues
         private void LoadValues()
         {
+            s_logger.Debug("Loading values...");
+
             ResetSize();
 
             WindowBackgroundColor = Settings.Default.WindowBackgroundColor == Colors.Transparent ? Colors.Magenta : Settings.Default.WindowBackgroundColor;
@@ -330,11 +338,15 @@ namespace Spawn.InputOverlay.UI.ViewModels
             switch (ResizeMode)
             {
                 case ResizeMode.NoResize:
+                    s_logger.Debug("Showing resize grip");
+
                     ResizeMode = ResizeMode.CanResizeWithGrip;
                     ToggleResizeGridHeader = "Hide resize grip";
                     break;
 
                 case ResizeMode.CanResizeWithGrip:
+                    s_logger.Debug("Hiding resize grip");
+
                     ResizeMode = ResizeMode.NoResize;
                     ToggleResizeGridHeader = "Show resize grip";
                     break;
@@ -345,6 +357,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region ResetSize
         private void ResetSize()
         {
+            s_logger.Debug("Reset window size");
+
             WindowHeight = DefaultWindowHeight;
             WindowWidth = DefaultWindowWidth;
         }
@@ -353,12 +367,18 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region OpenAboutWindow
         private void OpenAboutWindow()
         {
+            s_logger.Trace("Opening about window...");
             //TODO
         }
         #endregion
 
         #region Close
-        private void Close() => App.Current.Shutdown();
+        private void Close()
+        {
+            s_logger.Trace("Exiting...");
+
+            System.Windows.Application.Current.Shutdown();
+        }
         #endregion
 
         #region SaveSettings
@@ -375,14 +395,16 @@ namespace Spawn.InputOverlay.UI.ViewModels
             Settings.Default.RefreshRate = RefreshRate;
 
             Settings.Default.Save();
+
+            s_logger.Trace("Saved settings");
         }
         #endregion
 
         #region InputManager Stuff
         #region OnDeviceConnected
-        private void OnDeviceConnected(object sender, System.EventArgs e)
+        private void OnDeviceConnected(object sender, EventArgs e)
         {
-            Debug.WriteLine("Device connected");
+            s_logger.Debug("Device connected");
 
             NoDeviceLabelVisibility = Visibility.Collapsed;
             SelectedShape = m_currentShape ?? Settings.Default.Shape;
@@ -391,9 +413,9 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region OnDeviceDisconnected
-        private void OnDeviceDisconnected(object sender, System.EventArgs e)
+        private void OnDeviceDisconnected(object sender, EventArgs e)
         {
-            Debug.WriteLine("Device disconnected");
+            s_logger.Debug("Device disconnected");
 
             m_currentShape = SelectedShape;
             SelectedShape = OverlayShape.None;
@@ -405,7 +427,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region OnInputUpdated
         private void OnInputUpdated(object sender, InputUpdatedEventArgs e)
         {
-            Debug.WriteLine("Input updated");
+            //s_logger.Debug("Input updated");
 
             m_blnIsAccelerateButtonPressed = UseTriggerForAccelerating
                 ? e.DeviceState.RightTrigger != 0

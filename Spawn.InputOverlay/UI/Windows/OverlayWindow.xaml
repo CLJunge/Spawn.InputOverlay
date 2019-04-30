@@ -102,7 +102,7 @@
                         <!--UseDPadForSteering-->
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="Use DPad for steering: " Margin="-5,0,0,0" Width="150"/>
+                                <Label Content="Use DPad for steering: " Margin="-5,0,0,0" Width="135"/>
                                 <CheckBox IsChecked="{Binding UseDPadForSteering, Mode=TwoWay}" Margin="0,7,0,0"/>
                             </StackPanel>
                         </MenuItem.Header>
@@ -111,7 +111,7 @@
                         <!--DeadZone-->
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="Dead zone: " Margin="-5,0,0,0" Width="150"/>
+                                <Label Content="Dead zone: " Margin="-5,0,0,0" Width="135"/>
                                 <xctk:SingleUpDown Value="{Binding DeadZone, Mode=TwoWay}" Minimum="0" Maximum="1" Increment=".1" Margin="0,2"/>
                             </StackPanel>
                         </MenuItem.Header>

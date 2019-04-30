@@ -97,7 +97,7 @@ namespace Spawn.InputOverlay.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool UseTriggerForAccelerating {
             get {
                 return ((bool)(this["UseTriggerForAccelerating"]));
@@ -109,7 +109,7 @@ namespace Spawn.InputOverlay.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool UseTriggerForBraking {
             get {
                 return ((bool)(this["UseTriggerForBraking"]));

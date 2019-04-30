@@ -20,12 +20,6 @@
     <Setting Name="SegmentBackgroundColor" Type="System.Windows.Media.Color" Scope="User">
       <Value Profile="(Default)">#FFFFFFFF</Value>
     </Setting>
-    <Setting Name="UseTriggerForAccelerating" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="UseTriggerForBraking" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="RefreshRate" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>

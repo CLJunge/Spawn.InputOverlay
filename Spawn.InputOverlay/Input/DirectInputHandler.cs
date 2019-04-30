@@ -13,7 +13,7 @@ namespace Spawn.InputOverlay.Input
         #region EventHandler
         public event EventHandler DeviceConnected;
         public event EventHandler DeviceDisconnected;
-        public event EventHandler<InputUpdatedEventArgs> InputUpdated;
+        public event EventHandler<InputEventArgs> InputUpdated;
         #endregion
 
         #region Logger

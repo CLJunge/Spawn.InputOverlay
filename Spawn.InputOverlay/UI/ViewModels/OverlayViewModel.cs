@@ -1,11 +1,9 @@
 ﻿#region Using
 using NLog;
-using SharpDX.XInput;
 using Spawn.InputOverlay.Input;
 using Spawn.InputOverlay.Properties;
 using System;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
 #endregion
 
@@ -36,8 +34,6 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private ResizeMode m_resizeMode;
         private string m_strToggleResizeGridHeader;
         private bool m_blnIsDeviceConnected;
-        private bool m_blnUseTriggerForAccelerating;
-        private bool m_blnUseTriggerForBraking;
         private int m_nRefreshRate;
         private float m_fLeftOffset;
         private float m_fRightOffset;
@@ -197,22 +193,6 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
-        #region UseTriggerForAccelerating
-        public bool UseTriggerForAccelerating
-        {
-            get => m_blnUseTriggerForAccelerating;
-            set => Set(ref m_blnUseTriggerForAccelerating, value);
-        }
-        #endregion
-
-        #region UseTriggerForBraking
-        public bool UseTriggerForBraking
-        {
-            get => m_blnUseTriggerForBraking;
-            set => Set(ref m_blnUseTriggerForBraking, value);
-        }
-        #endregion
-
         #region RefreshRate
         public int RefreshRate
         {
@@ -246,20 +226,20 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region ToggleResizeGripCommand
-        public ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
+        public System.Windows.Input.ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
         #endregion
 
         #region ResetSizeCommand
-        public ICommand ResetSizeCommand => new RelayCommand(ResetSize,
+        public System.Windows.Input.ICommand ResetSizeCommand => new RelayCommand(ResetSize,
             () => WindowHeight != DefaultWindowHeight || WindowWidth != DefaultWindowWidth);
         #endregion
 
         #region OpenAboutWindowCommand
-        public ICommand OpenAboutWindowCommand => new RelayCommand(OpenAboutWindow);
+        public System.Windows.Input.ICommand OpenAboutWindowCommand => new RelayCommand(OpenAboutWindow);
         #endregion
 
         #region CloseCommand
-        public ICommand CloseCommand => new RelayCommand(Close);
+        public System.Windows.Input.ICommand CloseCommand => new RelayCommand(Close);
         #endregion
 
         #region AvailableShapes
@@ -343,8 +323,6 @@ namespace Spawn.InputOverlay.UI.ViewModels
             ResizeMode = ResizeMode.NoResize;
             ToggleResizeGridHeader = "Show resize grip";
             IsDeviceConnected = false;
-            UseTriggerForAccelerating = Settings.Default.UseTriggerForAccelerating;
-            UseTriggerForBraking = Settings.Default.UseTriggerForBraking;
             RefreshRate = Settings.Default.RefreshRate;
             LeftOffset = 0;
             RightOffset = 0;
@@ -415,8 +393,6 @@ namespace Spawn.InputOverlay.UI.ViewModels
             s_logger.Debug("BrakeColor: {0}", BrakeColor);
             s_logger.Debug("SteerColor: {0}", SteerColor);
             s_logger.Debug("SegmentBackgroundColor: {0}", SegmentBackgroundColor);
-            s_logger.Debug("UseTriggerForAccelerating: {0}", UseTriggerForAccelerating);
-            s_logger.Debug("UseTriggerForBraking: {0}", UseTriggerForBraking);
             s_logger.Debug("RefreshRate: {0}", RefreshRate);
 
             Settings.Default.WindowBackgroundColor = WindowBackgroundColor;
@@ -425,8 +401,6 @@ namespace Spawn.InputOverlay.UI.ViewModels
             Settings.Default.BrakeColor = BrakeColor;
             Settings.Default.SteerColor = SteerColor;
             Settings.Default.SegmentBackgroundColor = SegmentBackgroundColor;
-            Settings.Default.UseTriggerForAccelerating = UseTriggerForAccelerating;
-            Settings.Default.UseTriggerForBraking = UseTriggerForBraking;
             Settings.Default.RefreshRate = RefreshRate;
 
             Settings.Default.Save();
@@ -460,17 +434,12 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region OnInputUpdated
-        private void OnInputUpdated(object sender, InputUpdatedEventArgs e)
+        private void OnInputUpdated(object sender, InputEventArgs e)
         {
             s_logger.Debug("Updating input...");
 
-            m_blnIsAccelerateButtonPressed = UseTriggerForAccelerating
-                ? e.DeviceState.RightTrigger != 0
-                : e.DeviceState.Buttons.HasFlag(GamepadButtonFlags.X);
-
-            m_blnIsBrakeButtonPressed = UseTriggerForBraking
-                ? e.DeviceState.LeftTrigger != 0
-                : e.DeviceState.Buttons.HasFlag(GamepadButtonFlags.A);
+            m_blnIsAccelerateButtonPressed = e.IsAccelerateButtonPressed || e.IsRightTriggerPressed;
+            m_blnIsBrakeButtonPressed = e.IsBrakeButtonPressed || e.IsLeftTriggerPressed;
 
             if (e.LeftStickX < DeadZone)
             {

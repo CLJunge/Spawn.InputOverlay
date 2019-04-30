@@ -13,7 +13,7 @@ namespace Spawn.InputOverlay.Input
         #region EventHandler
         public event EventHandler DeviceConnected;
         public event EventHandler DeviceDisconnected;
-        public event EventHandler<InputUpdatedEventArgs> InputUpdated;
+        public event EventHandler<InputEventArgs> InputUpdated;
         #endregion
 
         #region Logger
@@ -88,7 +88,19 @@ namespace Spawn.InputOverlay.Input
         private void CheckInput()
         {
             if (IsDeviceConnected && m_controller.GetState(out State state))
-                InputUpdated?.Invoke(this, new InputUpdatedEventArgs(state.Gamepad));
+            {
+                double dblLeftStickX = Math.Round(state.Gamepad.LeftThumbX / 32767f, 4);
+                bool blnIsLeftTriggerPressed = state.Gamepad.LeftTrigger != 0;
+                bool blnIsRightTriggerPressed = state.Gamepad.RightTrigger != 0;
+                bool blnIsAccelerateButtonPressed = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.X);
+                bool blnIsBrakeButtonPressed = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.A);
+
+                InputEventArgs e = new InputEventArgs(dblLeftStickX,
+                    blnIsLeftTriggerPressed, blnIsRightTriggerPressed,
+                    blnIsAccelerateButtonPressed, blnIsBrakeButtonPressed);
+
+                InputUpdated?.Invoke(this, e);
+            }
         }
         #endregion
 

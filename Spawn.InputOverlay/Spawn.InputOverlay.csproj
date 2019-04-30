@@ -101,7 +101,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Input\IInputHandler.cs" />
-    <Compile Include="Input\InputUpdatedEventArgs.cs" />
+    <Compile Include="Input\InputEventArgs.cs" />
     <Compile Include="Input\DirectInputHandler.cs" />
     <Compile Include="Input\XInputHandler.cs" />
     <Compile Include="OverlayShape.cs" />

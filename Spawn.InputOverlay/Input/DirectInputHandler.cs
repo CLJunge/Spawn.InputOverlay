@@ -1,51 +1,25 @@
 ﻿#region Using
-using NLog;
 using SharpDX.DirectInput;
-using Spawn.InputOverlay.Properties;
 using System;
-using System.Windows.Threading;
 #endregion
 
 namespace Spawn.InputOverlay.Input
 {
-    public class DirectInputHandler : IInputHandler
+    public class DirectInputHandler : InputHandlerBase
     {
-        #region EventHandler
-        public event EventHandler DeviceConnected;
-        public event EventHandler DeviceDisconnected;
-        public event EventHandler<InputEventArgs> InputUpdated;
-        #endregion
-
-        #region Logger
-        private static readonly Logger s_logger = LogManager.GetCurrentClassLogger();
-        #endregion
-
         #region Member Variables
         private Joystick m_controller;
-        private readonly DispatcherTimer m_connectionTimer;
-        private readonly DispatcherTimer m_dataTimer;
         #endregion
 
         #region Properties
-        public bool IsDeviceConnected => m_controller != null;
+        public override bool IsDeviceConnected => m_controller != null;
         #endregion
 
         #region Ctor
         public DirectInputHandler()
         {
-            m_connectionTimer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMilliseconds(100),
-            };
             m_connectionTimer.Tick += OnConnectionTimerTick;
-
-            m_dataTimer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate),
-            };
-            m_dataTimer.Tick += OnDataTimerTick;
-
-            m_connectionTimer.Start();
+            m_inputTimer.Tick += OnDataTimerTick;
         }
         #endregion
 
@@ -85,10 +59,10 @@ namespace Spawn.InputOverlay.Input
             {
                 if (!CheckInput())
                 {
-                    m_dataTimer.Stop();
+                    m_inputTimer.Stop();
                     m_controller = null;
 
-                    DeviceDisconnected?.Invoke(this, EventArgs.Empty);
+                    RaiseDeviceDisconnectedEvent(this, EventArgs.Empty);
 
                     m_connectionTimer.Start();
                 }
@@ -104,10 +78,10 @@ namespace Spawn.InputOverlay.Input
 
             if (IsDeviceConnected)
             {
-                DeviceConnected?.Invoke(this, EventArgs.Empty);
+                RaiseDeviceConnectedEvent(this, EventArgs.Empty);
 
                 m_connectionTimer.Stop();
-                m_dataTimer.Start();
+                m_inputTimer.Start();
             }
         }
         #endregion
@@ -137,30 +111,6 @@ namespace Spawn.InputOverlay.Input
             }
 
             return blnRet;
-        }
-        #endregion
-
-        #region RestartTime
-        public void RestartTimer()
-        {
-            if (m_dataTimer != null)
-            {
-                m_dataTimer.Stop();
-                m_dataTimer.Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate);
-                m_dataTimer.Start();
-
-                s_logger.Trace("Timer restarted");
-            }
-        }
-        #endregion
-
-        #region Dispose
-        public void Dispose()
-        {
-            s_logger.Trace("Disposing...");
-
-            m_connectionTimer?.Stop();
-            m_dataTimer?.Stop();
         }
         #endregion
     }

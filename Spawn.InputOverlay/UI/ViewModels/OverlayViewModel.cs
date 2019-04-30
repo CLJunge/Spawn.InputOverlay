@@ -303,6 +303,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
             m_inputHandler.DeviceDisconnected += OnDeviceDisconnected;
             m_inputHandler.InputUpdated += OnInputUpdated;
 
+            s_logger.Trace("Using {0}", m_inputHandler.GetType().Name);
+
             LoadValues();
         }
         #endregion

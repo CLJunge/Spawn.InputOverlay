@@ -83,15 +83,13 @@ namespace Spawn.InputOverlay.Input
         {
             if (IsDeviceConnected)
             {
-                bool blnSuccess = CheckInput();
-
-                if (!blnSuccess)
+                if (!CheckInput())
                 {
+                    m_dataTimer.Stop();
                     m_controller = null;
 
                     DeviceDisconnected?.Invoke(this, EventArgs.Empty);
 
-                    m_dataTimer.Stop();
                     m_connectionTimer.Start();
                 }
             }

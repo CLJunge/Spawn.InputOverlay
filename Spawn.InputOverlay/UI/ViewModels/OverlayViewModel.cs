@@ -378,6 +378,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             s_logger.Trace("Closing...");
 
+            m_inputHandler?.Dispose();
+
             SaveSettings();
 
             Application.Current.Shutdown();

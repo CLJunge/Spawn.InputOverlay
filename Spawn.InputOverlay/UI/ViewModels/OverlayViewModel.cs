@@ -310,8 +310,6 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region LoadValues
         private void LoadValues()
         {
-            s_logger.Debug("Loading values...");
-
             ResetSize();
 
             WindowBackgroundColor = Settings.Default.WindowBackgroundColor == Colors.Transparent ? Colors.Magenta : Settings.Default.WindowBackgroundColor;
@@ -329,6 +327,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
             RefreshRate = Settings.Default.RefreshRate;
             LeftOffset = 0;
             RightOffset = 0;
+
+            s_logger.Debug("Loaded initial values");
         }
         #endregion
 
@@ -351,6 +351,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
                     ToggleResizeGridHeader = "Show resize grip";
                     break;
             }
+
+            s_logger.Trace("Toggeled resize grip");
         }
         #endregion
 
@@ -384,6 +386,17 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region SaveSettings
         private void SaveSettings()
         {
+            s_logger.Debug("Saving settings...");
+            s_logger.Debug("WindowBackgroundColor: {0}", WindowBackgroundColor);
+            s_logger.Debug("Shape: {0}", SelectedShape);
+            s_logger.Debug("AccelerateColor: {0}", AccelerateColor);
+            s_logger.Debug("BrakeColor: {0}", BrakeColor);
+            s_logger.Debug("SteerColor: {0}", SteerColor);
+            s_logger.Debug("SegmentBackgroundColor: {0}", SegmentBackgroundColor);
+            s_logger.Debug("UseTriggerForAccelerating: {0}", UseTriggerForAccelerating);
+            s_logger.Debug("UseTriggerForBraking: {0}", UseTriggerForBraking);
+            s_logger.Debug("RefreshRate: {0}", RefreshRate);
+
             Settings.Default.WindowBackgroundColor = WindowBackgroundColor;
             Settings.Default.Shape = SelectedShape;
             Settings.Default.AccelerateColor = AccelerateColor;
@@ -396,7 +409,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
 
             Settings.Default.Save();
 
-            s_logger.Trace("Saved settings");
+            s_logger.Trace("Saved settings successfully");
         }
         #endregion
 
@@ -427,7 +440,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region OnInputUpdated
         private void OnInputUpdated(object sender, InputUpdatedEventArgs e)
         {
-            //s_logger.Debug("Input updated");
+            s_logger.Debug("Updating input...");
 
             m_blnIsAccelerateButtonPressed = UseTriggerForAccelerating
                 ? e.DeviceState.RightTrigger != 0

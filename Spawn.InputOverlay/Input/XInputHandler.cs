@@ -62,7 +62,7 @@ namespace Spawn.InputOverlay.Input
         #region CheckConnection
         private void CheckConnection()
         {
-            s_logger.Debug("Checking device connection...");
+            s_logger.Trace("Checking device connection...");
 
             if (!m_blnFiredInitialEvent)
             {
@@ -99,14 +99,14 @@ namespace Spawn.InputOverlay.Input
             m_timer.Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate);
             m_timer.Start();
 
-            s_logger.Debug("Timer restarted");
+            s_logger.Trace("Timer restarted");
         }
         #endregion
 
         #region Dispose
         public void Dispose()
         {
-            s_logger.Debug("Disposing...");
+            s_logger.Trace("Disposing...");
 
             m_timer?.Stop();
         }

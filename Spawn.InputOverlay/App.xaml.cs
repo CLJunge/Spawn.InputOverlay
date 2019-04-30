@@ -20,7 +20,7 @@ namespace Spawn.InputOverlay
         #region Ctor
         public App()
         {
-            s_logger.Trace("=========== {0} v{1} ===========", AppName, AppVersion);
+            s_logger.Info("=========== {0} v{1} ===========", AppName, AppVersion);
         }
         #endregion
     }

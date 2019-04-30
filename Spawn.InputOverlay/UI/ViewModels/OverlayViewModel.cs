@@ -303,7 +303,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             m_inputHandler.DeviceDisconnected += OnDeviceDisconnected;
             m_inputHandler.InputUpdated += OnInputUpdated;
 
-            s_logger.Trace("Using {0}", m_inputHandler.GetType().Name);
+            s_logger.Info("Using {0}", m_inputHandler.GetType().Name);
 
             LoadValues();
         }
@@ -354,14 +354,14 @@ namespace Spawn.InputOverlay.UI.ViewModels
                     break;
             }
 
-            s_logger.Trace("Toggeled resize grip");
+            s_logger.Info("Toggeled resize grip");
         }
         #endregion
 
         #region ResetSize
         private void ResetSize()
         {
-            s_logger.Debug("Reset window size");
+            s_logger.Trace("Reset window size");
 
             WindowHeight = DefaultWindowHeight;
             WindowWidth = DefaultWindowWidth;
@@ -379,7 +379,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region Close
         private void Close()
         {
-            s_logger.Trace("Exiting...");
+            s_logger.Info("Exiting...");
 
             System.Windows.Application.Current.Shutdown();
         }
@@ -411,7 +411,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
 
             Settings.Default.Save();
 
-            s_logger.Trace("Saved settings successfully");
+            s_logger.Info("Saved settings successfully");
         }
         #endregion
 
@@ -419,7 +419,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region OnDeviceConnected
         private void OnDeviceConnected(object sender, EventArgs e)
         {
-            s_logger.Debug("Device connected");
+            s_logger.Info("Device connected");
 
             NoDeviceLabelVisibility = Visibility.Collapsed;
             SelectedShape = m_currentShape ?? Settings.Default.Shape;
@@ -430,7 +430,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region OnDeviceDisconnected
         private void OnDeviceDisconnected(object sender, EventArgs e)
         {
-            s_logger.Debug("Device disconnected");
+            s_logger.Info("Device disconnected");
 
             m_currentShape = SelectedShape;
             SelectedShape = OverlayShape.None;

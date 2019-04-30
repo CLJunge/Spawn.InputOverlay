@@ -151,7 +151,7 @@ namespace Spawn.InputOverlay.Input
                 m_dataTimer.Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate);
                 m_dataTimer.Start();
 
-                s_logger.Debug("Timer restarted");
+                s_logger.Trace("Timer restarted");
             }
         }
         #endregion
@@ -159,7 +159,7 @@ namespace Spawn.InputOverlay.Input
         #region Dispose
         public void Dispose()
         {
-            s_logger.Debug("Disposing...");
+            s_logger.Trace("Disposing...");
 
             m_connectionTimer?.Stop();
             m_dataTimer?.Stop();

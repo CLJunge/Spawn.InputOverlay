@@ -410,7 +410,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             s_logger.Debug("RefreshRate: {0}", RefreshRate);
 
             Settings.Default.WindowBackgroundColor = WindowBackgroundColor;
-            Settings.Default.Shape = SelectedShape;
+            Settings.Default.Shape = SelectedShape == OverlayShape.None ? (m_currentShape ?? SelectedShape) : SelectedShape;
             Settings.Default.AccelerateColor = AccelerateColor;
             Settings.Default.BrakeColor = BrakeColor;
             Settings.Default.SteerColor = SteerColor;

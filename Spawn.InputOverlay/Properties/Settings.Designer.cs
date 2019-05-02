@@ -142,5 +142,29 @@ namespace Spawn.InputOverlay.Properties {
                 this["NoDeviceLabelColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("RightThumb")]
+        public global::SharpDX.XInput.GamepadButtonFlags AccelerateButton {
+            get {
+                return ((global::SharpDX.XInput.GamepadButtonFlags)(this["AccelerateButton"]));
+            }
+            set {
+                this["AccelerateButton"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LeftThumb")]
+        public global::SharpDX.XInput.GamepadButtonFlags BrakeButton {
+            get {
+                return ((global::SharpDX.XInput.GamepadButtonFlags)(this["BrakeButton"]));
+            }
+            set {
+                this["BrakeButton"] = value;
+            }
+        }
     }
 }

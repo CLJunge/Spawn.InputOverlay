@@ -1,6 +1,7 @@
 ﻿#region Using
 using NLog;
 using SharpDX.DirectInput;
+using SharpDX.XInput;
 using System;
 using System.Linq;
 #endregion
@@ -24,8 +25,12 @@ namespace Spawn.InputOverlay.Input
         private DirectInputDeviceType m_deviceType;
 
         private double m_dblLeftStickXValue;
-        private bool m_blnIsSquareButtonPressed;
         private bool m_blnIsCrossButtonPressed;
+        private bool m_blnIsCircleButtonPressed;
+        private bool m_blnIsSquareButtonPressed;
+        private bool m_blnIsTriangleButtonPressed;
+        private bool m_blnIsLeftShoulderPressed;
+        private bool m_blnIsRightShoulderPressed;
         private bool m_blnIsLeftTriggerPressed;
         private bool m_blnIsRightTriggerPressed;
         private bool m_blnIsDPadLeftPressed;
@@ -97,7 +102,7 @@ namespace Spawn.InputOverlay.Input
             Guid gamepadId = Guid.Empty;
 
             //DualShock4
-            foreach (DeviceInstance deviceInstance in directInput.GetDevices(DeviceType.FirstPerson, DeviceEnumerationFlags.AttachedOnly))
+            foreach (DeviceInstance deviceInstance in directInput.GetDevices(SharpDX.DirectInput.DeviceType.FirstPerson, DeviceEnumerationFlags.AttachedOnly))
             {
                 gamepadId = deviceInstance.InstanceGuid;
 
@@ -155,7 +160,11 @@ namespace Spawn.InputOverlay.Input
         {
             JoystickUpdate leftStickXData = vData.FirstOrDefault(i => i.Offset == JoystickOffset.X);
             JoystickUpdate crossButtonData = vData.FirstOrDefault(i => i.Offset == JoystickOffset.Buttons1);
+            JoystickUpdate circleButtonData = vData.FirstOrDefault(i => i.Offset == JoystickOffset.Buttons2);
             JoystickUpdate squareButtonData = vData.FirstOrDefault(i => i.Offset == JoystickOffset.Buttons0);
+            JoystickUpdate triangleButtonData = vData.FirstOrDefault(i => i.Offset == JoystickOffset.Buttons3);
+            JoystickUpdate leftShoulderData = vData.FirstOrDefault(i => i.Offset == JoystickOffset.Buttons4);
+            JoystickUpdate rightShoulderData = vData.FirstOrDefault(i => i.Offset == JoystickOffset.Buttons5);
             JoystickUpdate leftTriggerData = vData.FirstOrDefault(i => i.Offset == JoystickOffset.Buttons6);
             JoystickUpdate rightTriggerData = vData.FirstOrDefault(i => i.Offset == JoystickOffset.Buttons7);
             JoystickUpdate dPadData = vData.FirstOrDefault(i => i.Offset == JoystickOffset.PointOfViewControllers0);
@@ -166,8 +175,20 @@ namespace Spawn.InputOverlay.Input
             if (crossButtonData.Timestamp != 0)
                 m_blnIsCrossButtonPressed = crossButtonData.Value == 128;
 
+            if (circleButtonData.Timestamp != 0)
+                m_blnIsCircleButtonPressed = circleButtonData.Value == 128;
+
             if (squareButtonData.Timestamp != 0)
                 m_blnIsSquareButtonPressed = squareButtonData.Value == 128;
+
+            if (triangleButtonData.Timestamp != 0)
+                m_blnIsTriangleButtonPressed = triangleButtonData.Value == 128;
+
+            if (leftShoulderData.Timestamp != 0)
+                m_blnIsLeftShoulderPressed = leftShoulderData.Value == 128;
+
+            if (rightShoulderData.Timestamp != 0)
+                m_blnIsRightShoulderPressed = rightShoulderData.Value == 128;
 
             if (leftTriggerData.Timestamp != 0)
                 m_blnIsLeftTriggerPressed = leftTriggerData.Value == 128;
@@ -199,11 +220,43 @@ namespace Spawn.InputOverlay.Input
             }
 
             InputEventArgs args = new InputEventArgs(m_dblLeftStickXValue,
-                m_blnIsDPadLeftPressed, m_blnIsDPadRightPressed,
                 m_blnIsLeftTriggerPressed, m_blnIsRightTriggerPressed,
-                m_blnIsSquareButtonPressed, m_blnIsCrossButtonPressed);
+                GetPressedButtons());
 
             RaiseInputUpdatedEvent(this, args);
+        }
+        #endregion
+
+        #region GetPressedButtons
+        private GamepadButtonFlags GetPressedButtons()
+        {
+            GamepadButtonFlags retVal = GamepadButtonFlags.None;
+
+            if (m_blnIsCrossButtonPressed)
+                retVal |= GamepadButtonFlags.A;
+
+            if (m_blnIsCircleButtonPressed)
+                retVal |= GamepadButtonFlags.B;
+
+            if (m_blnIsSquareButtonPressed)
+                retVal |= GamepadButtonFlags.X;
+
+            if (m_blnIsTriangleButtonPressed)
+                retVal |= GamepadButtonFlags.Y;
+
+            if (m_blnIsLeftShoulderPressed)
+                retVal |= GamepadButtonFlags.LeftThumb;
+
+            if (m_blnIsRightShoulderPressed)
+                retVal |= GamepadButtonFlags.RightThumb;
+
+            if (m_blnIsDPadLeftPressed)
+                retVal |= GamepadButtonFlags.DPadLeft;
+
+            if (m_blnIsDPadRightPressed)
+                retVal |= GamepadButtonFlags.DPadRight;
+
+            return retVal;
         }
         #endregion
     }

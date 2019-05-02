@@ -16,6 +16,7 @@
         <converters:ShapeVisibilityConverter x:Key="ShapeVisibilityConverter"/>
         <converters:EnumDescriptionConverter x:Key="EnumConverter"/>
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <converters:GamepadButtonConverter x:Key="GamepadButtonConverter"/>
     </Window.Resources>
     <Window.DataContext>
         <vm:OverlayViewModel/>
@@ -102,6 +103,38 @@
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="No device label: " Margin="-5,0,0,0" Width="150"/>
                                 <xctk:ColorPicker SelectedColor="{Binding NoDeviceLabelColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Buttons">
+                    <MenuItem>
+                        <!--Accelerate-->
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Accelerate: " Margin="-5,0,0,0"/>
+                                <ComboBox ItemsSource="{Binding AvailableButtons}" SelectedItem="{Binding AccelerateButton, Mode=TwoWay}" Margin="5,2,0,2">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Path=., Converter={StaticResource GamepadButtonConverter}}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem>
+                        <!--Brake-->
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Brake: " Margin="-5,0,0,0"/>
+                                <ComboBox ItemsSource="{Binding AvailableButtons}" SelectedItem="{Binding BrakeButton, Mode=TwoWay}" Margin="5,2,0,2">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Path=., Converter={StaticResource GamepadButtonConverter}}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
                             </StackPanel>
                         </MenuItem.Header>
                     </MenuItem>

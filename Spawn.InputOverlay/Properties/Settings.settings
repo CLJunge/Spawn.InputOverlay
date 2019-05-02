@@ -32,5 +32,11 @@
     <Setting Name="NoDeviceLabelColor" Type="System.Windows.Media.Color" Scope="User">
       <Value Profile="(Default)">#FFFFFFFF</Value>
     </Setting>
+    <Setting Name="AccelerateButton" Type="SharpDX.XInput.GamepadButtonFlags" Scope="User">
+      <Value Profile="(Default)">RightThumb</Value>
+    </Setting>
+    <Setting Name="BrakeButton" Type="SharpDX.XInput.GamepadButtonFlags" Scope="User">
+      <Value Profile="(Default)">LeftThumb</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

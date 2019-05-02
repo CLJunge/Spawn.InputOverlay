@@ -41,7 +41,6 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private bool m_blnUseDPadForSteering;
 
         private OverlayShape? m_currentShape;
-        private IInputHandler m_inputHandler;
         private bool m_blnIsAccelerateButtonPressed;
         private bool m_blnIsBrakeButtonPressed;
         #endregion
@@ -297,19 +296,14 @@ namespace Spawn.InputOverlay.UI.ViewModels
                         break;
 
                     case nameof(RefreshRate):
-                        m_inputHandler?.RestartInputTimer();
+                        DeviceManager.Instance.RestartInputTimer();
                         break;
                 }
             };
 
-            //m_inputHandler = new XInputHandler();
-            m_inputHandler = new DirectInputHandler();
-            m_inputHandler.DeviceConnected += OnDeviceConnected;
-            m_inputHandler.DeviceDisconnected += OnDeviceDisconnected;
-            m_inputHandler.InputUpdated += OnInputUpdated;
-            m_inputHandler.StartConnectionTimer();
-
-            s_logger.Debug("Using {0}", m_inputHandler.GetType().Name);
+            DeviceManager.Instance.DeviceConnected += OnDeviceConnected;
+            DeviceManager.Instance.DeviceDisconnected += OnDeviceDisconnected;
+            DeviceManager.Instance.StartConnectionTimers();
 
             LoadValues();
         }
@@ -388,7 +382,9 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             s_logger.Trace("Closing...");
 
-            m_inputHandler?.Dispose();
+            DeviceManager.Instance.DeviceConnected -= OnDeviceConnected;
+            DeviceManager.Instance.DeviceDisconnected -= OnDeviceDisconnected;
+            DeviceManager.Instance.Dispose();
 
             SaveSettings();
 
@@ -424,11 +420,13 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
-        #region InputManager Stuff
+        #region DeviceManager Stuff
         #region OnDeviceConnected
         private void OnDeviceConnected(object sender, EventArgs e)
         {
-            s_logger.Info("Device connected");
+            IInputHandler inputHandler = sender as IInputHandler;
+            inputHandler.InputUpdated += OnInputUpdated;
+            s_logger.Debug("Using {0}", inputHandler.GetType().Name);
 
             NoDeviceLabelVisibility = Visibility.Collapsed;
             SelectedShape = m_currentShape ?? Settings.Default.Shape;
@@ -439,13 +437,15 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #region OnDeviceDisconnected
         private void OnDeviceDisconnected(object sender, EventArgs e)
         {
-            s_logger.Info("Device disconnected");
+            IInputHandler inputHandler = sender as IInputHandler;
+            inputHandler.InputUpdated -= OnInputUpdated;
 
             m_currentShape = SelectedShape;
             SelectedShape = OverlayShape.None;
             NoDeviceLabelVisibility = Visibility.Visible;
             IsDeviceConnected = false;
         }
+        #endregion
         #endregion
 
         #region OnInputUpdated
@@ -482,7 +482,6 @@ namespace Spawn.InputOverlay.UI.ViewModels
             RaisePropertyChangedEvent(nameof(AccelerateBrush));
             RaisePropertyChangedEvent(nameof(BrakeBrush));
         }
-        #endregion
         #endregion
 
         #region PerceivedBrightness

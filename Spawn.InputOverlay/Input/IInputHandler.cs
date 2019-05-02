@@ -18,6 +18,7 @@ namespace Spawn.InputOverlay.Input
 
         #region Methods
         void StartConnectionTimer();
+        void StopConnectionTimer();
         void RestartInputTimer();
         #endregion
     }

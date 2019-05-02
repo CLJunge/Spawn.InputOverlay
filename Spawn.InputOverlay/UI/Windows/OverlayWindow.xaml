@@ -129,7 +129,8 @@
     </Window.ContextMenu>
     <Grid>
         <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
-            <Label Content=" No device&#10;connected!" Foreground="{Binding NoDeviceLabelBrush}" Visibility="{Binding NoDeviceLabelVisibility}" FontFamily="Corbel" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Medium"/>
+            <!--Foreground="{Binding NoDeviceLabelBrush}"-->
+            <Label Content=" No device&#10;connected!" Foreground="White" Visibility="{Binding NoDeviceLabelVisibility}" FontFamily="Corbel" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Medium"/>
         </Viewbox>
         <Grid Name="EyeShape">
             <Grid.Visibility>

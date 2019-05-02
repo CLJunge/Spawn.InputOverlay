@@ -25,6 +25,7 @@ namespace Spawn.InputOverlay.Input
 
         #region Ctor
         public XInputHandler(UserIndex userIndex = UserIndex.One)
+            : base(InputType.XInput)
         {
             m_controller = new Controller(userIndex);
 
@@ -66,7 +67,11 @@ namespace Spawn.InputOverlay.Input
             if (!m_blnFiredInitialEvent)
             {
                 if (IsDeviceConnected)
+                {
+                    Log.Info("Device connected");
+
                     RaiseDeviceConnectedEvent(this, EventArgs.Empty);
+                }
 
                 m_blnFiredInitialEvent = true;
             }
@@ -74,10 +79,21 @@ namespace Spawn.InputOverlay.Input
             if (IsDeviceConnected != m_blnPrevIsDeviceConntectedValue)
             {
                 if (IsDeviceConnected)
+                {
+                    Log.Info("Device connected");
+
                     RaiseDeviceConnectedEvent(this, EventArgs.Empty);
+                }
                 else
+                {
+                    Log.Info("Device disconnected");
+
                     RaiseDeviceDisconnectedEvent(this, EventArgs.Empty);
+                }
             }
+
+            if (IsDeviceConnected)
+                m_inputTimer.Start();
 
             m_blnPrevIsDeviceConntectedValue = IsDeviceConnected;
         }

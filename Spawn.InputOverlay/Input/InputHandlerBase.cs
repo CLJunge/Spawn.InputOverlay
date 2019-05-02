@@ -15,6 +15,8 @@ namespace Spawn.InputOverlay.Input
         #endregion
 
         #region Member Variables
+        private readonly InputType m_inputType;
+
         protected readonly DispatcherTimer m_connectionTimer;
         protected readonly DispatcherTimer m_inputTimer;
         #endregion
@@ -34,8 +36,10 @@ namespace Spawn.InputOverlay.Input
         #endregion
 
         #region Ctor
-        public InputHandlerBase()
+        public InputHandlerBase(InputType inputType)
         {
+            m_inputType = inputType;
+
             m_connectionTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(250),
@@ -53,7 +57,16 @@ namespace Spawn.InputOverlay.Input
         {
             m_connectionTimer.Start();
 
-            Log.Info("Waiting for device...");
+            Log.Info("Waiting for device... ({0})", m_inputType);
+        }
+        #endregion
+
+        #region StopConnectionTimer
+        public void StopConnectionTimer()
+        {
+            m_connectionTimer.Stop();
+
+            Log.Trace("Stopped connection timer ({0})", m_inputType);
         }
         #endregion
 
@@ -64,19 +77,19 @@ namespace Spawn.InputOverlay.Input
             m_inputTimer.Interval = TimeSpan.FromMilliseconds(Settings.Default.RefreshRate);
             m_inputTimer.Start();
 
-            Log.Trace("Timer restarted");
+            Log.Trace("Timer restarted ({0})", m_inputType);
         }
         #endregion
 
         #region Dispose
         public void Dispose()
         {
-            Log.Trace("Disposing...");
+            Log.Trace("Disposing... ({0})", m_inputType);
 
             m_connectionTimer.Stop();
             m_inputTimer.Stop();
 
-            Log.Debug("Stopped timers");
+            Log.Debug("Stopped timers ({0})", m_inputType);
         }
         #endregion
     }

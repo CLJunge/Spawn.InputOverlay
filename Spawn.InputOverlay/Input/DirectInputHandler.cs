@@ -21,7 +21,7 @@ namespace Spawn.InputOverlay.Input
 
         #region Member Variables
         private Joystick m_controller;
-        private DirectInputDevice m_deviceType;
+        private DirectInputDeviceType m_deviceType;
 
         private double m_dblLeftStickXValue;
         private bool m_blnIsSquareButtonPressed;
@@ -38,24 +38,27 @@ namespace Spawn.InputOverlay.Input
 
         #region Ctor
         public DirectInputHandler()
+            : base(InputType.DirectInput)
         {
             m_connectionTimer.Tick += OnConnectionTimerTick;
-            m_inputTimer.Tick += OnDataTimerTick;
+            m_inputTimer.Tick += OnInputTimerTick;
 
-            m_deviceType = DirectInputDevice.None;
+            m_deviceType = DirectInputDeviceType.None;
         }
         #endregion
 
-        #region OnDataTimerTick
-        private void OnDataTimerTick(object sender, EventArgs e)
+        #region OnInputTimerTick
+        private void OnInputTimerTick(object sender, EventArgs e)
         {
             if (IsDeviceConnected)
             {
                 if (!CheckInput())
                 {
+                    Log.Info("Device disconnected");
+
                     m_inputTimer.Stop();
                     m_controller = null;
-                    m_deviceType = DirectInputDevice.None;
+                    m_deviceType = DirectInputDeviceType.None;
 
                     RaiseDeviceDisconnectedEvent(this, EventArgs.Empty);
 
@@ -68,11 +71,15 @@ namespace Spawn.InputOverlay.Input
         #region OnConnectionTimerTick
         private void OnConnectionTimerTick(object sender, EventArgs e)
         {
+            Log.Trace("Checking device connection...");
+
             if (!IsDeviceConnected)
                 m_controller = FindController();
 
             if (IsDeviceConnected)
             {
+                Log.Info("Device connected");
+
                 RaiseDeviceConnectedEvent(this, EventArgs.Empty);
 
                 m_connectionTimer.Stop();
@@ -96,7 +103,7 @@ namespace Spawn.InputOverlay.Input
 
                 if (gamepadId != Guid.Empty)
                 {
-                    m_deviceType = DirectInputDevice.DualShock4;
+                    m_deviceType = DirectInputDeviceType.DualShock4;
 
                     break;
                 }
@@ -127,7 +134,7 @@ namespace Spawn.InputOverlay.Input
 
                 switch (m_deviceType)
                 {
-                    case DirectInputDevice.DualShock4:
+                    case DirectInputDeviceType.DualShock4:
                         HandleDualShock4Input(vData);
                         break;
                 }

@@ -29,5 +29,8 @@
     <Setting Name="DeadZone" Type="System.Single" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
+    <Setting Name="NoDeviceLabelColor" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FFFFFFFF</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

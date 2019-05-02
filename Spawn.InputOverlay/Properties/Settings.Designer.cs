@@ -130,5 +130,17 @@ namespace Spawn.InputOverlay.Properties {
                 this["DeadZone"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFFFFFFF")]
+        public global::System.Windows.Media.Color NoDeviceLabelColor {
+            get {
+                return ((global::System.Windows.Media.Color)(this["NoDeviceLabelColor"]));
+            }
+            set {
+                this["NoDeviceLabelColor"] = value;
+            }
+        }
     }
 }

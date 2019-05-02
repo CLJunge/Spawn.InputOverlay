@@ -96,6 +96,15 @@
                             </StackPanel>
                         </MenuItem.Header>
                     </MenuItem>
+                    <MenuItem>
+                        <!--NoDeviceLabel-->
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="No device label: " Margin="-5,0,0,0" Width="150"/>
+                                <xctk:ColorPicker SelectedColor="{Binding NoDeviceLabelColor, Mode=TwoWay}" Width="100" Margin="0,2"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Steering">
                     <MenuItem>
@@ -129,8 +138,7 @@
     </Window.ContextMenu>
     <Grid>
         <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
-            <!--Foreground="{Binding NoDeviceLabelBrush}"-->
-            <Label Content=" No device&#10;connected!" Foreground="White" Visibility="{Binding NoDeviceLabelVisibility}" FontFamily="Corbel" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Medium"/>
+            <Label Content=" No device&#10;connected!" Foreground="{Binding NoDeviceLabelBrush}" Visibility="{Binding NoDeviceLabelVisibility}" FontFamily="Corbel" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Medium"/>
         </Viewbox>
         <Grid Name="EyeShape">
             <Grid.Visibility>

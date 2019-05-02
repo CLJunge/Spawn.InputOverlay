@@ -39,6 +39,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private float m_fRightOffset;
         private float m_fDeadZone;
         private bool m_blnUseDPadForSteering;
+        private Color m_noDeviceLabelColor;
 
         private OverlayShape? m_currentShape;
         private bool m_blnIsAccelerateButtonPressed;
@@ -83,10 +84,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region WindowBackgroundBrush
-        public SolidColorBrush WindowBackgroundBrush
-        {
-            get => new SolidColorBrush(WindowBackgroundColor);
-        }
+        public SolidColorBrush WindowBackgroundBrush => new SolidColorBrush(WindowBackgroundColor);
         #endregion
 
         #region SelectedShape
@@ -106,10 +104,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region AccelerateBrush
-        public SolidColorBrush AccelerateBrush
-        {
-            get => new SolidColorBrush(m_blnIsAccelerateButtonPressed ? AccelerateColor : SegmentBackgroundColor);
-        }
+        public SolidColorBrush AccelerateBrush => new SolidColorBrush(m_blnIsAccelerateButtonPressed ? AccelerateColor : SegmentBackgroundColor);
         #endregion
 
         #region BrakeColor
@@ -121,10 +116,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region BrakeBrush
-        public SolidColorBrush BrakeBrush
-        {
-            get => new SolidColorBrush(m_blnIsBrakeButtonPressed ? BrakeColor : SegmentBackgroundColor);
-        }
+        public SolidColorBrush BrakeBrush => new SolidColorBrush(m_blnIsBrakeButtonPressed ? BrakeColor : SegmentBackgroundColor);
         #endregion
 
         #region SteerColor
@@ -136,10 +128,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region SteerBrush
-        public SolidColorBrush SteerBrush
-        {
-            get => new SolidColorBrush(SteerColor);
-        }
+        public SolidColorBrush SteerBrush => new SolidColorBrush(SteerColor);
         #endregion
 
         #region SegmentBackgroundColor
@@ -151,10 +140,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region SegmentBackgroundBrush
-        public SolidColorBrush SegmentBackgroundBrush
-        {
-            get => new SolidColorBrush(SegmentBackgroundColor);
-        }
+        public SolidColorBrush SegmentBackgroundBrush => new SolidColorBrush(SegmentBackgroundColor);
         #endregion
 
         #region NoDeviceLabelVisibility
@@ -163,10 +149,6 @@ namespace Spawn.InputOverlay.UI.ViewModels
             get => m_noDeviceLabelVisibility;
             set => Set(ref m_noDeviceLabelVisibility, value);
         }
-        #endregion
-
-        #region NoDeviceLabelBrush
-        public SolidColorBrush NoDeviceLabelBrush => new SolidColorBrush(PerceivedBrightness(WindowBackgroundColor) > 130 ? Colors.Black : Colors.White);
         #endregion
 
         #region ResizeMode
@@ -233,6 +215,18 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
+        #region NoDeviceLabelColor
+        public Color NoDeviceLabelColor
+        {
+            get => m_noDeviceLabelColor;
+            set => Set(ref m_noDeviceLabelColor, value);
+        }
+        #endregion
+
+        #region NoDeviceLabelBrush
+        public SolidColorBrush NoDeviceLabelBrush => new SolidColorBrush(NoDeviceLabelColor);
+        #endregion
+
         #region ToggleResizeGripCommand
         public System.Windows.Input.ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
         #endregion
@@ -295,6 +289,10 @@ namespace Spawn.InputOverlay.UI.ViewModels
                         RaisePropertyChangedEvent(nameof(SegmentBackgroundBrush));
                         break;
 
+                    case nameof(NoDeviceLabelColor):
+                        RaisePropertyChangedEvent(nameof(NoDeviceLabelBrush));
+                        break;
+
                     case nameof(RefreshRate):
                         DeviceManager.Instance.RestartInputTimer();
                         break;
@@ -330,6 +328,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             RightOffset = 0;
             DeadZone = 0;
             UseDPadForSteering = Settings.Default.UseDPadForSteering;
+            NoDeviceLabelColor = Settings.Default.NoDeviceLabelColor;
 
             s_logger.Debug("Loaded initial values");
         }
@@ -404,6 +403,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             s_logger.Debug("SegmentBackgroundColor: {0}", SegmentBackgroundColor);
             s_logger.Debug("RefreshRate: {0}", RefreshRate);
             s_logger.Debug("UseDPadForSteering {0}", UseDPadForSteering);
+            s_logger.Debug("NoDeviceLabelColor {0}", NoDeviceLabelColor);
 
             Settings.Default.WindowBackgroundColor = WindowBackgroundColor;
             Settings.Default.Shape = SelectedShape == OverlayShape.None ? (m_currentShape ?? SelectedShape) : SelectedShape;
@@ -413,6 +413,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
             Settings.Default.SegmentBackgroundColor = SegmentBackgroundColor;
             Settings.Default.RefreshRate = RefreshRate;
             Settings.Default.UseDPadForSteering = UseDPadForSteering;
+            Settings.Default.NoDeviceLabelColor = NoDeviceLabelColor;
 
             Settings.Default.Save();
 
@@ -482,14 +483,6 @@ namespace Spawn.InputOverlay.UI.ViewModels
             RaisePropertyChangedEvent(nameof(AccelerateBrush));
             RaisePropertyChangedEvent(nameof(BrakeBrush));
         }
-        #endregion
-
-        #region PerceivedBrightness
-        // All credits to JYelton https://stackoverflow.com/a/2241471
-        private int PerceivedBrightness(Color c) => (int)Math.Sqrt(
-            c.R * c.R * .299 +
-            c.G * c.G * .587 +
-            c.B * c.B * .114);
         #endregion
     }
 }

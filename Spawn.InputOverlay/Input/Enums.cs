@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Spawn.InputOverlay.Input
+﻿namespace Spawn.InputOverlay.Input
 {
     public enum InputType
     {
@@ -13,11 +11,5 @@ namespace Spawn.InputOverlay.Input
     {
         None,
         DualShock4
-    }
-
-    [Flags]
-    public enum Buttons
-    {
-        None,
     }
 }

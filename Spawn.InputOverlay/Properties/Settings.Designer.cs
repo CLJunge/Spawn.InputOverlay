@@ -145,10 +145,10 @@ namespace Spawn.InputOverlay.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("RightThumb")]
-        public global::SharpDX.XInput.GamepadButtonFlags AccelerateButton {
+        [global::System.Configuration.DefaultSettingValueAttribute("RightTrigger")]
+        public global::Spawn.InputOverlay.Input.GamepadButtons AccelerateButton {
             get {
-                return ((global::SharpDX.XInput.GamepadButtonFlags)(this["AccelerateButton"]));
+                return ((global::Spawn.InputOverlay.Input.GamepadButtons)(this["AccelerateButton"]));
             }
             set {
                 this["AccelerateButton"] = value;
@@ -157,10 +157,10 @@ namespace Spawn.InputOverlay.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LeftThumb")]
-        public global::SharpDX.XInput.GamepadButtonFlags BrakeButton {
+        [global::System.Configuration.DefaultSettingValueAttribute("LeftTrigger")]
+        public global::Spawn.InputOverlay.Input.GamepadButtons BrakeButton {
             get {
-                return ((global::SharpDX.XInput.GamepadButtonFlags)(this["BrakeButton"]));
+                return ((global::Spawn.InputOverlay.Input.GamepadButtons)(this["BrakeButton"]));
             }
             set {
                 this["BrakeButton"] = value;

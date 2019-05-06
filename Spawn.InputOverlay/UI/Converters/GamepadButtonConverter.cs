@@ -1,5 +1,5 @@
 ﻿#region Using
-using SharpDX.XInput;
+using Spawn.InputOverlay.Input;
 using System;
 using System.Globalization;
 using System.Windows.Data;
@@ -14,13 +14,13 @@ namespace Spawn.InputOverlay.UI.Converters
         {
             string strRet = value.ToString();
 
-            if (strRet.Equals(GamepadButtonFlags.LeftThumb.ToString()))
+            if (strRet.Equals(GamepadButtons.LeftTrigger.ToString()))
                 strRet = "Left Trigger";
-            else if (strRet.Equals(GamepadButtonFlags.RightThumb.ToString()))
+            else if (strRet.Equals(GamepadButtons.RightTrigger.ToString()))
                 strRet = "Right Trigger";
-            else if (strRet.Equals(GamepadButtonFlags.LeftShoulder.ToString()))
+            else if (strRet.Equals(GamepadButtons.LeftShoulder.ToString()))
                 strRet = "Left Shoulder";
-            else if (strRet.Equals(GamepadButtonFlags.RightShoulder.ToString()))
+            else if (strRet.Equals(GamepadButtons.RightShoulder.ToString()))
                 strRet = "Right Shoulder";
 
             return strRet;

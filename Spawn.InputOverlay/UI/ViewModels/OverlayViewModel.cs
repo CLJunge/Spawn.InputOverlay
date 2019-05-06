@@ -41,8 +41,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private float m_fDeadZone;
         private bool m_blnUseDPadForSteering;
         private Color m_noDeviceLabelColor;
-        private GamepadButtonFlags m_accelerateButton;
-        private GamepadButtonFlags m_brakeButton;
+        private GamepadButtons m_accelerateButton;
+        private GamepadButtons m_brakeButton;
 
         private OverlayShape? m_currentShape;
         private bool m_blnIsAccelerateButtonPressed;
@@ -231,7 +231,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region AccelerateButton
-        public GamepadButtonFlags AccelerateButton
+        public GamepadButtons AccelerateButton
         {
             get => m_accelerateButton;
             set => Set(ref m_accelerateButton, value);
@@ -239,7 +239,7 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region BrakeButton
-        public GamepadButtonFlags BrakeButton
+        public GamepadButtons BrakeButton
         {
             get => m_brakeButton;
             set => Set(ref m_brakeButton, value);
@@ -273,17 +273,17 @@ namespace Spawn.InputOverlay.UI.ViewModels
         };
         #endregion
 
-        #region AvailableShapes
-        public GamepadButtonFlags[] AvailableButtons => new GamepadButtonFlags[]
+        #region AvailableButtons
+        public GamepadButtons[] AvailableButtons => new GamepadButtons[]
         {
-            GamepadButtonFlags.A,
-            GamepadButtonFlags.B,
-            GamepadButtonFlags.X,
-            GamepadButtonFlags.Y,
-            GamepadButtonFlags.LeftShoulder,
-            GamepadButtonFlags.RightShoulder,
-            GamepadButtonFlags.LeftThumb,
-            GamepadButtonFlags.RightThumb
+            GamepadButtons.A,
+            GamepadButtons.B,
+            GamepadButtons.X,
+            GamepadButtons.Y,
+            GamepadButtons.LeftShoulder,
+            GamepadButtons.RightShoulder,
+            GamepadButtons.LeftTrigger,
+            GamepadButtons.RightTrigger
         };
         #endregion
         #endregion
@@ -493,8 +493,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             //s_logger.Debug("Updating input...");
 
-            m_blnIsAccelerateButtonPressed = e.PressedButtons.HasFlag(AccelerateButton) || (AccelerateButton == GamepadButtonFlags.RightThumb ? e.IsRightTriggerPressed : (AccelerateButton == GamepadButtonFlags.LeftThumb ? e.IsLeftTriggerPressed : false));
-            m_blnIsBrakeButtonPressed = e.PressedButtons.HasFlag(BrakeButton) || (BrakeButton == GamepadButtonFlags.LeftThumb ? e.IsLeftTriggerPressed : (BrakeButton == GamepadButtonFlags.RightThumb ? e.IsRightTriggerPressed : false));
+            m_blnIsAccelerateButtonPressed = (AccelerateButton != GamepadButtons.LeftTrigger && AccelerateButton != GamepadButtons.RightTrigger && e.PressedButtons.HasFlag((GamepadButtonFlags)(int)AccelerateButton)) || (AccelerateButton == GamepadButtons.RightTrigger ? e.IsRightTriggerPressed : (AccelerateButton == GamepadButtons.LeftTrigger ? e.IsLeftTriggerPressed : false));
+            m_blnIsBrakeButtonPressed = (BrakeButton != GamepadButtons.RightTrigger && BrakeButton != GamepadButtons.LeftTrigger && e.PressedButtons.HasFlag((GamepadButtonFlags)(int)BrakeButton)) || (BrakeButton == GamepadButtons.LeftTrigger ? e.IsLeftTriggerPressed : (BrakeButton == GamepadButtons.RightTrigger ? e.IsRightTriggerPressed : false));
 
             if (UseDPadForSteering)
             {

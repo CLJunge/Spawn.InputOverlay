@@ -503,14 +503,14 @@ namespace Spawn.InputOverlay.UI.ViewModels
             }
             else
             {
-                if (e.LeftStickX < DeadZone)
+                if (e.LeftStickX < -DeadZone)
                 {
-                    LeftOffset = (float)Math.Abs(e.LeftStickX);
+                    LeftOffset = Math.Abs(1 / (1 - DeadZone) * ((float)e.LeftStickX + DeadZone));
                     RightOffset = 0;
                 }
                 else if (e.LeftStickX > DeadZone)
                 {
-                    RightOffset = (float)Math.Abs(e.LeftStickX);
+                    RightOffset = Math.Abs(1 / (1 - DeadZone) * ((float)e.LeftStickX - DeadZone));
                     LeftOffset = 0;
                 }
                 else

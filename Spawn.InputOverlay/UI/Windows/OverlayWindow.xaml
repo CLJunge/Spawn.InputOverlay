@@ -41,7 +41,7 @@
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Shape: " Margin="-5,0,0,0"/>
-                            <ComboBox ItemsSource="{Binding AvailableShapes}" SelectedItem="{Binding SelectedShape, Mode=TwoWay}" Margin="5,2,0,2">
+                            <ComboBox ItemsSource="{Binding AvailableShapes}" SelectedItem="{Binding SelectedShape, Mode=TwoWay}" Margin="5,2,0,2" Width="90">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path=., Converter={StaticResource EnumConverter}}" />
@@ -112,8 +112,8 @@
                         <!--Accelerate-->
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="Accelerate: " Margin="-5,0,0,0"/>
-                                <ComboBox ItemsSource="{Binding AvailableButtons}" SelectedItem="{Binding AccelerateButton, Mode=TwoWay}" Margin="5,2,0,2">
+                                <Label Content="Accelerate: " Margin="-5,0,0,0" Width="75"/>
+                                <ComboBox ItemsSource="{Binding AvailableButtons}" SelectedItem="{Binding AccelerateButton, Mode=TwoWay}" Margin="5,2,0,2" Width="115">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Path=., Converter={StaticResource GamepadButtonConverter}}" />
@@ -127,8 +127,8 @@
                         <!--Brake-->
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="Brake: " Margin="-5,0,0,0"/>
-                                <ComboBox ItemsSource="{Binding AvailableButtons}" SelectedItem="{Binding BrakeButton, Mode=TwoWay}" Margin="5,2,0,2">
+                                <Label Content="Brake: " Margin="-5,0,0,0" Width="75"/>
+                                <ComboBox ItemsSource="{Binding AvailableButtons}" SelectedItem="{Binding BrakeButton, Mode=TwoWay}" Margin="5,2,0,2" Width="115">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Path=., Converter={StaticResource GamepadButtonConverter}}" />

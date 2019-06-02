@@ -62,11 +62,7 @@ namespace Spawn.InputOverlay.Input
             if (!m_blnFiredInitialEvent)
             {
                 if (IsDeviceConnected)
-                {
-                    Log.Info("Device connected");
-
-                    RaiseDeviceConnectedEvent(this, EventArgs.Empty);
-                }
+                    RaiseConnectedEventAndStartInputTimer();
 
                 m_blnFiredInitialEvent = true;
             }
@@ -75,9 +71,7 @@ namespace Spawn.InputOverlay.Input
             {
                 if (IsDeviceConnected)
                 {
-                    Log.Info("Device connected");
-
-                    RaiseDeviceConnectedEvent(this, EventArgs.Empty);
+                    RaiseConnectedEventAndStartInputTimer();
                 }
                 else
                 {
@@ -87,10 +81,18 @@ namespace Spawn.InputOverlay.Input
                 }
             }
 
-            if (IsDeviceConnected)
-                m_inputTimer.Start();
-
             m_blnPrevIsDeviceConntectedValue = IsDeviceConnected;
+        }
+        #endregion
+
+        #region RaiseEventAndStartTimer
+        private void RaiseConnectedEventAndStartInputTimer()
+        {
+            Log.Info("Device connected");
+
+            RaiseDeviceConnectedEvent(this, EventArgs.Empty);
+
+            m_inputTimer.Start();
         }
         #endregion
     }

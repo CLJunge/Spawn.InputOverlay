@@ -17,6 +17,7 @@
         <converters:EnumDescriptionConverter x:Key="EnumConverter"/>
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
         <converters:GamepadButtonConverter x:Key="GamepadButtonConverter"/>
+        <converters:FloatConverter x:Key="FloatConverter"/>
     </Window.Resources>
     <Window.DataContext>
         <vm:OverlayViewModel/>
@@ -154,7 +155,7 @@
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="Dead zone: " Margin="-5,0,0,0" Width="135"/>
-                                <xctk:SingleUpDown Value="{Binding DeadZone, Mode=TwoWay}" Minimum="0" Maximum="1" Increment=".1" Margin="0,2"/>
+                                <xctk:SingleUpDown Value="{Binding DeadZone, Mode=TwoWay, Converter={StaticResource FloatConverter}}" Minimum="0" Maximum="1" Increment=".1" Margin="0,2"/>
                             </StackPanel>
                         </MenuItem.Header>
                     </MenuItem>

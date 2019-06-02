@@ -115,12 +115,16 @@
     <Compile Include="UI\Converters\ShapeVisibilityConverter.cs" />
     <Compile Include="UI\RelayCommand.cs" />
     <Compile Include="UI\ViewModels\OverlayViewModel.cs" />
+    <Compile Include="UI\ViewModels\UpdateViewModel.cs" />
     <Compile Include="UI\ViewModels\ViewModelBase.cs" />
     <Compile Include="UI\Windows\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Windows\OverlayWindow.xaml.cs">
       <DependentUpon>OverlayWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Windows\UpdateWindow.xaml.cs">
+      <DependentUpon>UpdateWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Update\UpdateInfo.cs" />
     <Compile Include="Update\UpdateManager.cs" />
@@ -166,6 +170,10 @@
     <Page Include="UI\Windows\OverlayWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Windows\UpdateWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

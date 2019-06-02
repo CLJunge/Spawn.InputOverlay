@@ -114,6 +114,7 @@
     <Compile Include="UI\Converters\InverseBooleanConverter.cs" />
     <Compile Include="UI\Converters\ShapeVisibilityConverter.cs" />
     <Compile Include="UI\RelayCommand.cs" />
+    <Compile Include="UI\ViewModels\AboutViewModel.cs" />
     <Compile Include="UI\ViewModels\OverlayViewModel.cs" />
     <Compile Include="UI\ViewModels\ViewModelBase.cs" />
     <Compile Include="UI\Windows\AboutWindow.xaml.cs">

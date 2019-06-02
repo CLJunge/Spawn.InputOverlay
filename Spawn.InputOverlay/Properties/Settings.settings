@@ -38,5 +38,8 @@
     <Setting Name="BrakeButton" Type="Spawn.InputOverlay.Input.GamepadButtons" Scope="User">
       <Value Profile="(Default)">LeftTrigger</Value>
     </Setting>
+    <Setting Name="GitHubBaseUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://github.com/CLJunge/Spawn.InputOverlay</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

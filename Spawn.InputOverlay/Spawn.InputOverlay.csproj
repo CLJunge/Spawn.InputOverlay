@@ -122,6 +122,8 @@
     <Compile Include="UI\Windows\OverlayWindow.xaml.cs">
       <DependentUpon>OverlayWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Update\UpdateInfo.cs" />
+    <Compile Include="Update\UpdateManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

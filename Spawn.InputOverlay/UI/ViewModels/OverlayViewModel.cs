@@ -33,7 +33,9 @@ namespace Spawn.InputOverlay.UI.ViewModels
         private Color m_segmentBackgroundColor;
         private Visibility m_noDeviceLabelVisibility;
         private ResizeMode m_resizeMode;
+        private WindowStyle m_windowStyle;
         private string m_strToggleResizeGridHeader;
+        private string m_strToggleWindowBorderHeader;
         private bool m_blnIsDeviceConnected;
         private int m_nRefreshRate;
         private float m_fLeftOffset;
@@ -162,11 +164,27 @@ namespace Spawn.InputOverlay.UI.ViewModels
         }
         #endregion
 
+        #region WindowStyle
+        public WindowStyle WindowStyle
+        {
+            get => m_windowStyle;
+            set => Set(ref m_windowStyle, value);
+        }
+        #endregion
+
         #region ToggleResizeGridHeader
         public string ToggleResizeGridHeader
         {
             get => m_strToggleResizeGridHeader;
             set => Set(ref m_strToggleResizeGridHeader, value);
+        }
+        #endregion
+
+        #region ToggleWindowBorderHeader
+        public string ToggleWindowBorderHeader
+        {
+            get => m_strToggleWindowBorderHeader;
+            set => Set(ref m_strToggleWindowBorderHeader, value);
         }
         #endregion
 
@@ -248,6 +266,10 @@ namespace Spawn.InputOverlay.UI.ViewModels
 
         #region ToggleResizeGripCommand
         public System.Windows.Input.ICommand ToggleResizeGripCommand => new RelayCommand(ToggleResizeGrip);
+        #endregion
+
+        #region ToggleWindowBorderCommand
+        public System.Windows.Input.ICommand ToggleWindowBorderCommand => new RelayCommand(ToggleWindowBorder);
         #endregion
 
         #region ResetSizeCommand
@@ -354,7 +376,9 @@ namespace Spawn.InputOverlay.UI.ViewModels
             SegmentBackgroundColor = Settings.Default.SegmentBackgroundColor;
             NoDeviceLabelVisibility = Visibility.Visible;
             ResizeMode = ResizeMode.NoResize;
+            WindowStyle = WindowStyle.None;
             ToggleResizeGridHeader = "Show resize grip";
+            ToggleWindowBorderHeader = "Show window border";
             IsDeviceConnected = false;
             RefreshRate = Settings.Default.RefreshRate;
             LeftOffset = 0;
@@ -390,6 +414,26 @@ namespace Spawn.InputOverlay.UI.ViewModels
             }
 
             s_logger.Info("Toggeled resize grip");
+        }
+        #endregion
+
+        #region ToggleWindowBorder
+        private void ToggleWindowBorder()
+        {
+            switch (WindowStyle)
+            {
+                case WindowStyle.None:
+                    WindowStyle = WindowStyle.SingleBorderWindow;
+                    ToggleWindowBorderHeader = "Hide window border";
+                    break;
+
+                case WindowStyle.SingleBorderWindow:
+                    WindowStyle = WindowStyle.None;
+                    ToggleWindowBorderHeader = "Show window border";
+                    break;
+            }
+
+            s_logger.Info("Toggeled window border");
         }
         #endregion
 

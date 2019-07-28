@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Spawn.InputOverlay"
         xmlns:vm="clr-namespace:Spawn.InputOverlay.UI.ViewModels"
         xmlns:converters="clr-namespace:Spawn.InputOverlay.UI.Converters"
-        mc:Ignorable="d" WindowStyle="None" Title="{Binding WindowTitle}"
+        mc:Ignorable="d" WindowStyle="{Binding WindowStyle}" Title="{Binding WindowTitle}"
         Height="250" Width="400" MinHeight="50" MinWidth="50"
         Background="{Binding WindowBackgroundBrush}" ResizeMode="{Binding ResizeMode}"
         Icon="/PadViz.NET;component/Resources/gamepad_icon.ico"
@@ -163,6 +163,7 @@
             </MenuItem>
             <Separator/>
             <MenuItem Header="{Binding ToggleResizeGridHeader}" Command="{Binding ToggleResizeGripCommand}"/>
+            <MenuItem Header="{Binding ToggleWindowBorderHeader}" Command="{Binding ToggleWindowBorderCommand}"/>
             <MenuItem Header="Reset size" Command="{Binding ResetSizeCommand}"/>
             <Separator/>
             <MenuItem Header="About..." Command="{Binding OpenAboutWindowCommand}"/>

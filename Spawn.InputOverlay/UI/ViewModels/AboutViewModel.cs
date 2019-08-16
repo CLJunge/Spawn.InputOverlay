@@ -16,7 +16,7 @@
         #endregion
         #endregion
 
-        #region MyRegion
+        #region Ctor
         public AboutViewModel() => Initialize();
         #endregion
 

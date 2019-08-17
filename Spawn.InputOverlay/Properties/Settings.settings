@@ -38,5 +38,8 @@
     <Setting Name="BrakeButton" Type="Spawn.InputOverlay.Input.GamepadButtons" Scope="User">
       <Value Profile="(Default)">LeftTrigger</Value>
     </Setting>
+    <Setting Name="UseAnalogTriggerValues" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

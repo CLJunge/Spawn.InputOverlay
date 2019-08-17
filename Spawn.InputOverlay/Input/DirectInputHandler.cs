@@ -220,7 +220,7 @@ namespace Spawn.InputOverlay.Input
             }
 
             InputEventArgs args = new InputEventArgs(m_dblLeftStickXValue,
-                m_blnIsLeftTriggerPressed, m_blnIsRightTriggerPressed,
+                (byte)(m_blnIsLeftTriggerPressed ? 255 : 0), (byte)(m_blnIsRightTriggerPressed ? 255 : 0),
                 GetPressedButtons());
 
             RaiseInputUpdatedEvent(this, args);

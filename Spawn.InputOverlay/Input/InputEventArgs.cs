@@ -10,20 +10,21 @@ namespace Spawn.InputOverlay.Input
         #region Properties
         public double LeftStickX { get; }
 
-        public bool IsLeftTriggerPressed { get; }
-        public bool IsRightTriggerPressed { get; }
+        public byte LeftTrigger { get; }
+
+        public byte RightTrigger { get; }
 
         public GamepadButtonFlags PressedButtons { get; }
         #endregion
 
         #region Ctor
         public InputEventArgs(double leftStickX,
-            bool isLeftTriggerPressed, bool isRightTriggerPressed,
+            byte leftTrigger, byte rightTrigger,
             GamepadButtonFlags pressedButtons)
         {
             LeftStickX = leftStickX;
-            IsLeftTriggerPressed = isLeftTriggerPressed;
-            IsRightTriggerPressed = isRightTriggerPressed;
+            LeftTrigger = leftTrigger;
+            RightTrigger = rightTrigger;
             PressedButtons = pressedButtons;
         }
         #endregion

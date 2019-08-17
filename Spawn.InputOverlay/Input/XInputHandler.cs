@@ -42,11 +42,9 @@ namespace Spawn.InputOverlay.Input
             if (IsDeviceConnected && m_controller.GetState(out State state))
             {
                 double dblLeftStickX = Math.Round(state.Gamepad.LeftThumbX / 32767f, 4);
-                bool blnIsLeftTriggerPressed = state.Gamepad.LeftTrigger != 0;
-                bool blnIsRightTriggerPressed = state.Gamepad.RightTrigger != 0;
 
                 InputEventArgs args = new InputEventArgs(dblLeftStickX,
-                    blnIsLeftTriggerPressed, blnIsRightTriggerPressed,
+                    state.Gamepad.LeftTrigger, state.Gamepad.RightTrigger,
                     state.Gamepad.Buttons);
 
                 RaiseInputUpdatedEvent(this, args);
@@ -85,7 +83,7 @@ namespace Spawn.InputOverlay.Input
         }
         #endregion
 
-        #region RaiseEventAndStartTimer
+        #region RaiseConnectedEventAndStartInputTimer
         private void RaiseConnectedEventAndStartInputTimer()
         {
             Log.Info("Device connected");

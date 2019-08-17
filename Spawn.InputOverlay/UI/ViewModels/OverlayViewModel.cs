@@ -537,8 +537,8 @@ namespace Spawn.InputOverlay.UI.ViewModels
         {
             //s_logger.Debug("Updating input...");
 
-            m_blnIsAccelerateButtonPressed = (AccelerateButton != GamepadButtons.LeftTrigger && AccelerateButton != GamepadButtons.RightTrigger && e.PressedButtons.HasFlag((GamepadButtonFlags)(int)AccelerateButton)) || (AccelerateButton == GamepadButtons.RightTrigger ? e.IsRightTriggerPressed : (AccelerateButton == GamepadButtons.LeftTrigger ? e.IsLeftTriggerPressed : false));
-            m_blnIsBrakeButtonPressed = (BrakeButton != GamepadButtons.RightTrigger && BrakeButton != GamepadButtons.LeftTrigger && e.PressedButtons.HasFlag((GamepadButtonFlags)(int)BrakeButton)) || (BrakeButton == GamepadButtons.LeftTrigger ? e.IsLeftTriggerPressed : (BrakeButton == GamepadButtons.RightTrigger ? e.IsRightTriggerPressed : false));
+            m_blnIsAccelerateButtonPressed = IsButtonPressed(e, true);
+            m_blnIsBrakeButtonPressed = IsButtonPressed(e, false);
 
             if (UseDPadForSteering)
             {
@@ -566,6 +566,12 @@ namespace Spawn.InputOverlay.UI.ViewModels
             RaisePropertyChangedEvent(nameof(AccelerateBrush));
             RaisePropertyChangedEvent(nameof(BrakeBrush));
         }
+        #endregion
+
+        #region IsButtonPressed
+        private bool IsButtonPressed(InputEventArgs input, bool blnAccelerate) => blnAccelerate
+                ? (AccelerateButton != GamepadButtons.LeftTrigger && AccelerateButton != GamepadButtons.RightTrigger && input.PressedButtons.HasFlag((GamepadButtonFlags)(int)AccelerateButton)) || (AccelerateButton == GamepadButtons.RightTrigger ? (input.RightTrigger > 0) : (AccelerateButton == GamepadButtons.LeftTrigger ? (input.LeftTrigger > 0) : false))
+                : (BrakeButton != GamepadButtons.RightTrigger && BrakeButton != GamepadButtons.LeftTrigger && input.PressedButtons.HasFlag((GamepadButtonFlags)(int)BrakeButton)) || (BrakeButton == GamepadButtons.LeftTrigger ? (input.LeftTrigger > 0) : (BrakeButton == GamepadButtons.RightTrigger ? (input.RightTrigger > 0) : false));
         #endregion
     }
 }

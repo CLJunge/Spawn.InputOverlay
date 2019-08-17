@@ -517,20 +517,68 @@
                     </Rectangle.Fill>
                 </Rectangle>
             </Grid>
-            <Rectangle>
-                <Rectangle.Fill>
-                    <DrawingBrush>
-                        <DrawingBrush.Drawing>
-                            <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
-                                <!--Accelerate-->
-                                <GeometryDrawing Brush="{Binding AccelerateBrush}" Geometry="F1 M100,58z M0,0z M50.000001,5.6258012L40.821295,28.433185 59.178707,28.433185z" />
-                                <!--Brake-->
-                                <GeometryDrawing Brush="{Binding BrakeBrush}" Geometry="F1 M100,58z M0,0z M50.000001,52.394761L59.034579,29.945506 40.965423,29.945506z" />
-                            </DrawingGroup>
-                        </DrawingBrush.Drawing>
-                    </DrawingBrush>
-                </Rectangle.Fill>
-            </Rectangle>
+            <Grid Name="CatEyeShapeAccelerate">
+                <Rectangle Name="CatEyeShapeAccelerateBackground">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
+                                    <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58z M0,0z M50.000001,5.6258012L40.821295,28.433185 59.178707,28.433185z" />
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle Name="CatEyeShapeAccelerateForeground">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
+                                    <DrawingGroup.OpacityMask>
+                                        <LinearGradientBrush StartPoint="0,.5" EndPoint="0,0">
+                                            <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                            <GradientStop Color="#FFFFFFFF" Offset="{Binding AccelerateOffset}"/>
+                                            <GradientStop Color="#00FFFFFF" Offset="{Binding AccelerateOffset}"/>
+                                        </LinearGradientBrush>
+                                    </DrawingGroup.OpacityMask>
+                                    <GeometryDrawing Brush="{Binding AccelerateBrush}" Geometry="F1 M100,58z M0,0z M50.000001,5.6258012L40.821295,28.433185 59.178707,28.433185z" />
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+            <Grid Name="CatEyeShapeBrake">
+                <Rectangle Name="CatEyeShapeBrakeBackground">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
+                                    <GeometryDrawing Brush="{Binding SegmentBackgroundBrush}" Geometry="F1 M100,58z M0,0z M50.000001,52.394761L59.034579,29.945506 40.965423,29.945506z" />
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle Name="CatEyeShapeBrakeForeground">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V100 H100 V0 H0 Z">
+                                    <DrawingGroup.OpacityMask>
+                                        <LinearGradientBrush StartPoint="0,.5" EndPoint="0,1">
+                                            <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                            <GradientStop Color="#FFFFFFFF" Offset="{Binding BrakeOffset}"/>
+                                            <GradientStop Color="#00FFFFFF" Offset="{Binding BrakeOffset}"/>
+                                        </LinearGradientBrush>
+                                    </DrawingGroup.OpacityMask>
+                                    <GeometryDrawing Brush="{Binding BrakeBrush}" Geometry="F1 M100,58z M0,0z M50.000001,52.394761L59.034579,29.945506 40.965423,29.945506z" />
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

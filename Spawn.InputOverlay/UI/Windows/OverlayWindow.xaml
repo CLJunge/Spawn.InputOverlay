@@ -174,8 +174,8 @@
             <MenuItem Header="{Binding ToggleResizeGridHeader}" Command="{Binding ToggleResizeGripCommand}"/>
             <MenuItem Header="{Binding ToggleWindowBorderHeader}" Command="{Binding ToggleWindowBorderCommand}"/>
             <MenuItem Header="Reset size" Command="{Binding ResetSizeCommand}"/>
-            <Separator/>
-            <MenuItem Header="About..." Command="{Binding OpenAboutWindowCommand}" IsEnabled="False"/>
+            <!--<Separator/>
+            <MenuItem Header="About..." Command="{Binding OpenAboutWindowCommand}" IsEnabled="False"/>-->
             <Separator/>
             <MenuItem Header="Close" Command="{Binding CloseCommand}"/>
         </ContextMenu>

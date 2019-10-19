@@ -11,7 +11,7 @@
         Background="{Binding WindowBackgroundBrush}" ResizeMode="{Binding ResizeMode}"
         Icon="/PadViz.NET;component/Resources/gamepad_icon.ico"
         WindowStartupLocation="CenterScreen" MouseDown="OnMouseDown" MouseDoubleClick="OnMouseDown"
-        Loaded="OnWindowLoaded">
+        Loaded="OnWindowLoaded" Closing="OnWindowClosing">
     <Window.Resources>
         <converters:ShapeVisibilityConverter x:Key="ShapeVisibilityConverter"/>
         <converters:EnumDescriptionConverter x:Key="EnumConverter"/>

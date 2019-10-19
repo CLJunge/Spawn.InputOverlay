@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Spawn.InputOverlay.UI.Windows
 {
-    public partial class OverlayWindow : Window
+    public partial class OverlayWindow
     {
         #region Ctor
         public OverlayWindow() => InitializeComponent();
@@ -50,6 +50,10 @@ namespace Spawn.InputOverlay.UI.Windows
             SetBinding(WidthProperty, widthBinding);
             SetBinding(HeightProperty, heightBinding);
         }
+        #endregion
+
+        #region OnWindowClosing
+        private void OnWindowClosing(object sender, System.ComponentModel.CancelEventArgs e) => (DataContext as OverlayViewModel).Dispose();
         #endregion
         #endregion
     }

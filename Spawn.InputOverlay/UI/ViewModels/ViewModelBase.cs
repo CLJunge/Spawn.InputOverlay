@@ -1,4 +1,5 @@
 ﻿#region Using
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace Spawn.InputOverlay.UI.ViewModels
 {
-    public abstract class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
     {
         #region EventHandler
         public event PropertyChangedEventHandler PropertyChanged;
@@ -23,6 +24,12 @@ namespace Spawn.InputOverlay.UI.ViewModels
 
                 RaisePropertyChangedEvent(strPropertyName);
             }
+        }
+        #endregion
+
+        #region Dispose
+        public virtual void Dispose()
+        {
         }
         #endregion
     }

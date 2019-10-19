@@ -484,17 +484,24 @@ namespace Spawn.InputOverlay.UI.ViewModels
         #endregion
 
         #region Close
-        private void Close()
+        public void Close()
         {
             s_logger.Trace("Closing...");
+
+            Application.Current.Shutdown();
+        }
+        #endregion
+
+        #region Dispose
+        public override void Dispose()
+        {
+            s_logger.Trace("Disposing...");
 
             DeviceManager.Instance.DeviceConnected -= OnDeviceConnected;
             DeviceManager.Instance.DeviceDisconnected -= OnDeviceDisconnected;
             DeviceManager.Instance.Dispose();
 
             SaveSettings();
-
-            Application.Current.Shutdown();
         }
         #endregion
 

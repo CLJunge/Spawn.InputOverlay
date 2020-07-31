@@ -16,15 +16,17 @@
     <Deterministic>true</Deterministic>
     <ShouldCreateLogs>True</ShouldCreateLogs>
     <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
-    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
-    <AssemblyInfoVersionSettings>
-    </AssemblyInfoVersionSettings>
+    <AssemblyInfoVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyInfoVersionSettings>
     <UpdatePackageVersion>False</UpdatePackageVersion>
-    <AssemblyInfoVersionType>SemVer1</AssemblyInfoVersionType>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
     <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
-    <AssemblyInfoVersionSemVerSettings>AssemblyVersion.IncrementWithAutoReset.None</AssemblyInfoVersionSemVerSettings>
+    <AssemblyInfoVersionSemVerSettings>
+    </AssemblyInfoVersionSemVerSettings>
+    <AssemblyVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyVersionSettings>
+    <AssemblyFileVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyFileVersionSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

@@ -7,10 +7,6 @@ namespace Spawn.InputOverlay.Input
 {
     public class DeviceManager : IDisposable
     {
-        #region Logger
-        private static readonly Logger s_logger = LogManager.GetCurrentClassLogger();
-        #endregion
-
         #region Singleton
         private static DeviceManager s_instance;
 

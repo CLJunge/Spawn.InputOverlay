@@ -19,14 +19,14 @@
     <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
-    <AssemblyInfoVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyInfoVersionSettings>
+    <AssemblyInfoVersionSettings>YearStamp.Quarter.MonthStamp.Increment</AssemblyInfoVersionSettings>
     <UpdatePackageVersion>False</UpdatePackageVersion>
     <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
     <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
     <AssemblyInfoVersionSemVerSettings>
     </AssemblyInfoVersionSemVerSettings>
-    <AssemblyVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyVersionSettings>
-    <AssemblyFileVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyFileVersionSettings>
+    <AssemblyVersionSettings>YearStamp.Quarter.MonthStamp.Increment</AssemblyVersionSettings>
+    <AssemblyFileVersionSettings>YearStamp.Quarter.MonthStamp.Increment</AssemblyFileVersionSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="UI\RelayCommand.cs" />
     <Compile Include="UI\ViewModelBase.cs" />
+    <Compile Include="UI\ViewModels\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

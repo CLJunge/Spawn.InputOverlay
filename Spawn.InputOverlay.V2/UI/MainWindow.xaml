@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Spawn.InputOverlay.UI"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:vm="clr-namespace:Spawn.InputOverlay.UI.ViewModels"
+        mc:Ignorable="d" Height="250" Width="400" MinHeight="50" MinWidth="50"
+        Title="{Binding WindowTitle}" Background="{Binding WindowBackgroundColor}"
+        Loaded="Window_Loaded">
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
     <Grid>
         
     </Grid>

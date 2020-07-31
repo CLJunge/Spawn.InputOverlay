@@ -15,6 +15,10 @@ namespace Spawn.InputOverlay.UI
         protected void RaisePropertyChangedEvent([CallerMemberName] string strPropertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(strPropertyName));
         #endregion
 
+        #region Ctor
+        public ViewModelBase() => Initialize();
+        #endregion
+
         #region Set
         protected void Set<T>(ref T field, T newValue, [CallerMemberName] string strPropertyName = "")
         {
@@ -31,6 +35,10 @@ namespace Spawn.InputOverlay.UI
         public virtual void Dispose()
         {
         }
+        #endregion
+
+        #region Initialize
+        protected abstract void Initialize();
         #endregion
     }
 }

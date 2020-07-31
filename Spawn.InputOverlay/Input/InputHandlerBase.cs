@@ -70,7 +70,7 @@ namespace Spawn.InputOverlay.Input
         }
         #endregion
 
-        #region RestartInputTime
+        #region RestartInputTimer
         public void RestartInputTimer()
         {
             m_inputTimer.Stop();

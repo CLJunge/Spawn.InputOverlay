@@ -12,7 +12,8 @@ namespace Spawn.InputOverlay.Input
     public enum DirectInputDeviceType
     {
         None,
-        DualShock4
+        DualShock4,
+        ThirdParty
     }
 
     [Flags]

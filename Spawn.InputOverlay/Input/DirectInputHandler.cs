@@ -114,6 +114,19 @@ namespace Spawn.InputOverlay.Input
                 }
             }
 
+            //ThirdParty
+            foreach (DeviceInstance deviceInstance in directInput.GetDevices(SharpDX.DirectInput.DeviceType.Joystick, DeviceEnumerationFlags.AttachedOnly))
+            {
+                gamepadId = deviceInstance.InstanceGuid;
+
+                if (gamepadId != Guid.Empty)
+                {
+                    m_deviceType = DirectInputDeviceType.ThirdParty;
+
+                    break;
+                }
+            }
+
             if (gamepadId != Guid.Empty)
             {
                 retVal = new Joystick(directInput, gamepadId);
@@ -140,7 +153,8 @@ namespace Spawn.InputOverlay.Input
                 switch (m_deviceType)
                 {
                     case DirectInputDeviceType.DualShock4:
-                        HandleDualShock4Input(vData);
+                    case DirectInputDeviceType.ThirdParty:
+                        HandleInput(vData);
                         break;
                 }
 
@@ -155,8 +169,8 @@ namespace Spawn.InputOverlay.Input
         }
         #endregion
 
-        #region HandleDualShock4Input
-        private void HandleDualShock4Input(JoystickUpdate[] vData)
+        #region HandleInput
+        private void HandleInput(JoystickUpdate[] vData)
         {
             JoystickUpdate leftStickXData = vData.FirstOrDefault(i => i.Offset == JoystickOffset.X);
             JoystickUpdate crossButtonData = vData.FirstOrDefault(i => i.Offset == JoystickOffset.Buttons1);
